@@ -1,0 +1,48 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="dialect">
+            org.hibernate.dialect.MySQL5Dialect
+        </property>
+        <property name="connection.driver_class">
+            com.mysql.cj.jdbc.Driver
+        </property>
+        <property name="connection.url">
+            jdbc:mysql://cse.unl.edu/qhnguyen?serverTimezone=America/Chicago
+        </property>
+        <property name="connection.username">
+            qhnguyen
+        </property>
+        <property name="connection.password">
+            UYlfLstOzPC6
+        </property>
+
+        <!-- Echo executed SQL to stdout? -->
+        <property name="show_sql">
+            false
+        </property>
+        <property name="format_sql">
+            false
+        </property>
+        <property name="use_sql_comments">
+            false
+        </property>
+
+        <!-- create any missing tables, add any missing columns -->
+        <property name="hbm2ddl.auto">
+            update
+        </property>
+
+        <!-- Names the annotated entity class -->
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.CarEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.ModelEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.CustomerEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.CorporateCustomerEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.IndividualCustomerEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.RentalEntity"/>
+
+    </session-factory>
+</hibernate-configuration>
