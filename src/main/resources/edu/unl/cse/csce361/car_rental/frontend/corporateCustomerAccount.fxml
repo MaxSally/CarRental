@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="160.0" layoutY="51.0" text="Create Account">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="111.0" text="Create a username" />
+      <TextField layoutX="51.0" layoutY="128.0" promptText="Username" />
+      <Label layoutX="51.0" layoutY="173.0" text="Create a password" />
+      <TextField layoutX="51.0" layoutY="190.0" promptText="Password" />
+      <Label layoutX="52.0" layoutY="236.0" text="Confirm Password" />
+      <TextField layoutX="51.0" layoutY="253.0" promptText="Password" />
+      <Label layoutX="52.0" layoutY="383.0" prefHeight="17.0" prefWidth="87.0" text="Street Address" />
+      <TextField layoutX="51.0" layoutY="400.0" promptText="Street Address" />
+      <Label layoutX="52.0" layoutY="442.0" prefHeight="17.0" prefWidth="103.0" text="Street Address 2" />
+      <TextField layoutX="51.0" layoutY="459.0" promptText="Street Address 2" />
+      <Label layoutX="52.0" layoutY="348.0" prefHeight="24.0" prefWidth="76.0" text="Address">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="52.0" layoutY="499.0" prefHeight="17.0" prefWidth="103.0" text="City" />
+      <TextField layoutX="51.0" layoutY="516.0" promptText="City" />
+      <Label layoutX="52.0" layoutY="557.0" prefHeight="17.0" prefWidth="103.0" text="State" />
+      <TextField layoutX="51.0" layoutY="574.0" prefHeight="27.0" prefWidth="76.0" promptText="State" />
+      <Label layoutX="140.0" layoutY="557.0" prefHeight="17.0" prefWidth="103.0" text="ZIP Code" />
+      <TextField layoutX="139.0" layoutY="574.0" prefHeight="27.0" prefWidth="76.0" promptText="ZIP" />
+      <Label layoutX="253.0" layoutY="111.0" text="First Name" />
+      <TextField layoutX="253.0" layoutY="128.0" promptText="First Name" />
+      <Label layoutX="253.0" layoutY="173.0" text="Last Name" />
+      <TextField layoutX="253.0" layoutY="190.0" promptText="Last Name" />
+      <Label layoutX="253.0" layoutY="236.0" text="Email" />
+      <TextField layoutX="253.0" layoutY="253.0" promptText="Email" />
+      <Label layoutX="254.0" layoutY="383.0" prefHeight="17.0" prefWidth="130.0" text="Bank Account Number" />
+      <TextField layoutX="253.0" layoutY="400.0" promptText="Account Number" />
+      <Label layoutX="254.0" layoutY="348.0" prefHeight="24.0" prefWidth="171.0" text="Bank Information">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Button layoutX="183.0" layoutY="636.0" mnemonicParsing="false" text="Create Account" />
+   </children>
+</Pane>
