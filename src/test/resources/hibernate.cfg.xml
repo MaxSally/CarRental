@@ -1,0 +1,47 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="dialect">
+            org.hibernate.dialect.HSQLDialect
+        </property>
+        <property name="connection.driver_class">
+            org.hsqldb.jdbcDriver
+        </property>
+        <property name="connection.url">
+            jdbc:hsqldb:.
+        </property>
+        <property name="connection.username">
+            sa
+        </property>
+        <property name="connection.password">
+        </property>
+
+        <!-- Echo executed SQL to stdout? -->
+        <property name="show_sql">
+            true
+        </property>
+        <property name="format_sql">
+            true
+        </property>
+        <property name="use_sql_comments">
+            false
+        </property>
+
+        <!-- Create the database schema on startup, drop when session ends -->
+        <property name="hbm2ddl.auto">
+            create-drop
+        </property>
+
+        <!-- Names the annotated entity class -->
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.CarEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.ModelEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.CustomerEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.CorporateCustomerEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.IndividualCustomerEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.RentalEntity"/>
+
+    </session-factory>
+</hibernate-configuration>

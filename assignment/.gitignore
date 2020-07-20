@@ -1,0 +1,13 @@
+# Files produced by makefile
+*.html
+*.pdf
+
+# Ancillary LaTeX files
+*.aux
+*.log
+*.tex.gz
+*.synctex.gz
+*.texmk
+*.dvi
+*.fls
+*.fdb_latexmk

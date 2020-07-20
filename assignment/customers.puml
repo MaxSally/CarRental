@@ -1,0 +1,137 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+interface Customer {
+    + {static} MAXIMUM_LINE_LENGTH
+    + {static} MAXIMUM_CITY_LENGTH
+    + {static} STATE_LENGTH
+    + {static} ZIPCODE_LENGTH
+    String getName()
+    String getAddress()
+    String getPaymentInformation()
+    void addRental(RentalEntity rental)
+    RentalEntity rentCar(PricedItem rentalPackage)
+    List<RentalEntity> getRentals()
+}
+
+interface CorporateCustomer {
+    String getAccount()
+    void setCorporateAccount(String newAccount)
+    double getNegotiatedRate()
+    void setNegotiatedRate(double newRate)
+}
+interface IndividualCustomer {
+     PaymentCard getPaymentCard();
+     void setPaymentCard(String cardNumber, int cardExpirationMonth, int cardExpirationYear, String cvv);
+     void updatePaymentCard(int newExpirationMonth, int newExpirationYear, String newCvv);
+ }
+abstract class CustomerEntity <<entity>> {
+    ~ {static} getCustomerByName(String name)
+    ~ boolean canRent()
+}
+class CorporateCustomerEntity <<entity>> {
+    + {static} ACCOUNT_LENGTH
+}
+class IndividualCustomerEntity <<entity>>
+class PaymentCard <<embeddable>> {
+    + {static} CARD_NUMBER_LENGTH
+    + {static} CVV_MINIMUM_LENGTH
+    + {static} CVV_MAXIMUM_LENGTH
+    + String getCardNumber()
+    + YearMonth getExpirationDate()
+    + String getCvv()
+}
+
+Customer <|-- CorporateCustomer
+Customer <|-- IndividualCustomer
+Customer <|.. CustomerEntity
+CorporateCustomer <|.. CorporateCustomerEntity
+IndividualCustomer <|.. IndividualCustomerEntity
+CustomerEntity <|-- CorporateCustomerEntity
+CustomerEntity <|-- IndividualCustomerEntity
+IndividualCustomerEntity *-- PaymentCard
+
+
+'interface Model {
+'    + {static} MAXIMUM_NAME_LENGTH
+'    String getModel()
+'    String getManufacturer()
+'    VehicleClass getClassType()
+'    Optional<Integer> getNumberOfDoors()
+'    Transmission getTransmission()
+'    Fuel getFuel()
+'    Optional<Integer> getFuelEconomyMPG()
+'    Optional<Integer> getFuelEconomyKPL()
+'    Optional<Double> getFuelEconomyLP100K()
+'    void addCar(Car car)
+'    Set<Car> getCars()
+'    }
+'
+'class ModelEntity <<entity>> {
+'    ~ {static} Set<Model> getModelsByClass(VehicleClass vehicleClass)
+'    + void removeCar(Car car)
+'}
+'
+'Model <|.. ModelEntity
+'
+'
+'interface PricedItem {
+'    {static} CURRENCY_SYMBOL
+'    {static} LINE_ITEM_TEXT_LENGTH
+'    int getDailyRate()
+'    String getLineItemSummary()
+'    PricedItem getBasePricedItem()
+'}
+'interface Car {
+'     String getVin()
+'     String getMake()
+'     String getModel()
+'     String getColor()
+'     String getLicensePlate()
+'     boolean isAvailable()
+'     void addRental(RentalEntity rental)
+' }
+'class CarEntity <<entity>>
+'
+'PricedItem <|-- Car
+'Car <|.. CarEntity
+'
+'
+'Car "*" <--> "1" Model
+'
+'
+'class RentalEntity <<entity>>
+'
+'RentalEntity o-- Car
+'RentalEntity o-- Customer
+'
+'enum  Model.VehicleClass {
+'    UNKNOWN
+'    OTHER
+'    ECONOMY
+'    COMPACT
+'    MIDSIZED
+'    LARGE
+'    MINIVAN
+'    SUV
+'    TRUCK
+'}
+'
+'enum Model.Transmission {
+'    UNKNOWN
+'    OTHER
+'    AUTOMATIC
+'    MANUAL
+'}
+'
+'
+'enum Model.Fuel {
+'    UNKNOWN
+'    OTHER
+'    GASOLINE
+'    DIESEL
+'    PLUGIN_ELECTRIC
+'}
+
+
+@enduml
