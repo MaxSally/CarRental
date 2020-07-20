@@ -95,7 +95,7 @@ public class Backend {
             if (carModel == null) {
                 throw new IllegalStateException("Could not create new car model " + model + ": " +
                         exception.getMessage() + ". Could not retrieve existing car model " + model +
-                        " from database.");
+                        " from database.", exception);
             }
         }
         return carModel;

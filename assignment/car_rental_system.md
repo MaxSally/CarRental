@@ -329,6 +329,12 @@ cast to. See `ModelEntity.getModelsByClass()` as an example.
 Any new fields that you need to add to an Entity class need to be annotated
 with `@Column` if you want them to be persisted.
 
+If you catch an exception that is thrown before `commit()` completes, call
+```
+session.getTransaction.rollback();
+```
+to undo the changes that you were attempting to commit.
+
 ## Issue Tracker
 
 -   Create at least one Git Issue for each user story. You will probably create
@@ -449,6 +455,26 @@ used branches as required then we won't need to examine the metadata.
         are in the logic layer; it may *not* depend on abstract or concrete
         classes in the logic layer (other than the façade)
     -   Only the frontend can directly interact with the user
+    -   Hint: you can double-check this the three-tier architecture by looking
+        at your `import` statements
+        -   Only the frontend should have `javafx` imports
+        -   Only the backend should have `javax.persistence` and
+            `org.hibernate` imports
+        -   The frontend should not have any `...backend` imports
+        -   The logic layer should not have any `...frontend`  imports
+        -   The backend should not have any `...frontend` or `...rental_logic`
+            imports
+        -   You'll still have to eyeball that your layers aren't depending on
+            concretions in the next-lower layer
+        -   You'll still have to eyeball that there are no calls to `System.in`
+            and `System.out` in the logic layer and backend (there also
+            shouldn't be any in the frontend, either, since this is a GUI
+            application)
+    -   Try not to let Hibernate exceptions & Persistence API exceptions
+        escape past the backend façade: we should, in principle, be able to
+        replace the backend with one that accesses a RESTful service, or one
+        that stores data as CSV files, without having to change either of the
+        other layers
 
 -   **USER INTERFACE NOTE**
     -   Implement a GUI; you may borrow material from your GUI prototype
@@ -664,152 +690,71 @@ access, will not be graded.*
 
 ## Rubric
 
-TBA
-
-<!--
-***TODO***
-
-The assignment is worth **36 points**:
+The assignment is worth **39 points**:
 
 -   **4 points** for implementing an opaque three-tier architecture
     -   The backend retrieves and stores data
     -   The frontend provides a user interface
     -   The logic layer implements the business rules
     -   Each subsystem requests services only of the subsystem immediately
-        below it. (You can think of the file system as being immediately below
-        the backend subsystem.)
+        below it (you can think of the database as being immediately below
+        the backend subsystem)
 
 -   **4 points** for implementing the Façade Pattern
+    -   Update a façade for the backend
     -   Create a façade for the logic layer
-    -   Create a façade for the backend
     -   Requests for services are made only through the façade objects
     -   The façade objects do no work, but rather delegate to objects within
-        their corresponding subsystems
-
--   **4 points** for implementing the Singleton Pattern
-    -   Make the backend façade a singleton
-    -   Make the logic façade a singleton
-    -   Private constructor
-    -   Public static accessor that always returns the same object
-
--   **4 points** for implementing the Template Method Pattern
-    -   The method for checking out a car performs the behavior that is common
-        to all types of customers (in this case, displays the car information
-        and the daily rate and calls an abstract method for the behavior that
-        is specific to the type of customer
-    -   Subclasses override the called method and provide the behavior that is
-        specific to the type of customer (prompts for payment information or
-        informs the user that the car will be charged to the corporate account)
-
--   **4 points** for implementing the functionality as specified
-
--   **4 points** for including unit tests as required
-
--   **4 points** for using good design principles
-
--   **2 points** for coding style.
-
--   **1 point** for forking a copy of the `12pairNN` repository to your own
-    gitlab account.
-
--   **2 points** for making regular commits; *i.e.*, not waiting until the end
-    of the project to make a massive commit.
-
--   **3 point** for meaningful commit messages.
-
-## Petting Zoo Rubric
-
-The assignment is worth **39 points**:
-
--   **3 points** for implementing a MVC architecture
-    -   Controller subsystem accepts input from the user and directs changes to
-        the Model and/or the View
-    -   Model subsystem alerts View that changes occurred
-    -   View subsystem presents information to the user
+        their corresponding subsystems (exception handling is okay)
 
 -   **4 points** for implementing the Builder Pattern
-    -   Use the Builder Pattern to create animals, which may have specified or
+    -   Use the Builder Pattern to create cars, which may have specified or
         default values for their fields
+    -   Use the Builder Pattern to create models, which may have specified or
+        default values for their fields
+    -   Use the Builder Pattern to create individual customers, which may have
+        specified or default values for their fields
+    -   Use the Builder Pattern to create corporate customers, which may have
+        specified or default values for their fields
 
--   **4 points** for implementing the Command Pattern
-    -   The user interface retrieves the appropriate command object and calls
-        its `execute()` method.
-    -   The `execute()` method has no behavior of its own but simply cal.ls a
-        method on some other object to initiate the desired behavior
-
--   **4 points** for implementing (or using) the Observer Pattern
-    -   Objects interested in changes to the blackboard datastore can register
-        themselves with the datastore to be notified of updates to the
-        datastore; each observer then decides whether it needs to take action
-        due to the update.
-
--   **3 points** for using good design principles
-
--   **3 points** for good coding style
-
-<!<- -   **5 points** for implementing the user stories ->>
--   **4 points** for implementing the user stories
-
--   **2 point** for implementing the other specified functionality
-
--   **2 points** for making regular commits; *i.e.*, not waiting until the end
-    of the project to make a massive commit.
-
--   **2 points** for using Git Issues as directed.
-
--   **4 points** for using branches as directed.
-    -   automatic 2 point deduction if any commits are made directly to the
-        master branch
-
--   **4 point** for meaningful and well-formatted commit messages
-
-## Yatzy Rubric
-
-The assignment is worth **34 points**:
-
--   **4 points** for preserving the MVC architecture
-    -   Code that contains the game state is in the model
-    -   Code that interacts with the user is in the view
-    -   Code that coordinates the game is in the controller
-    -   Code in one subsystem does not depend on concrete classes in other  
-        subsystems (exception: you may *instantiate* concrete CategoryModel
-        classes in the Controller classes' constructors)
-
--   **5 points** for implementing and using the Observer Pattern
-    -   `AbstractSubject` implemented
-    -   `Die.roll` calls `notifyObservers`
-    -   `AbstractDieView.update` implemented
-    -   No code (other than the view) explicitly updates the view
-
--   **4 points** for implementing and using the Template Method Pattern
-    -   `AbstractDieBasedCategory.getHypotheticalScore` uses protected abstract
-        method as part of computing the score
-    -   That method is overridden in each subclass as appropriate
-    -   `getHypotheticalScore` is *not* overridden in any subclasses except for
-        the Yatzy special case
-
--   **5 points** for implementing and using the Command Pattern
-    -   `AbstractDieBasedScoringCommand.execute` implemented, delegating its
-        behavior
-    -   All die-based scoring Commands implemented
-    -   All scoring categories added to game board
-
--   **4 points** for the game meeting all of its functional requirements
+-   **4 points** for implementing the Decorator Pattern
+    -   Except for `CarEntity.java`, all implementations `PricedItem`
+        implementations are wrappers for `PricedItem` objects
+    -   `getDailyRate()` computes the total daily rate for a rental package by
+        using a call to the wrapped object's `getDailyRate()` method
+    -   `getLineItemSummary()` generates a line-by-line description of all line
+        items in the rental package
+    -   `getBasePricedItem()` returns the car object at the innermost level of
+        the rental package
 
 -   **4 points** for using good code & design principles (*e.g.*, DRY, SOLID)
 
--   **2 points** for coding style
+-   **2 points** for good and *consistent* coding style (hint: decide with your
+    partner what your code style will be)
 
--   **1 point** for forking a copy of the `12pairNN` repository to your own
-    gitlab account and giving the professor, the TA, and your new partner access
+-   **4 points** for implementing the user stories
+
+-   **1 point** for implementing the other specified functionality
+
+-   **2 points** for using Git Issues as directed
+
+-   **4 points** for using branches as directed
+    -   automatic 2 point deduction if more than 1 commit is made directly to
+        the master branch (we will allow one "oh-no" commit to the master
+        branch)
 
 -   **2 points** for making regular commits throughout the project
 
--   **3 points** for meaningful commit messages
+-   **4 point** for meaningful and well-formatted commit messages
 
--->
-
-
+-   **Extra credit 1 point** Write one `CustomerBuilder` class that:
+    -   Takes care of creating objects for both `IndividualCustomer` and
+        `CorporateCustomer`
+    -   Has a single `build()` method that returns `Customer`
+    -   Disallows calls that are inappropriate for the specific type of
+        customer being build; *e.g.*, a method that sets the corporate account
+        number should be prohibited if an individual customer is being created
+        ([hint](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/UnsupportedOperationException.html))
 
 This assignment is scoped for a team of 2 students. If, despite your attempts
 to engage your partner, your partner does not contribute to the assignment then
