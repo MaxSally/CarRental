@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.HomeController">
    <children>
       <Label layoutX="60.0" layoutY="29.0" text="Husker Klunker Car Rentals">
          <font>
@@ -21,8 +20,8 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <Button layoutX="116.0" layoutY="411.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="217.0" text="Create Individual Customer Account" />
-      <Button layoutX="116.0" layoutY="449.0" mnemonicParsing="false" text="Create Corporate Customer Account" />
+      <Button layoutX="116.0" layoutY="411.0" mnemonicParsing="false" onAction="#switchToCreateIndividualAccount" prefHeight="27.0" prefWidth="217.0" text="Create Individual Customer Account" />
+      <Button layoutX="116.0" layoutY="449.0" mnemonicParsing="false" onAction="#switchToCreateCorporateAccount" text="Create Corporate Customer Account" />
       <Button layoutX="118.0" layoutY="568.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="216.0" text="Click Here to Login!" />
       <Label layoutX="170.0" layoutY="540.0" text="Are You A Manager?" />
       <Label layoutX="159.0" layoutY="381.0" text="Don't Have an Account?" />
