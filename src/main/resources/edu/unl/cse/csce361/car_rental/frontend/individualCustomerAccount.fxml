@@ -1,57 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.IndividualCustomerAccountController">
    <children>
-      <Label layoutX="150.0" layoutY="41.0" text="Create Account">
+      <Label layoutX="99.0" layoutY="59.0" text="Create Customer Account">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="101.0" text="Create a username" />
-      <TextField layoutX="41.0" layoutY="118.0" promptText="Username" />
-      <Label layoutX="41.0" layoutY="163.0" text="Create a password" />
-      <TextField layoutX="41.0" layoutY="180.0" promptText="Password" />
-      <Label layoutX="42.0" layoutY="226.0" text="Confirm Password" />
-      <TextField layoutX="41.0" layoutY="243.0" promptText="Password" />
-      <Label layoutX="42.0" layoutY="373.0" prefHeight="17.0" prefWidth="87.0" text="Street Address" />
-      <TextField layoutX="41.0" layoutY="390.0" promptText="Street Address" />
-      <Label layoutX="42.0" layoutY="432.0" prefHeight="17.0" prefWidth="103.0" text="Street Address 2" />
-      <TextField layoutX="41.0" layoutY="449.0" promptText="Street Address 2" />
-      <Label layoutX="42.0" layoutY="338.0" prefHeight="24.0" prefWidth="76.0" text="Address">
+      <Label layoutX="191.0" layoutY="149.0" text="Full Name">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <TextField fx:id="txtFieldName" layoutX="150.0" layoutY="169.0" promptText="Name" />
+      <Label layoutX="181.0" layoutY="296.0" prefHeight="17.0" prefWidth="87.0" text="Street Address" />
+      <TextField fx:id="txtFieldStreetAddress1" layoutX="144.0" layoutY="323.0" promptText="Street Address" />
+      <Label layoutX="174.0" layoutY="367.0" prefHeight="17.0" prefWidth="103.0" text="Street Address 2" />
+      <TextField fx:id="txtFieldStreetAddress2" layoutX="145.0" layoutY="384.0" promptText="Street Address 2" />
+      <Label layoutX="192.0" layoutY="254.0" prefHeight="24.0" prefWidth="76.0" text="Address">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="42.0" layoutY="489.0" prefHeight="17.0" prefWidth="103.0" text="City" />
-      <TextField layoutX="41.0" layoutY="506.0" promptText="City" />
-      <Label layoutX="42.0" layoutY="547.0" prefHeight="17.0" prefWidth="103.0" text="State" />
-      <TextField layoutX="41.0" layoutY="564.0" prefHeight="27.0" prefWidth="76.0" promptText="State" />
-      <Label layoutX="130.0" layoutY="547.0" prefHeight="17.0" prefWidth="103.0" text="ZIP Code" />
-      <TextField layoutX="129.0" layoutY="564.0" prefHeight="27.0" prefWidth="76.0" promptText="ZIP" />
-      <Label layoutX="243.0" layoutY="101.0" text="First Name" />
-      <TextField layoutX="243.0" layoutY="118.0" promptText="First Name" />
-      <Label layoutX="243.0" layoutY="163.0" text="Last Name" />
-      <TextField layoutX="243.0" layoutY="180.0" promptText="Last Name" />
-      <Label layoutX="243.0" layoutY="226.0" text="Email" />
-      <TextField layoutX="243.0" layoutY="243.0" promptText="Email" />
-      <Button layoutX="173.0" layoutY="633.0" mnemonicParsing="false" text="Create Account" />
-      <Label layoutX="244.0" layoutY="373.0" prefHeight="17.0" prefWidth="123.0" text="Credit Card Number" />
-      <TextField layoutX="243.0" layoutY="390.0" promptText="Card Number" />
-      <Label layoutX="244.0" layoutY="432.0" prefHeight="17.0" prefWidth="103.0" text="Expiration Date" />
-      <Label layoutX="244.0" layoutY="338.0" prefHeight="24.0" prefWidth="171.0" text="Payment Information">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Label>
-      <DatePicker layoutX="243.0" layoutY="449.0" prefHeight="27.0" prefWidth="160.0" />
-      <Label layoutX="245.0" layoutY="489.0" prefHeight="17.0" prefWidth="103.0" text="CVV" />
-      <TextField layoutX="244.0" layoutY="506.0" prefHeight="27.0" prefWidth="76.0" promptText="CVV" />
+      <Label layoutX="210.0" layoutY="424.0" prefHeight="17.0" prefWidth="26.0" text="City" />
+      <TextField fx:id="txtFieldCity" layoutX="144.0" layoutY="441.0" promptText="City" />
+      <Label layoutX="157.0" layoutY="479.0" prefHeight="17.0" prefWidth="33.0" text="State" />
+      <TextField fx:id="txtFieldState" layoutX="136.0" layoutY="496.0" prefHeight="27.0" prefWidth="76.0" promptText="State" />
+      <Label layoutX="250.0" layoutY="479.0" prefHeight="17.0" prefWidth="55.0" text="ZIP Code" />
+      <TextField fx:id="txtFieldZip" layoutX="240.0" layoutY="496.0" prefHeight="27.0" prefWidth="76.0" promptText="ZIP" />
+      <Button layoutX="164.0" layoutY="625.0" mnemonicParsing="false" onAction="#createIndividualCustomer" prefHeight="27.0" prefWidth="133.0" text="Create Account" />
    </children>
 </Pane>
