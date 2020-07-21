@@ -16,7 +16,7 @@ public class CorporateCustomerAccountController extends  ScreenController{
     @FXML TextField txtFieldZip;
     @FXML TextField txtFieldBankAccount;
 
-    public void createIndividualCustomer(javafx.event.ActionEvent event) throws IOException {
+    public void createCorporateCustomer(javafx.event.ActionEvent event) throws IOException {
         if(DataLogic.getInstance().createCorporateCustomerAccount(txtFieldName.getText(), txtFieldStreetAddress1.getText(),
                 txtFieldStreetAddress2.getText(), txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText(), txtFieldBankAccount.getText())){
             switchScreen(event, "home.fxml");
