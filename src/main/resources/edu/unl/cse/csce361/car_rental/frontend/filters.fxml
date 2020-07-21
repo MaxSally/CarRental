@@ -7,8 +7,8 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.FiltersController">
     <children>
-        <ChoiceBox fx:id="colorOptions" layoutX="39.0" layoutY="220.0" prefHeight="27.0" prefWidth="119.0" />
-        <Label alignment="CENTER" layoutX="39.0" layoutY="192.0" prefHeight="17.0" prefWidth="119.0" text="Color" />
+        <ChoiceBox fx:id="colorOptions" layoutX="39.0" layoutY="397.0" prefHeight="27.0" prefWidth="119.0" />
+        <Label alignment="CENTER" layoutX="39.0" layoutY="369.0" prefHeight="17.0" prefWidth="119.0" text="Color" />
         <Label alignment="CENTER" layoutX="39.0" layoutY="281.0" prefHeight="17.0" prefWidth="119.0" text="# Of Doors" />
         <ChoiceBox fx:id="numDoorOptions" layoutX="39.0" layoutY="307.0" prefHeight="27.0" prefWidth="119.0" />
         <Label alignment="CENTER" layoutX="243.0" layoutY="192.0" prefHeight="17.0" prefWidth="119.0" text="Fuel Type" />
@@ -24,7 +24,7 @@
       <Label alignment="CENTER" layoutX="39.0" layoutY="104.0" prefHeight="17.0" prefWidth="119.0" text="Vehicle Model" />
       <Label alignment="CENTER" layoutX="243.0" layoutY="104.0" prefHeight="17.0" prefWidth="119.0" text="Vehicle Class" />
       <ChoiceBox fx:id="classOptions" layoutX="243.0" layoutY="132.0" prefHeight="27.0" prefWidth="119.0" />
-      <ChoiceBox fx:id="transmissionOptions" layoutX="39.0" layoutY="402.0" prefHeight="27.0" prefWidth="119.0" />
-      <Label alignment="CENTER" layoutX="39.0" layoutY="374.0" prefHeight="17.0" prefWidth="119.0" text="Transmission" />
+      <ChoiceBox fx:id="transmissionOptions" layoutX="39.0" layoutY="219.0" prefHeight="27.0" prefWidth="119.0" />
+      <Label alignment="CENTER" layoutX="39.0" layoutY="192.0" prefHeight="17.0" prefWidth="119.0" text="Transmission" />
     </children>
 </AnchorPane>
