@@ -12,6 +12,7 @@ import java.util.Set;
 public class Backend {
 
     private static Backend instance;
+    private Customer currentCustomer;
 
     public static Backend getInstance() {
         if (instance == null) {
@@ -33,7 +34,12 @@ public class Backend {
      * @return The specified customer if it is present in the database; <code>null</code> otherwise
      */
     public Customer getCustomer(String name) {
-        return CustomerEntity.getCustomerByName(name);
+        currentCustomer = CustomerEntity.getCustomerByName(name);
+        return currentCustomer;
+    }
+
+    public Customer getCurrentCustomer() {
+        return currentCustomer;
     }
 
     /**
