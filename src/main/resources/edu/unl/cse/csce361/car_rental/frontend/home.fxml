@@ -19,11 +19,11 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <Button layoutX="116.0" layoutY="411.0" mnemonicParsing="false" onAction="#switchToCreateIndividualAccount" prefHeight="27.0" prefWidth="217.0" text="Create Individual Customer Account" />
-      <Button layoutX="116.0" layoutY="449.0" mnemonicParsing="false" onAction="#switchToCreateCorporateAccount" text="Create Corporate Customer Account" />
-      <Button layoutX="118.0" layoutY="568.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="216.0" text="Click Here to Login!" />
+      <Button layoutX="116.0" layoutY="380.0" mnemonicParsing="false" onAction="#switchToCreateIndividualAccount" prefHeight="27.0" prefWidth="217.0" text="Create Individual Customer Account" />
+      <Button layoutX="116.0" layoutY="418.0" mnemonicParsing="false" onAction="#switchToCreateCorporateAccount" text="Create Corporate Customer Account" />
+      <Button layoutX="118.0" layoutY="568.0" mnemonicParsing="false" onAction="#switchToManagerOptions" prefHeight="27.0" prefWidth="216.0" text="Click Here to Manage Accounts" />
       <Label layoutX="170.0" layoutY="540.0" text="Are You A Manager?" />
-      <Label layoutX="159.0" layoutY="381.0" text="Don't Have an Account?" />
+      <Label layoutX="159.0" layoutY="350.0" text="Don't Have an Account?" />
       <Button layoutX="117.0" layoutY="245.0" mnemonicParsing="false" onAction="#logIn" prefHeight="27.0" prefWidth="214.0" text="Login" />
    </children>
 </Pane>
