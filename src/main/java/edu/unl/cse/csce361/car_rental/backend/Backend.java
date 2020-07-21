@@ -186,9 +186,7 @@ public class Backend {
         try {
             Customer customer = new IndividualCustomerEntity(name, streetAddress1, streetAddress2,
                     city, state, zipCode);
-            Set<Customer> listCustomer = new HashSet<>();
-            listCustomer.add(customer);
-            listCustomer.forEach(session::saveOrUpdate);
+            session.saveOrUpdate(customer);
             session.getTransaction().commit();
         } catch (Exception e) {
             System.err.println("error: " + e);
