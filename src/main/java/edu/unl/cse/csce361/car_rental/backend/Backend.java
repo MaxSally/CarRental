@@ -4,6 +4,7 @@ import org.hibernate.Session;
 
 import javax.persistence.PersistenceException;
 import java.time.DateTimeException;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,15 +15,15 @@ public class Backend {
     private static Backend instance;
     private Customer currentCustomer;
 
+    private Backend() {
+        super();
+    }
+
     public static Backend getInstance() {
         if (instance == null) {
             instance = new Backend();
         }
         return instance;
-    }
-
-    private Backend() {
-        super();
     }
 
     /* RETRIEVES EXISTING OBJECTS */
@@ -179,7 +180,20 @@ public class Backend {
     public Customer createIndividualCustomer(String name, String streetAddress1, String streetAddress2,
                                              String city, String state, String zipCode)
             throws IllegalArgumentException, NullPointerException {
-        return null;
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            Customer customer = new IndividualCustomerEntity(name, streetAddress1, streetAddress2,
+                    city, state, zipCode);
+            Set<Customer> listCustomer = new HashSet<>();
+            listCustomer.add(customer);
+            listCustomer.forEach(session::saveOrUpdate);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+        }
+        return getCustomer(name);
     }
 
     /**

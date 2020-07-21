@@ -23,4 +23,11 @@ public class DataLogic {
             return true;
         }
     }
+
+    public void createAccount(String name, String streetAddress1, String streetAddress2,
+                              String city, String state, String zipCode,
+                              String paymentCardNumber, int paymentCardExpirationMonth,
+                              int paymentCardExpirationYear, String paymentCardCvv){
+        Backend.getInstance().createIndividualCustomer(name, streetAddress1, streetAddress2, city, state, zipCode, paymentCardNumber, paymentCardExpirationMonth, paymentCardExpirationYear, paymentCardCvv);
+    }
 }
