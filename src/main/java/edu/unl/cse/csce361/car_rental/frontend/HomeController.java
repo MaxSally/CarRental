@@ -17,6 +17,10 @@ public class HomeController extends ScreenController{
         switchScreen(event, "corporateCustomerAccount.fxml");
     }
 
+    public void switchToManagerOptions(javafx.event.ActionEvent event) throws IOException {
+        switchScreen(event, "managerOptions.fxml");
+    }
+
     public void logIn(javafx.event.ActionEvent event) throws IOException {
         if(DataLogic.getInstance().logIn(txtUsername.getText())){
             switchScreen(event, "individualCustomerAccount.fxml");
