@@ -31,12 +31,7 @@ public class BackendTest {
     public void tearDown() {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
-        session.createQuery("delete from RentalEntity").executeUpdate();
-        session.createQuery("delete from CarEntity").executeUpdate();
-        session.createQuery("delete from ModelEntity").executeUpdate();
-        session.createQuery("delete from CustomerEntity").executeUpdate();
-        session.createQuery("delete from CorporateCustomerEntity").executeUpdate();
-        session.createQuery("delete from IndividualCustomerEntity").executeUpdate();
+        DatabasePopulator.depopulateTables(session);
         session.getTransaction().commit();
     }
 
