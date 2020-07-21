@@ -6,6 +6,7 @@ import edu.unl.cse.csce361.car_rental.backend.Customer;
 public class DataLogic {
     private static DataLogic instance;
 
+
     public static DataLogic getInstance(){
         if(instance == null){
             instance = new DataLogic();
@@ -28,6 +29,12 @@ public class DataLogic {
     public boolean createIndividualCustomerAccount(String name, String streetAddress1, String streetAddress2,
                                                    String city, String state, String zipCode){
         Customer customer = Backend.getInstance().createIndividualCustomer(name, streetAddress1, streetAddress2, city, state, zipCode);
+        return (customer != null);
+    }
+
+    public boolean createCorporateCustomerAccount(String name, String streetAddress1, String streetAddress2,
+                                                   String city, String state, String zipCode, String corporateAccount){
+        Customer customer = Backend.getInstance().createCorporateCustomer(name, streetAddress1, streetAddress2, city, state, zipCode, corporateAccount, Backend.getInstance().DEFAULT_NEGOTIATED_RATE);
         return (customer != null);
     }
 }

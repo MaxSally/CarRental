@@ -14,6 +14,7 @@ public class Backend {
 
     private static Backend instance;
     private Customer currentCustomer;
+    public final double DEFAULT_NEGOTIATED_RATE = 1.0;
 
     private Backend() {
         super();
@@ -152,7 +153,18 @@ public class Backend {
                                             String city, String state, String zipCode,
                                             String corporateAccount, double negotiatedRate)
             throws IllegalStateException, NullPointerException {
-        return null;
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            Customer customer = new CorporateCustomerEntity(name, streetAddress1, streetAddress2,
+                    city, state, zipCode, corporateAccount, negotiatedRate);
+            session.saveOrUpdate(customer);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+        }
+        return getCustomer(name);
     }
 
     /**

@@ -14,9 +14,6 @@ public class IndividualCustomerAccountController extends ScreenController {
     @FXML TextField txtFieldCity;
     @FXML TextField txtFieldState;
     @FXML TextField txtFieldZip;
-    @FXML TextField txtFieldCardNumber;
-    @FXML TextField txtFieldCVV;
-    @FXML DatePicker datePickerExpDate;
 
     public void createIndividualCustomer(javafx.event.ActionEvent event) throws IOException {
         if(DataLogic.getInstance().createIndividualCustomerAccount(txtFieldName.getText(), txtFieldStreetAddress1.getText(),
