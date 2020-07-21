@@ -1,5 +1,7 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
+import org.hibernate.Session;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Set;

@@ -239,4 +239,24 @@ public class Backend {
             throws DateTimeException, IllegalArgumentException, NullPointerException {
         return null;
     }
+
+    public boolean updateNegotiatedRateForCorporationCustomer(String name, double negotiatedRate){
+        CorporateCustomerEntity customer = (CorporateCustomerEntity) getCustomer(name);
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        if(customer == null){
+            return false;
+        }else{
+            try {
+                customer.setNegotiatedRate(negotiatedRate);
+                session.saveOrUpdate(customer);
+                session.getTransaction().commit();
+            } catch (Exception e) {
+                System.err.println("error: " + e);
+                session.getTransaction().rollback();
+            }
+            return true;
+        }
+    }
 }

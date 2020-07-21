@@ -2,6 +2,7 @@ package edu.unl.cse.csce361.car_rental.rental_logic;
 
 import edu.unl.cse.csce361.car_rental.backend.Backend;
 import edu.unl.cse.csce361.car_rental.backend.Customer;
+import edu.unl.cse.csce361.car_rental.backend.CustomerEntity;
 
 public class DataLogic {
     private static DataLogic instance;
@@ -42,5 +43,22 @@ public class DataLogic {
                                                                     String city, String state, String zipCode, String corporateAccount, Double negotiatedRate) {
         Customer customer = Backend.getInstance().createCorporateCustomer(name, streetAddress1, streetAddress2, city, state, zipCode, corporateAccount, negotiatedRate);
         return (customer != null);
+    }
+
+    public boolean hasCustomerName(String name){
+        return (Backend.getInstance().getCustomer(name) != null);
+    }
+
+    public String getCustomerName(String name){
+        Customer customer = Backend.getInstance().getCustomer(name);
+        return (customer == null?"":customer.getName());
+    }
+
+    public boolean setNegotiatedRate(String name, double negotiatedRate){
+        if(Backend.getInstance().updateNegotiatedRateForCorporationCustomer(name, negotiatedRate)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
