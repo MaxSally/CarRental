@@ -13,26 +13,46 @@
             <Font size="23.0" />
          </font>
       </Label>
-      <Label layoutX="191.0" layoutY="149.0" text="Full Name">
+      <Label layoutX="184.0" layoutY="171.0" text="*Full Name">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <TextField fx:id="txtFieldName" layoutX="150.0" layoutY="169.0" promptText="Name" />
-      <Label layoutX="181.0" layoutY="296.0" prefHeight="17.0" prefWidth="87.0" text="Street Address" />
+      <TextField fx:id="txtFieldName" layoutX="143.0" layoutY="191.0" promptText="Name" />
+      <Label layoutX="168.0" layoutY="296.0" prefHeight="20.0" prefWidth="111.0" text="*Street Address">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
       <TextField fx:id="txtFieldStreetAddress1" layoutX="144.0" layoutY="323.0" promptText="Street Address" />
-      <Label layoutX="174.0" layoutY="367.0" prefHeight="17.0" prefWidth="103.0" text="Street Address 2" />
+      <Label layoutX="167.0" layoutY="364.0" prefHeight="20.0" prefWidth="118.0" text="Street Address 2">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
       <TextField fx:id="txtFieldStreetAddress2" layoutX="145.0" layoutY="384.0" promptText="Street Address 2" />
       <Label layoutX="192.0" layoutY="254.0" prefHeight="24.0" prefWidth="76.0" text="Address">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="210.0" layoutY="424.0" prefHeight="17.0" prefWidth="26.0" text="City" />
+      <Label layoutX="205.0" layoutY="421.0" prefHeight="20.0" prefWidth="37.0" text="*City">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
       <TextField fx:id="txtFieldCity" layoutX="144.0" layoutY="441.0" promptText="City" />
-      <Label layoutX="157.0" layoutY="479.0" prefHeight="17.0" prefWidth="33.0" text="State" />
+      <Label layoutX="151.0" layoutY="478.0" prefHeight="20.0" prefWidth="47.0" text="*State">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
       <TextField fx:id="txtFieldState" layoutX="136.0" layoutY="496.0" prefHeight="27.0" prefWidth="76.0" promptText="State" />
-      <Label layoutX="250.0" layoutY="479.0" prefHeight="17.0" prefWidth="55.0" text="ZIP Code" />
+      <Label layoutX="244.0" layoutY="478.0" prefHeight="20.0" prefWidth="73.0" text="*ZIP Code">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
       <TextField fx:id="txtFieldZip" layoutX="240.0" layoutY="496.0" prefHeight="27.0" prefWidth="76.0" promptText="ZIP" />
       <Button layoutX="164.0" layoutY="625.0" mnemonicParsing="false" onAction="#createIndividualCustomer" prefHeight="27.0" prefWidth="133.0" text="Create Account" />
+      <Label layoutX="144.0" layoutY="119.0" text="Fields with * are required" textFill="#e40505">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
