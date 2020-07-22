@@ -28,36 +28,15 @@ public class HomeController extends ScreenController{
         switchScreen(event, "managerOptions.fxml");
     }
 
-    public void invalidLoginAlert() {
-
-        Stage window = new Stage();
-        //application modality allows the application and screen below to remain open,
-        //but non-functional until the alert screen closes
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Login Failed");
-        window.setMinHeight(150);
-        window.setMinWidth(300);
-
-        Label label = new Label();
-        label.setText("Sorry, it seems you entered an invalid login!");
-
-        Button tryAgain = new Button("Try Again");
-        tryAgain.setOnAction(e -> window.close());
-
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, tryAgain);
-        layout.setAlignment(Pos.CENTER);
-
-        Scene scene = new Scene(layout);
-        window.setScene(scene);
-        window.showAndWait();
+    public void alertScreen() {
+        invalidLoginAlert("Login Failed", "Sorry, it seems you entered an invalid login!");
     }
 
     public void logIn(javafx.event.ActionEvent event) throws IOException {
         if(DataLogic.getInstance().logIn(txtUsername.getText())) {
             switchScreen(event, "filters.fxml");
         } else {
-            invalidLoginAlert();
+            alertScreen();
         }
     }
 }
