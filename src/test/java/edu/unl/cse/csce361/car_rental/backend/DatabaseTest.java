@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.YearMonth;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,12 +30,7 @@ public class DatabaseTest {
     @After
     public void tearDown() {
         session.beginTransaction();
-        session.createQuery("delete from RentalEntity").executeUpdate();
-        session.createQuery("delete from CarEntity").executeUpdate();
-        session.createQuery("delete from ModelEntity").executeUpdate();
-        session.createQuery("delete from CustomerEntity").executeUpdate();
-        session.createQuery("delete from CorporateCustomerEntity").executeUpdate();
-        session.createQuery("delete from IndividualCustomerEntity").executeUpdate();
+        DatabasePopulator.depopulateTables(session);
         session.getTransaction().commit();
     }
 
@@ -50,6 +46,22 @@ public class DatabaseTest {
     }
 
     @Test
+    public void testPaymentCardDataIsPreserved() {
+        // arrange
+        String customerName = "Dee Veloper";
+        String expectedCardNumber = "1234567809876543";
+        YearMonth expectedExpirationDate = YearMonth.of(2029, 6);
+        String expectedCvv = "9021";
+        // act
+        Customer customer = CustomerEntity.getCustomerByName(customerName);
+        PaymentCard card = ((IndividualCustomer)customer).getPaymentCard();
+        // assert
+        assertEquals(expectedCardNumber, card.getCardNumber());
+        assertEquals(expectedExpirationDate, card.getExpirationDate());
+        assertEquals(expectedCvv, card.getCvv());
+    }
+
+    @Test
     public void testGetModelsByClass() {
         // arrange
         Model.VehicleClass vehicleClass = Model.VehicleClass.MIDSIZED;
@@ -60,4 +72,5 @@ public class DatabaseTest {
         // assert
         assertEquals(expectedModelNames, actualModelNames);
     }
+
 }

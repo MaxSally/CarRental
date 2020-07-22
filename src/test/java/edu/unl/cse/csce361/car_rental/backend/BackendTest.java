@@ -31,12 +31,7 @@ public class BackendTest {
     public void tearDown() {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
-        session.createQuery("delete from RentalEntity").executeUpdate();
-        session.createQuery("delete from CarEntity").executeUpdate();
-        session.createQuery("delete from ModelEntity").executeUpdate();
-        session.createQuery("delete from CustomerEntity").executeUpdate();
-        session.createQuery("delete from CorporateCustomerEntity").executeUpdate();
-        session.createQuery("delete from IndividualCustomerEntity").executeUpdate();
+        DatabasePopulator.depopulateTables(session);
         session.getTransaction().commit();
     }
 
@@ -98,5 +93,28 @@ public class BackendTest {
         // assert
         assertEquals(name, model.getModel());
         assertEquals(expectedTransmission, model.getTransmission());
+    }
+
+    @Test public void testGetCurrentCustomer(){
+        // arrange
+        String customerName = "Mary O'Kart";
+        String expectedCurrentCustomer = customerName;
+        // act
+        Customer customer = backend.getCustomer(customerName);
+        Customer currentCustomer = backend.getCurrentCustomer();
+        // assert
+        assertTrue(currentCustomer.getName().equals(expectedCurrentCustomer));
+    }
+
+    @Test
+    public void testCreateIndividualCustomer(){
+        //arrange
+        String name = "Max";
+        String streetAddress1 = "home", streetAddress2 = "", city = "Omaha", state = "NH", zip = "25383", creditCardNumber = "1234567891234565", creditCVV = "456";
+        int month = 12, year = 2020;
+        //act
+        Customer customer = Backend.getInstance().createIndividualCustomer(name, streetAddress1, streetAddress2, city, state, zip);
+        //assert
+        assertEquals(customer.getName(),name);
     }
 }

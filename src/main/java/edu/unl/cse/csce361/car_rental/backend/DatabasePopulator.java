@@ -155,12 +155,23 @@ public class DatabasePopulator {
         return rentals;
     }
 
+    static void depopulateTables(Session session) {
+        System.out.println("Emptying tables...");
+        session.createQuery("delete from RentalEntity").executeUpdate();
+        session.createQuery("delete from CarEntity").executeUpdate();
+        session.createQuery("delete from ModelEntity").executeUpdate();
+        session.createQuery("delete from CustomerEntity").executeUpdate();
+        session.createQuery("delete from CorporateCustomerEntity").executeUpdate();
+        session.createQuery("delete from IndividualCustomerEntity").executeUpdate();
+    }
+
     public static void main(String[] args) {
         System.out.println("Creating Hibernate session...");
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();
         try {
+            depopulateTables(session);
             createModels().forEach(session::saveOrUpdate);
             createCars().forEach(session::saveOrUpdate);
             createCorporateCustomers().forEach(session::saveOrUpdate);
@@ -179,8 +190,9 @@ public class DatabasePopulator {
             System.err.println("  " + mappingException.getMessage());
             session.getTransaction().rollback();
         } catch (PersistenceException persistenceException) {
-            System.err.println("Problem encountered when populating a table. The most likely problem is that\n" +
-                    "    you're running this populator without dropping the existing tables first.");
+            System.err.println("Problem encountered when populating or depopulating a table. It's not clear why\n" +
+                    "    this would happen unless it's a network or server failure. But it's probably\n" +
+                    "    something completely unexpected.");
             StackTraceElement[] trace = persistenceException.getStackTrace();
             System.err.println("  " + trace[trace.length - 1]);
             System.err.println("  " + persistenceException.getMessage());
@@ -188,7 +200,7 @@ public class DatabasePopulator {
             session.getTransaction().rollback();
         } catch (Exception exception) {
             System.err.println("Problem encountered that (probably) has nothing to do with creating and\n" +
-                    "    populating tables. This is (most likely) is a plain, old-fashioned\n" +
+                    "    (de)populating tables. This is (most likely) is a plain, old-fashioned\n" +
                     "    programming boo-boo.");
             StackTraceElement[] trace = exception.getStackTrace();
             System.err.println("  " + trace[trace.length - 1]);
