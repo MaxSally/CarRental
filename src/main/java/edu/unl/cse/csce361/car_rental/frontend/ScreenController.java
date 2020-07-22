@@ -28,7 +28,7 @@ public abstract class ScreenController {
         window.show();
     }
 
-    public void invalidLoginAlert(String title, String message) {
+    public void invalidAlert(String title, String message) {
 
         Stage window = new Stage();
         //application modality allows the application and screen below to remain open,
