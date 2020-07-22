@@ -4,7 +4,6 @@ import org.hibernate.Session;
 
 import javax.persistence.PersistenceException;
 import java.time.DateTimeException;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,9 +14,11 @@ public class Backend {
     private static Backend instance;
     private Customer currentCustomer;
     public final double DEFAULT_NEGOTIATED_RATE = 1.0;
+    private CriteriaFilter criteriaFilter;
 
     private Backend() {
         super();
+        criteriaFilter = new CriteriaFilter();
     }
 
     public static Backend getInstance() {
@@ -258,5 +259,55 @@ public class Backend {
             }
             return true;
         }
+    }
+
+    public void setFilterClass(String vehicleClass){
+        if(isEmptyString(vehicleClass)){
+            criteriaFilter.setVehicleClass(Model.VehicleClass.UNKNOWN);
+        }else{
+            criteriaFilter.setVehicleClass(Model.VehicleClass.valueOf(vehicleClass));
+        }
+
+    }
+
+    public void setFilterModel(String vehicleModel){
+        criteriaFilter.setVehicleModel(vehicleModel);
+    }
+
+    public void setFilterTransmission(String transmission){
+        if(isEmptyString(transmission)){
+            criteriaFilter.setTransmission(Model.Transmission.UNKNOWN);
+        }else {
+            criteriaFilter.setTransmission(Model.Transmission.valueOf(transmission));
+        }
+    }
+
+    public void setFilterFuelType(String fuelType){
+        if(isEmptyString(fuelType)){
+            criteriaFilter.setFuelType(Model.Fuel.UNKNOWN);
+        }else{
+            criteriaFilter.setFuelType(Model.Fuel.valueOf(fuelType));
+        }
+
+    }
+
+    public void setFilterNumberDoor(int numberOfDoor){
+        criteriaFilter.setNumberOfDoors(numberOfDoor);
+    }
+
+    public void setFilterMinFuelEconomy(int minFuelEconomy){
+        criteriaFilter.setMinFuelEconomy(minFuelEconomy);
+    }
+
+    public void setFilterMaxFuelEconomy(int maxFuelEconomy){
+        criteriaFilter.setMaxFuelEconomy(maxFuelEconomy);
+    }
+
+    public void setFilterColor(String color){
+        criteriaFilter.setColor(color);
+    }
+
+    public boolean isEmptyString(String checker){
+        return (checker.equals("") || checker == null);
     }
 }

@@ -1,25 +1,31 @@
 package edu.unl.cse.csce361.car_rental.frontend;
 
 import edu.unl.cse.csce361.car_rental.backend.Model;
+import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 
+import javax.xml.crypto.Data;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FiltersController {
+public class FiltersController extends ScreenController{
 
-    ObservableList<String> modelChoices = FXCollections.observableArrayList("ILX", "Model 3", "Stag", "Montego", "Highlander", "Versa",
+    ObservableList<String> modelChoices = FXCollections.observableArrayList("","ILX", "Model 3", "Stag", "Montego", "Highlander", "Versa",
             "Pacifica", "Jetta", "Bolt", "Malibu", "Allegro", "Ranger");
     ObservableList<String> classChoices;
-    ObservableList<String> colorChoices = FXCollections.observableArrayList("Black", "White", "Red", "Silver", "Yellow", "Blue",
+    ObservableList<String> colorChoices = FXCollections.observableArrayList("","Black", "White", "Red", "Silver", "Yellow", "Blue",
             "Fuchsia", "Grey", "Cyan", "Magenta");
-    ObservableList<Integer> numDoorChoices = FXCollections.observableArrayList(2, 3, 4, 5);
-    ObservableList<String> fuelTypeChoices = FXCollections.observableArrayList("UNKNOWN", "OTHER", "GASOLINE", "DIESEL", "PLUGIN_ELECTRIC");
-    ObservableList<String> transmissionChoices = FXCollections.observableArrayList("UNKNOWN", "OTHER", "AUTOMATIC", "MANUAL");
-    ObservableList<String> fuelEconomyChoices = FXCollections.observableArrayList("< 30", "30 - 59", "60 - 89", "90 - 119", "> 120");
+    ObservableList<Integer> numDoorChoices = FXCollections.observableArrayList(null, 2, 3, 4, 5);
+    ObservableList<String> fuelTypeChoices;
+    ObservableList<String> transmissionChoices;
+    ObservableList<String> fuelEconomyChoices = FXCollections.observableArrayList(List.of("","< 30", "30 - 59", "60 - 89", "90 - 119", "> 120"));
 
     @FXML
     private ChoiceBox<String> modelOptions;
@@ -35,20 +41,87 @@ public class FiltersController {
     private ChoiceBox<String> fuelEconomyOptions;
     @FXML
     private ChoiceBox<String> transmissionOptions;
+    @FXML
+    private Label labelFilterOption;
 
     @FXML
     private void initialize() {
-        List<String> vehicleClasses = new ArrayList<>();
-        for(Model.VehicleClass vehicleClass : Model.VehicleClass.values()) {
-            vehicleClasses.add(vehicleClass.toString());
-        }
-        classChoices = FXCollections.observableArrayList(vehicleClasses);
+        classChoices = FXCollections.observableArrayList(DataLogic.getInstance().getAllVehicleClass());
+        fuelTypeChoices = FXCollections.observableArrayList(DataLogic.getInstance().getAllFuelType());
+        transmissionChoices = FXCollections.observableArrayList(DataLogic.getInstance().getAllTransmission());
+        modelOptions.setValue("");
         modelOptions.setItems(modelChoices);
+        classOptions.setValue("");
         classOptions.setItems(classChoices);
+        colorOptions.setValue("");
         colorOptions.setItems(colorChoices);
+        numDoorOptions.setValue(null);
         numDoorOptions.setItems(numDoorChoices);
+        fuelTypeOptions.setValue("");
         fuelTypeOptions.setItems(fuelTypeChoices);
+        fuelEconomyOptions.setValue("");
         fuelEconomyOptions.setItems(fuelEconomyChoices);
+        transmissionOptions.setValue("");
         transmissionOptions.setItems(transmissionChoices);
+    }
+
+    public void moveToCarSelection(ActionEvent event) throws IOException {
+        DataLogic instance = DataLogic.getInstance();
+        if(!isEmptyString(classOptions.getValue())){
+            instance.setFilterClass(classOptions.getValue());
+        }
+        if(!isEmptyString(colorOptions.getValue())){
+            instance.setFilterColor(colorOptions.getValue());
+        }
+        if(!isEmptyString(transmissionOptions.getValue())){
+            instance.setFilterTransmission(transmissionOptions.getValue());
+        }
+        if(!isEmptyString(modelOptions.getValue())){
+            instance.setFilterModel(modelOptions.getValue());
+        }
+        if(!isEmptyString(fuelTypeOptions.getValue())){
+            instance.setFilterFuelType(fuelTypeOptions.getValue());
+        }
+        if(numDoorOptions.getValue() != null){
+            instance.setFilterNumberOfDoor(numDoorOptions.getValue());
+        }
+        if(fuelEconomyOptions.getValue() != null && !fuelEconomyOptions.getValue().equals("")){
+            int minFuelEconomy, maxFuelEconomy;
+            switch (fuelEconomyChoices.indexOf(fuelEconomyOptions.getValue())){
+                case 1:
+                    minFuelEconomy = 0;
+                    maxFuelEconomy = 29;
+                    break;
+                case 2:
+                    minFuelEconomy = 30;
+                    maxFuelEconomy = 59;
+                    break;
+                case 3:
+                    minFuelEconomy = 60;
+                    maxFuelEconomy = 89;
+                    break;
+                case 4:
+                    minFuelEconomy = 90;
+                    maxFuelEconomy = 119;
+                    break;
+                case 5:
+                    minFuelEconomy = 120;
+                    maxFuelEconomy = 150;
+                    break;
+                default:
+                    minFuelEconomy = 0;
+                    maxFuelEconomy = 150;
+                    break;
+            }
+            instance.setFilterFuelEconomy(minFuelEconomy, maxFuelEconomy);
+            labelFilterOption.setText(minFuelEconomy + " " + maxFuelEconomy);
+        }
+
+
+        //switchScreen(event, "home.fxml");
+    }
+
+    public boolean isEmptyString(String checker){
+        return (checker.equals("") || checker == null);
     }
 }
