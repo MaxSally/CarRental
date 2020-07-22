@@ -29,7 +29,7 @@ public class HomeController extends ScreenController{
     }
 
     public void alertScreen() {
-        invalidLoginAlert("Login Failed", "Sorry, it seems you entered an invalid login!");
+        invalidAlert("Login Failed", "Sorry, it seems you entered an invalid login!");
     }
 
     public void logIn(javafx.event.ActionEvent event) throws IOException {
