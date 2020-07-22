@@ -16,12 +16,18 @@ public class CorporateCustomerAccountController extends  ScreenController{
     @FXML TextField txtFieldZip;
     @FXML TextField txtFieldBankAccount;
 
+    public void alertScreen() {
+        invalidAlert("Cannot Create Account", "It seems an account already exists with the name you entered!",
+                "Please create an account under an unused name");
+    }
+
     public void createCorporateCustomer(javafx.event.ActionEvent event) throws IOException {
-        if(DataLogic.getInstance().createCorporateCustomerAccount(txtFieldName.getText(), txtFieldStreetAddress1.getText(),
-                txtFieldStreetAddress2.getText(), txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText(), txtFieldBankAccount.getText())){
+        if(DataLogic.getInstance().hasCustomerName(txtFieldName.getText()) == true) {
+            alertScreen();
+        } else {
+            DataLogic.getInstance().createCorporateCustomerAccount(txtFieldName.getText(), txtFieldStreetAddress1.getText(),
+                    txtFieldStreetAddress2.getText(), txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText(), txtFieldBankAccount.getText());
             switchScreen(event, "home.fxml");
-        }else{
-            txtFieldName.setText("Failed");
         }
     }
 }
