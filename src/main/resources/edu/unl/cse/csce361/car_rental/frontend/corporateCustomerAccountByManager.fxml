@@ -13,7 +13,7 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Label layoutX="202.0" layoutY="137.0" text="*Full Name">
+      <Label layoutX="188.0" layoutY="134.0" text="*Full Name">
          <font>
             <Font size="16.0" />
          </font></Label>
@@ -45,17 +45,17 @@
             <Font size="16.0" />
          </font></Label>
       <TextField fx:id="txtFieldZip" layoutX="242.0" layoutY="489.0" prefHeight="27.0" prefWidth="76.0" promptText="ZIP" />
-      <Label layoutX="48.0" layoutY="193.0" text="*Bank Account Number">
+      <Label layoutX="47.0" layoutY="193.0" text="*Bank Account Number">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <TextField fx:id="txtFieldBankAccount" layoutX="47.0" layoutY="215.0" promptText="Bank Account Number" />
+      <TextField fx:id="txtFieldBankAccount" layoutX="46.0" layoutY="215.0" promptText="Bank Account Number" />
       <Button layoutX="155.0" layoutY="586.0" mnemonicParsing="false" onAction="#createCorporateCustomer" prefHeight="27.0" prefWidth="139.0" text="Create Account" />
       <Label layoutX="242.0" layoutY="193.0" text="*Negotiated Discount Rate">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <TextField fx:id="txtFieldNegotiatedRate" layoutX="242.0" layoutY="215.0" promptText="Discount Rate" />
+      <TextField fx:id="txtFieldNegotiatedRate" layoutX="251.0" layoutY="215.0" promptText="Discount Rate" />
       <Label layoutX="143.0" layoutY="97.0" text="Fields with * are required" textFill="#e40505">
          <font>
             <Font size="16.0" />

@@ -13,7 +13,7 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Button layoutX="159.0" layoutY="419.0" mnemonicParsing="false" onAction="#updateCorporateCustomer" text="Update Account" />
+      <Button layoutX="163.0" layoutY="323.0" mnemonicParsing="false" onAction="#updateCorporateCustomer" text="Update Account" />
       <Button layoutX="106.0" layoutY="462.0" mnemonicParsing="false" onAction="#createCorporateCustomer" prefHeight="27.0" prefWidth="208.0" text="Create new Corporate Account" />
       <Label layoutX="115.0" layoutY="143.0" text="Update Current Corporate Account">
          <font>
@@ -23,7 +23,7 @@
       <Label layoutX="72.0" layoutY="173.0" text="What is the account name that you would like to update?" />
       <TextField fx:id="txtFieldUpdateAccountName" layoutX="136.0" layoutY="190.0" promptText="Account Name" />
       <Label fx:id="errorMessageUpdateAccount" layoutX="282.0" layoutY="228.0" prefHeight="17.0" prefWidth="160.0" />
-      <TextField fx:id="txtFieldNegotiatedRate" layoutX="136.0" layoutY="275.0" promptText="Negotiated rate" />
+      <TextField fx:id="txtFieldNegotiatedRate" layoutX="136.0" layoutY="262.0" promptText="Negotiated rate" />
       <Label layoutX="100.0" layoutY="245.0" text="Would you like to change the negotiated rate?" />
    </children>
 </Pane>
