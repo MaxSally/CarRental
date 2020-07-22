@@ -262,7 +262,7 @@ public class CarEntity implements Car {
     }
 
     public String getDescription(){
-        return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s",
+        return String.format("%s %s\n Vehicle class: %s\n %s Transmission: %s\n FuelType: %s\nMPG:%s Door:%s",
                 getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
                 (model.getFuelEconomyMPG() == null?"":model.getFuelEconomyMPG().get().toString()),
                 (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()));
