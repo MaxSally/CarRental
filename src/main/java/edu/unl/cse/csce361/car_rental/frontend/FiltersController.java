@@ -85,7 +85,7 @@ public class FiltersController extends ScreenController{
         if(numDoorOptions.getValue() != null){
             instance.setFilterNumberOfDoor(numDoorOptions.getValue());
         }
-        if(fuelEconomyOptions.getValue() != null && !fuelEconomyOptions.getValue().equals("")){
+        if(!isEmptyString(fuelEconomyOptions.getValue())){
             int minFuelEconomy, maxFuelEconomy;
             switch (fuelEconomyChoices.indexOf(fuelEconomyOptions.getValue())){
                 case 1:
@@ -114,11 +114,8 @@ public class FiltersController extends ScreenController{
                     break;
             }
             instance.setFilterFuelEconomy(minFuelEconomy, maxFuelEconomy);
-            labelFilterOption.setText(minFuelEconomy + " " + maxFuelEconomy);
         }
-
-
-        //switchScreen(event, "home.fxml");
+        switchScreen(event, "carSelection.fxml");
     }
 
     public boolean isEmptyString(String checker){
