@@ -1,9 +1,14 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 
 import javax.persistence.PersistenceException;
 import java.time.DateTimeException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -309,5 +314,34 @@ public class Backend {
 
     public boolean isEmptyString(String checker){
         return (checker.equals("") || checker == null);
+    }
+
+    public List<Car> getAllValidCar(){
+        List<Car> lstValidCar = new ArrayList<>();
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            List<Car> lstAllAvailableCar = session.createQuery("SELECT car FROM CarEntity car").getResultList();
+//            for(Car car: lstAllAvailableCar){
+//                boolean acceptable = true;
+//                if(!car.isAvailable()){
+//                    acceptable = false;
+//                }
+//                if(car.getModel() != criteriaFilter.getVehicleModel()){
+//                    acceptable = false;
+//                }
+//                if(car.getMake() == ""){
+//
+//                }
+//                lstValidCar.add(car);
+//            }
+            lstValidCar = lstAllAvailableCar;
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return lstValidCar;
     }
 }

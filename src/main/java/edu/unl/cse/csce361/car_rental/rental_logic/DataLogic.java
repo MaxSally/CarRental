@@ -1,9 +1,6 @@
 package edu.unl.cse.csce361.car_rental.rental_logic;
 
-import edu.unl.cse.csce361.car_rental.backend.Backend;
-import edu.unl.cse.csce361.car_rental.backend.Customer;
-import edu.unl.cse.csce361.car_rental.backend.CustomerEntity;
-import edu.unl.cse.csce361.car_rental.backend.Model;
+import edu.unl.cse.csce361.car_rental.backend.*;
 import org.dom4j.rule.Mode;
 
 import java.util.ArrayList;
@@ -124,5 +121,14 @@ public class DataLogic {
 
     public void setFilterColor(String color){
         Backend.getInstance().setFilterColor(color);
+    }
+
+    public List<String> getValidCarDescription(){
+        List<Car> lstCar = Backend.getInstance().getAllValidCar();
+        List<String> lstValidCarDescription = new ArrayList<>();
+        for(Car car: lstCar){
+            lstValidCarDescription.add(car.getDescription());
+        }
+        return lstValidCarDescription;
     }
 }

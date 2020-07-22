@@ -260,4 +260,11 @@ public class CarEntity implements Car {
     void setModel(ModelEntity model) {
         this.model = model;
     }
+
+    public String getDescription(){
+        return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s",
+                getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
+                (model.getFuelEconomyMPG() == null?"":model.getFuelEconomyMPG().get().toString()),
+                (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()));
+    }
 }
