@@ -14,6 +14,7 @@ import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.availability
 public class DataLogic {
     private static DataLogic instance;
     private CriteriaFilter criteriaFilter;
+    private List<Car> currentListedCar;
 
     public static DataLogic getInstance(){
         if(instance == null){
@@ -130,8 +131,8 @@ public class DataLogic {
             criteriaFilter.setFuelType(Model.Fuel.valueOf(fuelType));
         }
     }
-    public void setFilterNumberOfDoor(int numberOfDoor){
-        criteriaFilter.setNumberOfDoors(numberOfDoor);
+    public void setFilterNumberOfDoor(Integer numberOfDoor){
+        criteriaFilter.setNumberOfDoors(numberOfDoor.equals(null)?CriteriaFilter.INVALID_DOOR:numberOfDoor);
     }
 
     public void setFilterFuelEconomy(int minFuelEconomy, int maxFuelEconomy){
@@ -177,9 +178,28 @@ public class DataLogic {
             }
         });
         List<String> lstValidCarDescription = new ArrayList<>();
+        currentListedCar = lstValidCar;
         for(Car car: lstValidCar){
             lstValidCarDescription.add(car.getDescription());
         }
         return lstValidCarDescription;
+    }
+
+    public void sortByPrice(boolean isAscending){
+        Collections.sort(currentListedCar, new Comparator<Car>() {
+            @Override
+            public int compare(Car car1, Car car2) {
+                if(Backend.getInstance().getModelEntityByName(car2.getModel()).getFuelEconomyMPG().get()
+                        == Backend.getInstance().getModelEntityByName(car1.getModel()).getFuelEconomyMPG().get()){
+                    if(isAscending){
+                        return car1.getDailyRate() - car2.getDailyRate();
+                    }else{
+                        return car2.getDailyRate() - car1.getDailyRate();
+                    }
+                }
+                return Backend.getInstance().getModelEntityByName(car2.getModel()).getFuelEconomyMPG().get()
+                        - Backend.getInstance().getModelEntityByName(car1.getModel()).getFuelEconomyMPG().get();
+            }
+        });
     }
 }

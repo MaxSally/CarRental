@@ -26,6 +26,7 @@ public class CarSelectionController extends ScreenController {
         ObservableList<String> availableCar = FXCollections.observableArrayList(DataLogic.getInstance().getValidCarDescription());
         ObservableList<String> priceSortingChoices = FXCollections.observableArrayList("","High to Low", "Low to High");
         listViewCar.getItems().addAll(availableCar);
+        sortByPriceOptions.setValue("");
         sortByPriceOptions.setItems(priceSortingChoices);
     }
 }

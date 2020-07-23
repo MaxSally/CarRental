@@ -58,6 +58,18 @@ public class ModelEntity implements Model {
         return model;
     }
 
+    static List<Model> getAllModels() {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        List<Model> lstModels = null;
+        try {
+            lstModels = session.createQuery("SELECT model from ModelEntity model",Model.class).list();
+            session.getTransaction().commit();
+        } catch (HibernateException exception) {
+            System.err.println("Could not load all Models " + exception.getMessage());
+        }
+        return lstModels;
+    }
 
     /* POJO code */
 

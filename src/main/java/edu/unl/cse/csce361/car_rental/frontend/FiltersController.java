@@ -44,8 +44,7 @@ public class FiltersController extends ScreenController{
     private ChoiceBox<String> fuelEconomyOptions;
     @FXML
     private ChoiceBox<String> transmissionOptions;
-    @FXML
-    private Label labelFilterOption;
+
 
     @FXML
     private void initialize() {
@@ -70,24 +69,12 @@ public class FiltersController extends ScreenController{
 
     public void moveToCarSelection(ActionEvent event) throws IOException {
         DataLogic instance = DataLogic.getInstance();
-        if(!isEmptyString(classOptions.getValue())){
-            instance.setFilterClass(classOptions.getValue());
-        }
-        if(!isEmptyString(colorOptions.getValue())){
-            instance.setFilterColor(colorOptions.getValue());
-        }
-        if(!isEmptyString(transmissionOptions.getValue())){
-            instance.setFilterTransmission(transmissionOptions.getValue());
-        }
-        if(!isEmptyString(modelOptions.getValue())){
-            instance.setFilterModel(modelOptions.getValue());
-        }
-        if(!isEmptyString(fuelTypeOptions.getValue())){
-            instance.setFilterFuelType(fuelTypeOptions.getValue());
-        }
-        if(numDoorOptions.getValue() != null){
-            instance.setFilterNumberOfDoor(numDoorOptions.getValue());
-        }
+        instance.setFilterClass(!isEmptyString(classOptions.getValue())?classOptions.getValue():"");
+        instance.setFilterColor(!isEmptyString(colorOptions.getValue())?colorOptions.getValue():"");
+        instance.setFilterTransmission(!isEmptyString(transmissionOptions.getValue())?transmissionOptions.getValue():"");
+        instance.setFilterModel(!isEmptyString(modelOptions.getValue())?modelOptions.getValue():"");
+        instance.setFilterFuelType(!isEmptyString(fuelTypeOptions.getValue())?fuelTypeOptions.getValue():"");
+        instance.setFilterNumberOfDoor(numDoorOptions.getValue() != null?numDoorOptions.getValue():null);
         if(!isEmptyString(fuelEconomyOptions.getValue())){
             int minFuelEconomy, maxFuelEconomy;
             switch (fuelEconomyChoices.indexOf(fuelEconomyOptions.getValue())){
