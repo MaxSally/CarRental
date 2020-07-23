@@ -265,6 +265,26 @@ public class Backend {
         }
     }
 
+    public boolean updateAddressForIndividualCustomer(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
+        IndividualCustomerEntity customer = (IndividualCustomerEntity) getCustomer(name);
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        if(customer == null){
+            return false;
+        }else{
+            try {
+                customer.setAddress(streetAddress1, streetAddress2, city, state, zipCode);
+                session.saveOrUpdate(customer);
+                session.getTransaction().commit();
+            } catch (Exception e) {
+                System.err.println("error: " + e);
+                session.getTransaction().rollback();
+            }
+            return true;
+        }
+    }
+
     public List<Car> getAllCar(){
         return CarEntity.getAllCars();
     }
