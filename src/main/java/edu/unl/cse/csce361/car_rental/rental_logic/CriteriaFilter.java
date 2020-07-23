@@ -1,4 +1,6 @@
-package edu.unl.cse.csce361.car_rental.backend;
+package edu.unl.cse.csce361.car_rental.rental_logic;
+
+import edu.unl.cse.csce361.car_rental.backend.Model;
 
 public class CriteriaFilter {
     private Model.VehicleClass vehicleClass;
