@@ -70,6 +70,14 @@ public class DataLogic {
         }
     }
 
+    public boolean setAddress(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
+        if(Backend.getInstance().updateAddressForIndividualCustomer(name, streetAddress1, streetAddress2, city, state, zipCode)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public List<String> getAllFuelType(){
         List<String> lstFuelType = new ArrayList<>();
         for(Model.Fuel fuel: Model.Fuel.values()){
