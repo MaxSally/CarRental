@@ -265,8 +265,8 @@ public class Backend {
         }
     }
 
-    public boolean updateAddressForIndividualCustomer(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
-        IndividualCustomerEntity customer = (IndividualCustomerEntity) getCustomer(name);
+    public boolean updateBankAccountForCorporationCustomer(String name, String bankAccountNumber){
+        CorporateCustomerEntity customer = (CorporateCustomerEntity) getCustomer(name);
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();
@@ -274,7 +274,30 @@ public class Backend {
             return false;
         }else{
             try {
-                customer.setAddress(streetAddress1, streetAddress2, city, state, zipCode);
+                customer.setCorporateAccount(bankAccountNumber);
+                session.saveOrUpdate(customer);
+                session.getTransaction().commit();
+            } catch (Exception e) {
+                System.err.println("error: " + e);
+                session.getTransaction().rollback();
+            }
+            return true;
+        }
+    }
+
+    public boolean updateAddressForCustomer(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
+        CustomerEntity customer = (CustomerEntity) getCustomer(name);
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        if(customer == null){
+            return false;
+        }else{
+            try {
+                customer.setAddress((streetAddress1.equals("")?customer.getStreetAddress1():streetAddress1),
+                        (streetAddress2.equals("")?customer.getStreetAddress2():streetAddress2),
+                        (city.equals("")?customer.getCity():city), (state.equals("")?customer.getState():state),
+                        (zipCode.equals("")?customer.getZipCode():zipCode));
                 session.saveOrUpdate(customer);
                 session.getTransaction().commit();
             } catch (Exception e) {
