@@ -9,14 +9,15 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.CarSelectionController">
    <children>
-      <Label layoutX="152.0" layoutY="27.0" text="Car Selection">
+      <Label fx:id="txtCarSelection" layoutX="152.0" layoutY="27.0" text="Car Selection">
          <font>
             <Font size="26.0" />
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#switchToFilterScreen" text="Go Back" />
-      <ListView fx:id="listViewCar" layoutX="23.0" layoutY="66.0" prefHeight="575.0" prefWidth="402.0" />
+      <ListView fx:id="listViewCar" layoutX="24.0" layoutY="99.0" prefHeight="575.0" prefWidth="402.0" />
       <ChoiceBox fx:id="sortByPriceOptions" layoutX="328.0" layoutY="28.0" prefHeight="27.0" prefWidth="108.0" />
       <Label layoutX="347.0" layoutY="6.0" text="Sort By Price" />
+      <Button layoutX="328.0" layoutY="65.0" mnemonicParsing="false" onAction="#sortByPrice" prefHeight="25.0" prefWidth="108.0" text="Button" />
    </children>
 </Pane>

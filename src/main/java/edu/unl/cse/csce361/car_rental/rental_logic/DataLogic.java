@@ -1,7 +1,6 @@
 package edu.unl.cse.csce361.car_rental.rental_logic;
 
 import edu.unl.cse.csce361.car_rental.backend.*;
-import org.dom4j.rule.Mode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +13,7 @@ import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.availability
 public class DataLogic {
     private static DataLogic instance;
     private CriteriaFilter criteriaFilter;
-    private List<Car> currentListedCar;
+    private List<Car> currentListedCarOnCarSelection;
 
     public static DataLogic getInstance(){
         if(instance == null){
@@ -132,7 +131,7 @@ public class DataLogic {
         }
     }
     public void setFilterNumberOfDoor(Integer numberOfDoor){
-        criteriaFilter.setNumberOfDoors(numberOfDoor.equals(null)?CriteriaFilter.INVALID_DOOR:numberOfDoor);
+        criteriaFilter.setNumberOfDoors(numberOfDoor == null?CriteriaFilter.INVALID_DOOR:numberOfDoor);
     }
 
     public void setFilterFuelEconomy(int minFuelEconomy, int maxFuelEconomy){
@@ -178,7 +177,7 @@ public class DataLogic {
             }
         });
         List<String> lstValidCarDescription = new ArrayList<>();
-        currentListedCar = lstValidCar;
+        currentListedCarOnCarSelection = lstValidCar;
         for(Car car: lstValidCar){
             lstValidCarDescription.add(car.getDescription());
         }
@@ -186,7 +185,7 @@ public class DataLogic {
     }
 
     public void sortByPrice(boolean isAscending){
-        Collections.sort(currentListedCar, new Comparator<Car>() {
+        Collections.sort(currentListedCarOnCarSelection, new Comparator<Car>() {
             @Override
             public int compare(Car car1, Car car2) {
                 if(Backend.getInstance().getModelEntityByName(car2.getModel()).getFuelEconomyMPG().get()

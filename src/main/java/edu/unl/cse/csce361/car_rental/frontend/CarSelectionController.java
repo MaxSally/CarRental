@@ -4,10 +4,12 @@ import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarSelectionController extends ScreenController {
     @FXML
@@ -15,6 +17,8 @@ public class CarSelectionController extends ScreenController {
 
     @FXML
     private ChoiceBox<String> sortByPriceOptions;
+
+    private ObservableList<String> priceSortingChoices = FXCollections.observableArrayList("","High to Low", "Low to High");
 
     public void switchToFilterScreen(javafx.event.ActionEvent event) throws IOException {
         DataLogic.getInstance().resetCriteriaFilter();
@@ -24,9 +28,21 @@ public class CarSelectionController extends ScreenController {
     @FXML
     public void initialize(){
         ObservableList<String> availableCar = FXCollections.observableArrayList(DataLogic.getInstance().getValidCarDescription());
-        ObservableList<String> priceSortingChoices = FXCollections.observableArrayList("","High to Low", "Low to High");
         listViewCar.getItems().addAll(availableCar);
         sortByPriceOptions.setValue("");
         sortByPriceOptions.setItems(priceSortingChoices);
+    }
+
+    public void sortByPrice(){
+        switch (priceSortingChoices.indexOf(sortByPriceOptions.getValue())){
+            case 1:
+                DataLogic.getInstance().sortByPrice(false);
+                break;
+            case 2:
+                DataLogic.getInstance().sortByPrice(true);
+                break;
+            default:
+
+        }
     }
 }
