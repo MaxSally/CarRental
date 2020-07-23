@@ -1,5 +1,6 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
+import org.hibernate.Session;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.CascadeType;
@@ -179,7 +180,7 @@ public class CarEntity implements Car {
 
     @Override
     public boolean isAvailable() {
-        return rentals.get(rentals.size() - 1).hasBeenReturned();
+        return rentals.size() == 0 || rentals.get(rentals.size() - 1).hasBeenReturned();
     }
 
     @Override
@@ -262,9 +263,24 @@ public class CarEntity implements Car {
     }
 
     public String getDescription(){
-        return String.format("%s %s\n Vehicle class: %s\n %s Transmission: %s\n FuelType: %s\nMPG:%s Door:%s",
+        return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s",
                 getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
                 (model.getFuelEconomyMPG() == null?"":model.getFuelEconomyMPG().get().toString()),
                 (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()));
+    }
+
+    public static List<Car> getAllCars(){
+        List<Car> allCars = null;
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            allCars = session.createQuery("SELECT car FROM CarEntity car").getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return allCars;
     }
 }

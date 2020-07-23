@@ -6,9 +6,12 @@ import org.dom4j.rule.Mode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sun.xml.fastinfoset.stax.events.Util.isEmptyString;
+import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.availabilityCriteriaChecker;
+
 public class DataLogic {
     private static DataLogic instance;
-
+    private CriteriaFilter criteriaFilter;
 
     public static DataLogic getInstance(){
         if(instance == null){
@@ -19,6 +22,7 @@ public class DataLogic {
 
     private DataLogic(){
         super();
+        criteriaFilter = new CriteriaFilter();
     }
 
     public boolean logIn(String username){
@@ -98,36 +102,70 @@ public class DataLogic {
     }
 
     public void setFilterModel(String model){
-        Backend.getInstance().setFilterModel(model);
+        criteriaFilter.setVehicleModel(model);
     }
 
     public void setFilterClass(String vehicleClass){
-        Backend.getInstance().setFilterClass(vehicleClass);
+        if(isEmptyString(vehicleClass)){
+            criteriaFilter.setVehicleClass(Model.VehicleClass.UNKNOWN);
+        }else{
+            criteriaFilter.setVehicleClass(Model.VehicleClass.valueOf(vehicleClass));
+        }
     }
 
     public void setFilterTransmission(String transmission){
-        Backend.getInstance().setFilterTransmission(transmission);
+        if(isEmptyString(transmission)){
+            criteriaFilter.setTransmission(Model.Transmission.UNKNOWN);
+        }else {
+            criteriaFilter.setTransmission(Model.Transmission.valueOf(transmission));
+        }
     }
+
     public void setFilterFuelType(String fuelType){
-        Backend.getInstance().setFilterFuelType(fuelType);
+        if(isEmptyString(fuelType)){
+            criteriaFilter.setFuelType(Model.Fuel.UNKNOWN);
+        }else{
+            criteriaFilter.setFuelType(Model.Fuel.valueOf(fuelType));
+        }
     }
     public void setFilterNumberOfDoor(int numberOfDoor){
-        Backend.getInstance().setFilterNumberDoor(numberOfDoor);
+        criteriaFilter.setNumberOfDoors(numberOfDoor);
     }
+
     public void setFilterFuelEconomy(int minFuelEconomy, int maxFuelEconomy){
-        Backend.getInstance().setFilterMinFuelEconomy(minFuelEconomy);
-        Backend.getInstance().setFilterMaxFuelEconomy(maxFuelEconomy);
+        criteriaFilter.setMinFuelEconomy(minFuelEconomy);
+        criteriaFilter.setMaxFuelEconomy(maxFuelEconomy);
     }
 
     public void setFilterColor(String color){
-        Backend.getInstance().setFilterColor(color);
+        criteriaFilter.setColor(color);
+    }
+
+    public void resetCriteriaFilter(){
+        criteriaFilter = new CriteriaFilter();
     }
 
     public List<String> getValidCarDescription(){
-        List<Car> lstCar = Backend.getInstance().getAllValidCar();
+        List<Car> lstCar = Backend.getInstance().getAllCar();
         List<String> lstValidCarDescription = new ArrayList<>();
         for(Car car: lstCar){
-            lstValidCarDescription.add(car.getDescription());
+            boolean acceptable = true;
+            Model currentCarModel = Backend.getInstance().getModelEntityByName(car.getModel());
+            acceptable &= car.isAvailable();
+            acceptable &= availabilityCriteriaChecker("", criteriaFilter.getVehicleModel(), currentCarModel.getModel());
+            acceptable &= availabilityCriteriaChecker(Model.VehicleClass.UNKNOWN.toString(), criteriaFilter.getVehicleClass().toString(), currentCarModel.getClassType().toString());
+            acceptable &= availabilityCriteriaChecker("", criteriaFilter.getColor(), car.getColor());
+            acceptable &= availabilityCriteriaChecker(Model.Fuel.UNKNOWN.toString(), criteriaFilter.getFuelType().toString(), currentCarModel.getFuel().toString());
+            acceptable &= availabilityCriteriaChecker(Model.Transmission.UNKNOWN.toString(), criteriaFilter.getTransmission().toString(), currentCarModel.getTransmission().toString());
+            if(criteriaFilter.getNumberOfDoors() != CriteriaFilter.INVALID_DOOR && criteriaFilter.getNumberOfDoors() != currentCarModel.getNumberOfDoors().get()){
+                acceptable = false;
+            }
+            if(criteriaFilter.getMinFuelEconomy() > currentCarModel.getFuelEconomyMPG().get() || currentCarModel.getFuelEconomyMPG().get() > criteriaFilter.getMaxFuelEconomy()){
+                acceptable = false;
+            }
+            if(acceptable){
+                lstValidCarDescription.add(car.getDescription());
+            }
         }
         return lstValidCarDescription;
     }

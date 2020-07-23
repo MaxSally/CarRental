@@ -23,4 +23,12 @@ public class ValidationUtil {
         }
         return illegalCharacters;
     }
+
+    public static boolean isEmptyString(String checker){
+        return (checker.equals("") || checker == null);
+    }
+
+    public static boolean availabilityCriteriaChecker(String invalidCase, String criteriaFilter, String input){
+        return (criteriaFilter.equals(invalidCase)) || (!criteriaFilter.equals(invalidCase) && input.equals(criteriaFilter));
+    }
 }

@@ -13,7 +13,9 @@ public class CarSelectionController extends ScreenController {
     ListView listViewCar;
 
     public void switchToFilterScreen(javafx.event.ActionEvent event) throws IOException {
+        DataLogic.getInstance().resetCriteriaFilter();
         switchScreen(event, "filters.fxml");
+
     }
     @FXML
     public void initialize(){

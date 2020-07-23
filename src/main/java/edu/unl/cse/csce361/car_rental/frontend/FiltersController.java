@@ -1,6 +1,7 @@
 package edu.unl.cse.csce361.car_rental.frontend;
 
 import edu.unl.cse.csce361.car_rental.backend.Model;
+import edu.unl.cse.csce361.car_rental.backend.ValidationUtil;
 import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,8 @@ import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.isEmptyString;
 
 public class FiltersController extends ScreenController{
 
@@ -116,9 +119,5 @@ public class FiltersController extends ScreenController{
             instance.setFilterFuelEconomy(minFuelEconomy, maxFuelEconomy);
         }
         switchScreen(event, "carSelection.fxml");
-    }
-
-    public boolean isEmptyString(String checker){
-        return (checker.equals("") || checker == null);
     }
 }
