@@ -13,17 +13,20 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <TextField fx:id="txtUsername" layoutX="65.0" layoutY="200.0" prefHeight="27.0" prefWidth="321.0" promptText="Enter your name" />
-      <Label layoutX="62.0" layoutY="154.0" prefHeight="28.0" prefWidth="216.0" text="Customer Login">
+      <TextField fx:id="txtUsername" layoutX="66.0" layoutY="151.0" prefHeight="27.0" prefWidth="321.0" promptText="Enter your name" />
+      <Label layoutX="159.0" layoutY="123.0" prefHeight="28.0" prefWidth="131.0" text="Customer Login">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Button layoutX="116.0" layoutY="380.0" mnemonicParsing="false" onAction="#switchToCreateIndividualAccount" prefHeight="27.0" prefWidth="217.0" text="Create Individual Customer Account" />
-      <Button layoutX="116.0" layoutY="418.0" mnemonicParsing="false" onAction="#switchToCreateCorporateAccount" text="Create Corporate Customer Account" />
-      <Button layoutX="118.0" layoutY="568.0" mnemonicParsing="false" onAction="#switchToManagerOptions" prefHeight="27.0" prefWidth="216.0" text="Click Here to Manage Accounts" />
-      <Label layoutX="170.0" layoutY="540.0" text="Are You A Manager?" />
-      <Label layoutX="159.0" layoutY="350.0" text="Don't Have an Account?" />
-      <Button layoutX="117.0" layoutY="245.0" mnemonicParsing="false" onAction="#logIn" prefHeight="27.0" prefWidth="214.0" text="Login" />
+      <Button layoutX="116.0" layoutY="445.0" mnemonicParsing="false" onAction="#switchToCreateIndividualAccount" prefHeight="27.0" prefWidth="217.0" text="Create Individual Customer Account" />
+      <Button layoutX="116.0" layoutY="483.0" mnemonicParsing="false" onAction="#switchToCreateCorporateAccount" text="Create Corporate Customer Account" />
+      <Button layoutX="119.0" layoutY="603.0" mnemonicParsing="false" onAction="#switchToManagerOptions" prefHeight="27.0" prefWidth="216.0" text="Click Here to Manage Accounts" />
+      <Label layoutX="171.0" layoutY="575.0" text="Are You A Manager?" />
+      <Label layoutX="159.0" layoutY="415.0" text="Don't Have an Account?" />
+      <Button layoutX="118.0" layoutY="190.0" mnemonicParsing="false" onAction="#logIn" prefHeight="27.0" prefWidth="214.0" text="Login" />
+      <Button layoutX="117.0" layoutY="296.0" mnemonicParsing="false" onAction="#switchToUpdateIndividualAccount" prefHeight="27.0" prefWidth="217.0" text="Update Individual Customer Account" />
+      <Button layoutX="117.0" layoutY="334.0" mnemonicParsing="false" onAction="#switchToCreateCorporateAccount" text="Update Corporate Customer Account" />
+      <Label layoutX="141.0" layoutY="268.0" text="Want to Update Your Account?" />
    </children>
 </Pane>
