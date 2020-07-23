@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.CarReviewAddOnsController">
+   <children>
+      <Label layoutX="168.0" layoutY="14.0" text="Review Cars">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <ListView fx:id="reviewCarDetails" layoutX="25.0" layoutY="48.0" prefHeight="274.0" prefWidth="397.0" />
+      <Label layoutX="178.0" layoutY="336.0" text="Add-On's">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToFilterScreen" text="Cancel" />
+      <ListView fx:id="addOnOptions" layoutX="27.0" layoutY="364.0" prefHeight="262.0" prefWidth="397.0" />
+      <Button layoutX="136.0" layoutY="649.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="180.0" text="Proceed To Checkout" />
+   </children>
+</Pane>
