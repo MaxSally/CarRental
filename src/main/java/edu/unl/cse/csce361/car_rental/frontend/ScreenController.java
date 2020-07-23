@@ -28,7 +28,7 @@ public abstract class ScreenController {
         window.show();
     }
 
-    public void invalidAlert(String title, String message, String message2, String buttonLabel) {
+    public void alertScreen(String title, String message, String message2, String buttonLabel) {
 
         Stage window = new Stage();
         //application modality allows the application and screen below to remain open,
