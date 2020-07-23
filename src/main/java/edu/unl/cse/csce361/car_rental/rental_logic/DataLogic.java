@@ -70,8 +70,24 @@ public class DataLogic {
         }
     }
 
-    public boolean setAddress(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
-        if(Backend.getInstance().updateAddressForIndividualCustomer(name, streetAddress1, streetAddress2, city, state, zipCode)){
+    public boolean setIndividualAddress(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
+        if(Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean setCorporateAddress(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
+        if(Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean setBankAccountNumber(String name, String bankAccountNumber) {
+        if(Backend.getInstance().updateBankAccountForCorporationCustomer(name, bankAccountNumber)){
             return true;
         }else{
             return false;
