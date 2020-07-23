@@ -28,7 +28,7 @@ public abstract class ScreenController {
         window.show();
     }
 
-    public void invalidAlert(String title, String message, String message2) {
+    public void invalidAlert(String title, String message, String message2, String buttonLabel) {
 
         Stage window = new Stage();
         //application modality allows the application and screen below to remain open,
@@ -43,7 +43,7 @@ public abstract class ScreenController {
         Label label2 = new Label();
         label2.setText(message2);
 
-        Button tryAgain = new Button("Try Again");
+        Button tryAgain = new Button(buttonLabel);
         tryAgain.setOnAction(e -> window.close());
 
         VBox layout = new VBox(10);

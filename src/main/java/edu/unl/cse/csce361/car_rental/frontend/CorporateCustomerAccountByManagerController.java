@@ -20,7 +20,7 @@ public class CorporateCustomerAccountByManagerController extends ScreenControlle
 
     public void alertScreen() {
         invalidAlert("Cannot Create Account", "It seems an account already exists with the name you entered!",
-                "Please create an account under an unused name");
+                "Please create an account under an unused name", "Try Again");
     }
 
     public void createCorporateCustomer(javafx.event.ActionEvent event) throws IOException {

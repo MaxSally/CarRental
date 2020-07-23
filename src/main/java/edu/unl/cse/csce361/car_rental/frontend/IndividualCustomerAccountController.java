@@ -3,6 +3,7 @@ package edu.unl.cse.csce361.car_rental.frontend;
 import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javax.xml.crypto.Data;
@@ -18,7 +19,7 @@ public class IndividualCustomerAccountController extends ScreenController {
 
     public void alertScreen() {
         invalidAlert("Cannot Create Account", "It seems an account already exists with the name you entered!",
-                "Please create an account under an unused name");
+                "Please create an account under an unused name", "Try Again");
     }
 
     public void createIndividualCustomer(javafx.event.ActionEvent event) throws IOException {
