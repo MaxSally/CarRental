@@ -44,7 +44,7 @@ public class DataLogic {
     public boolean createCorporateCustomerAccount(String name, String streetAddress1, String streetAddress2,
                                                    String city, String state, String zipCode, String corporateAccount){
         return createCorporateCustomerAccountWithNegotiatedRate(name, streetAddress1, streetAddress2, city, state, zipCode, corporateAccount,
-                Backend.getInstance().DEFAULT_NEGOTIATED_RATE);
+                CorporateCustomer.DEFAULT_NEGOTIATED_RATE);
     }
 
     public boolean createCorporateCustomerAccountWithNegotiatedRate(String name, String streetAddress1, String streetAddress2,
@@ -193,22 +193,18 @@ public class DataLogic {
                 lstValidCar.add(car);
             }
         }
-        Collections.sort(lstValidCar, new Comparator<Car>() {
+        currentListedCarOnCarSelection = lstValidCar;
+        Collections.sort(currentListedCarOnCarSelection, new Comparator<Car>() {
             @Override
             public int compare(Car car1, Car car2) {
                 return Backend.getInstance().getModelEntityByName(car2.getModel()).getFuelEconomyMPG().get()
-                - Backend.getInstance().getModelEntityByName(car1.getModel()).getFuelEconomyMPG().get();
+                        - Backend.getInstance().getModelEntityByName(car1.getModel()).getFuelEconomyMPG().get();
             }
         });
-        List<String> lstValidCarDescription = new ArrayList<>();
-        currentListedCarOnCarSelection = lstValidCar;
-        for(Car car: lstValidCar){
-            lstValidCarDescription.add(car.getDescription());
-        }
-        return lstValidCarDescription;
+        return getCarDescriptionFromCurrentListOfCar();
     }
 
-    public void sortByPrice(boolean isAscending){
+    public List<String> sortByPrice(boolean isAscending){
         Collections.sort(currentListedCarOnCarSelection, new Comparator<Car>() {
             @Override
             public int compare(Car car1, Car car2) {
@@ -224,5 +220,14 @@ public class DataLogic {
                         - Backend.getInstance().getModelEntityByName(car1.getModel()).getFuelEconomyMPG().get();
             }
         });
+        return getCarDescriptionFromCurrentListOfCar();
+    }
+
+    private List<String> getCarDescriptionFromCurrentListOfCar(){
+        List<String> lstValidCarDescription = new ArrayList<>();
+        for(Car car: currentListedCarOnCarSelection){
+            lstValidCarDescription.add(car.getDescription());
+        }
+        return lstValidCarDescription;
     }
 }

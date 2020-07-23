@@ -19,6 +19,8 @@ public class PaymentCard {
     /** The maximum length of a card's CVV */
     public static final int CVV_MAXIMUM_LENGTH = 4;
 
+    public static final int INVALID_EXPIRATION_MONTH = 0;
+    public static final int INVALID_EXPIRATION_YEAR = 0;
     @Column
     private String cardNumber;
     @Column
@@ -26,7 +28,9 @@ public class PaymentCard {
     @Column
     private String cvv;
 
-    public PaymentCard() {      // required 0-argument constructor
+    public PaymentCard() { // required 0-argument constructor
+        cardNumber = cvv = "";
+        expirationDate = null;
     }
 
     public PaymentCard(String cardNumber, int expirationMonth, int expirationYear, String cvv)

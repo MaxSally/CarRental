@@ -25,6 +25,11 @@ public class CorporateCustomerEntity extends CustomerEntity implements Corporate
         super();
     }
 
+    public CorporateCustomerEntity(String name){
+        super(name);
+        negotiatedRate = DEFAULT_NEGOTIATED_RATE;
+    }
+
     public CorporateCustomerEntity(String name, String streetAddress1, String streetAddress2,
                                    String city, String state, String zipCode,
                                    String corporateAccount, double negotiatedRate)
@@ -66,13 +71,14 @@ public class CorporateCustomerEntity extends CustomerEntity implements Corporate
     }
 
     @Override
-    public void setNegotiatedRate(double newRate)
+    public CorporateCustomerEntity setNegotiatedRate(double newRate)
             throws IllegalArgumentException {
         if ((newRate <= 0.0) || (newRate > 1.0)) {
             throw new IllegalArgumentException("Negotiated rate must be a multiplier between 0.0 (exclusive) and 1.0 " +
                     "(inclusive);" + newRate + "is not in this range.");
         }
         negotiatedRate = newRate;
+        return this;
     }
 
     @Override

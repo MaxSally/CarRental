@@ -1,15 +1,13 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
 import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.hibernate.transform.Transformers;
 
 import javax.persistence.PersistenceException;
 import java.time.DateTimeException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+
+import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.isEmptyString;
 
 /**
  * A façade for the Backend subsystem.
@@ -18,7 +16,6 @@ public class Backend {
 
     private static Backend instance;
     private Customer currentCustomer;
-    public final double DEFAULT_NEGOTIATED_RATE = 1.0;
 
 
     private Backend() {
@@ -161,15 +158,39 @@ public class Backend {
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();
+        CorporateCustomerEntity customer = null;
         try {
-            Customer customer = new CorporateCustomerEntity(name, streetAddress1, streetAddress2,
-                    city, state, zipCode, corporateAccount, negotiatedRate);
-            session.saveOrUpdate(customer);
-            session.getTransaction().commit();
+            if(!isEmptyString(name)){
+                customer = new CorporateCustomerEntity(name);
+                customer = (CorporateCustomerEntity) builderSetAddress(customer, streetAddress1, streetAddress2, city, state, zipCode);
+                customer.setCorporateAccount(corporateAccount);
+                session.saveOrUpdate(customer);
+                session.getTransaction().commit();
+            }
         } catch (Exception e) {
             System.err.println("error: " + e);
         }
         return getCustomer(name);
+    }
+
+    private CustomerEntity builderSetAddress(CustomerEntity customer, String streetAddress1, String streetAddress2,
+                                             String city, String state, String zipCode){
+        if(!isEmptyString(streetAddress1)){
+            customer.setStreetAddress1(streetAddress1);
+        }
+        if(!isEmptyString(streetAddress2)){
+            customer.setStreetAddress2(streetAddress1);
+        }
+        if(!isEmptyString(city)){
+            customer.setStreetAddress1(city);
+        }
+        if(!isEmptyString(state)){
+            customer.setStreetAddress1(state);
+        }
+        if(!isEmptyString(zipCode)){
+            customer.setStreetAddress1(zipCode);
+        }
+        return customer;
     }
 
     /**
@@ -200,15 +221,18 @@ public class Backend {
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();
+        CustomerEntity customer = null;
         try {
-            Customer customer = new IndividualCustomerEntity(name, streetAddress1, streetAddress2,
-                    city, state, zipCode);
-            session.saveOrUpdate(customer);
-            session.getTransaction().commit();
+            if(!isEmptyString(name)){
+                customer = new IndividualCustomerEntity(name);
+                customer = builderSetAddress(customer, streetAddress1, streetAddress2, city, state, zipCode);
+                session.saveOrUpdate(customer);
+                session.getTransaction().commit();
+            }
         } catch (Exception e) {
             System.err.println("error: " + e);
         }
-        return getCustomer(name);
+        return customer;
     }
 
     /**
@@ -242,7 +266,24 @@ public class Backend {
                                              String paymentCardNumber, int paymentCardExpirationMonth,
                                              int paymentCardExpirationYear, String paymentCardCvv)
             throws DateTimeException, IllegalArgumentException, NullPointerException {
-        return null;
+        IndividualCustomerEntity customer = (IndividualCustomerEntity) createIndividualCustomer(name, streetAddress1, streetAddress2, city, state, zipCode);
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            if(!isEmptyString(name)){
+                customer = new IndividualCustomerEntity(name);
+                if(!isEmptyString(paymentCardNumber) && !isEmptyString(paymentCardCvv)
+                        && paymentCardExpirationMonth != PaymentCard.INVALID_EXPIRATION_MONTH && paymentCardExpirationYear != PaymentCard.INVALID_EXPIRATION_YEAR){
+                    customer.setPaymentCard(paymentCardNumber, paymentCardExpirationMonth, paymentCardExpirationYear, paymentCardCvv);
+                }
+                session.saveOrUpdate(customer);
+                session.getTransaction().commit();
+            }
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+        }
+        return customer;
     }
 
     public boolean updateNegotiatedRateForCorporationCustomer(String name, double negotiatedRate){

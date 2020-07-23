@@ -19,6 +19,11 @@ public class IndividualCustomerEntity extends CustomerEntity implements Individu
         super();
     }
 
+    public IndividualCustomerEntity(String name){
+        super(name);
+        paymentCard = new PaymentCard();
+    }
+
     public IndividualCustomerEntity(String name, String streetAddress1, String streetAddress2,
                                     String city, String state, String zipCode)
             throws IllegalArgumentException, NullPointerException {
@@ -47,9 +52,10 @@ public class IndividualCustomerEntity extends CustomerEntity implements Individu
     }
 
     @Override
-    public void setPaymentCard(String cardNumber, int cardExpirationMonth, int cardExpirationYear, String cvv)
+    public IndividualCustomerEntity setPaymentCard(String cardNumber, int cardExpirationMonth, int cardExpirationYear, String cvv)
             throws DateTimeException, IllegalArgumentException, NullPointerException {
         this.paymentCard = new PaymentCard(cardNumber, cardExpirationMonth, cardExpirationYear, cvv);
+        return this;
     }
 
     @Override

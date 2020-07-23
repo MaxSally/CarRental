@@ -25,6 +25,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class CustomerEntity implements Customer {
 
+    private static String INVALID_STRING_INPUT = "UNKNOWN";
     /* Database code */
 
     /**
@@ -77,6 +78,15 @@ public abstract class CustomerEntity implements Customer {
         super();
     }
 
+    public CustomerEntity(String name){
+        super();
+        this.name = name;
+        streetAddress1 = city = INVALID_STRING_INPUT;
+        streetAddress2 = "";
+        state = "NA";
+        zipCode = "00000";
+    }
+
     public CustomerEntity(String name, String streetAddress1, String streetAddress2,
                           String city, String state, String zipCode)
             throws IllegalArgumentException, NullPointerException {
@@ -89,6 +99,11 @@ public abstract class CustomerEntity implements Customer {
     @Override
     public String getName() {
         return name;
+    }
+
+    public CustomerEntity setName(String name){
+        this.name = name;
+        return this;
     }
 
     @Override
@@ -106,43 +121,48 @@ public abstract class CustomerEntity implements Customer {
         return streetAddress1;
     }
 
-    public void setStreetAddress1(String streetAddress1) {
+    public CustomerEntity setStreetAddress1(String streetAddress1) {
         this.streetAddress1 = streetAddress1;
+        return this;
     }
 
     public String getStreetAddress2() {
         return streetAddress2;
     }
 
-    public void setStreetAddress2(String streetAddress2) {
+    public CustomerEntity setStreetAddress2(String streetAddress2) {
         this.streetAddress2 = streetAddress2;
+        return this;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public CustomerEntity setCity(String city) {
         this.city = city;
+        return this;
     }
 
     public String getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public CustomerEntity setState(String state) {
         this.state = state;
+        return this;
     }
 
     public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
+    public CustomerEntity setZipCode(String zipCode) {
         this.zipCode = zipCode;
+        return this;
     }
 
-    public void setAddress(String streetAddress1, String streetAddress2, String city, String state, String zipCode)
+    public CustomerEntity setAddress(String streetAddress1, String streetAddress2, String city, String state, String zipCode)
             throws IllegalArgumentException, NullPointerException {
         if ((streetAddress1 == null) || (city == null) || state == null || zipCode == null) {
             throw new NullPointerException("In an address, only the second street address line can be null.");
@@ -183,6 +203,7 @@ public abstract class CustomerEntity implements Customer {
         this.city = city;
         this.state = state.toUpperCase();
         this.zipCode = zipCode;
+        return this;
     }
 
     @Override
