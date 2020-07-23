@@ -4,6 +4,8 @@ import edu.unl.cse.csce361.car_rental.backend.*;
 import org.dom4j.rule.Mode;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.sun.xml.fastinfoset.stax.events.Util.isEmptyString;
@@ -147,7 +149,7 @@ public class DataLogic {
 
     public List<String> getValidCarDescription(){
         List<Car> lstCar = Backend.getInstance().getAllCar();
-        List<String> lstValidCarDescription = new ArrayList<>();
+        List<Car> lstValidCar = new ArrayList<>();
         for(Car car: lstCar){
             boolean acceptable = true;
             Model currentCarModel = Backend.getInstance().getModelEntityByName(car.getModel());
@@ -164,8 +166,19 @@ public class DataLogic {
                 acceptable = false;
             }
             if(acceptable){
-                lstValidCarDescription.add(car.getDescription());
+                lstValidCar.add(car);
             }
+        }
+        Collections.sort(lstValidCar, new Comparator<Car>() {
+            @Override
+            public int compare(Car car1, Car car2) {
+                return Backend.getInstance().getModelEntityByName(car2.getModel()).getFuelEconomyMPG().get()
+                - Backend.getInstance().getModelEntityByName(car1.getModel()).getFuelEconomyMPG().get();
+            }
+        });
+        List<String> lstValidCarDescription = new ArrayList<>();
+        for(Car car: lstValidCar){
+            lstValidCarDescription.add(car.getDescription());
         }
         return lstValidCarDescription;
     }
