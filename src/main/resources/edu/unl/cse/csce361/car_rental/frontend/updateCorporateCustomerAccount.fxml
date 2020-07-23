@@ -6,19 +6,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.CorporateCustomerAccountController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.UpdateCorporateCustomerAccountController">
    <children>
-      <Label layoutX="148.0" layoutY="41.0" text="Create Account">
+      <Label layoutX="96.0" layoutY="41.0" text="Update Customer Account">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label layoutX="185.0" layoutY="137.0" text="*Full Name">
+      <Label layoutX="101.0" layoutY="137.0" text="*Name Account is Registered Under">
          <font>
             <Font size="16.0" />
          </font></Label>
       <TextField fx:id="txtFieldName" layoutX="144.0" layoutY="157.0" promptText="Name" />
-      <Label layoutX="167.0" layoutY="242.0" prefHeight="20.0" prefWidth="109.0" text="*Street Address">
+      <Label layoutX="171.0" layoutY="242.0" prefHeight="20.0" prefWidth="109.0" text="Street Address">
          <font>
             <Font size="16.0" />
          </font></Label>
@@ -33,23 +33,23 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="203.0" layoutY="367.0" prefHeight="20.0" prefWidth="37.0" text="*City">
+      <Label layoutX="203.0" layoutY="367.0" prefHeight="20.0" prefWidth="37.0" text="City">
          <font>
             <Font size="16.0" />
          </font></Label>
       <TextField fx:id="txtFieldCity" layoutX="144.0" layoutY="387.0" promptText="City" />
-      <Label layoutX="152.0" layoutY="439.0" prefHeight="20.0" prefWidth="44.0" text="*State">
+      <Label layoutX="152.0" layoutY="439.0" prefHeight="20.0" prefWidth="44.0" text="State">
          <font>
             <Font size="16.0" />
          </font></Label>
       <TextField fx:id="txtFieldState" layoutX="136.0" layoutY="457.0" prefHeight="27.0" prefWidth="76.0" promptText="State" />
-      <Label layoutX="240.0" layoutY="439.0" prefHeight="20.0" prefWidth="73.0" text="*ZIP Code">
+      <Label layoutX="240.0" layoutY="439.0" prefHeight="20.0" prefWidth="73.0" text="ZIP Code">
          <font>
             <Font size="16.0" />
          </font></Label>
       <TextField fx:id="txtFieldZip" layoutX="238.0" layoutY="457.0" prefHeight="27.0" prefWidth="76.0" promptText="ZIP" />
-      <Button layoutX="160.0" layoutY="631.0" mnemonicParsing="false" onAction="#createCorporateCustomer" prefHeight="27.0" prefWidth="130.0" text="Create Account" />
-      <Label layoutX="146.0" layoutY="520.0" text="*Bank Account Number">
+      <Button layoutX="160.0" layoutY="631.0" mnemonicParsing="false" onAction="#updateCorporateCustomer" prefHeight="27.0" prefWidth="130.0" text="Update Account" />
+      <Label layoutX="146.0" layoutY="520.0" text="Bank Account Number">
          <font>
             <Font size="16.0" />
          </font></Label>

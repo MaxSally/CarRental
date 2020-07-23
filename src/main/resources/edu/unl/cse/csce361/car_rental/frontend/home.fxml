@@ -25,8 +25,8 @@
       <Label layoutX="171.0" layoutY="575.0" text="Are You A Manager?" />
       <Label layoutX="159.0" layoutY="415.0" text="Don't Have an Account?" />
       <Button layoutX="118.0" layoutY="190.0" mnemonicParsing="false" onAction="#logIn" prefHeight="27.0" prefWidth="214.0" text="Login" />
-      <Button layoutX="117.0" layoutY="296.0" mnemonicParsing="false" onAction="#switchToUpdateIndividualAccount" prefHeight="27.0" prefWidth="217.0" text="Update Individual Customer Account" />
-      <Button layoutX="117.0" layoutY="334.0" mnemonicParsing="false" onAction="#switchToCreateCorporateAccount" text="Update Corporate Customer Account" />
+      <Button layoutX="117.0" layoutY="296.0" mnemonicParsing="false" onAction="#switchToUpdateIndividualAccount" prefHeight="27.0" prefWidth="221.0" text="Update Individual Customer Account" />
+      <Button layoutX="117.0" layoutY="334.0" mnemonicParsing="false" onAction="#switchToUpdateCorporateAccount" text="Update Corporate Customer Account" />
       <Label layoutX="141.0" layoutY="268.0" text="Want to Update Your Account?" />
    </children>
 </Pane>
