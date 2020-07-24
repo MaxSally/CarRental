@@ -160,7 +160,7 @@ public class Backend {
         session.beginTransaction();
         CorporateCustomerEntity customer = null;
         try {
-            if(!isEmptyString(name)){
+            if (!isEmptyString(name)) {
                 customer = (CorporateCustomerEntity) new CorporateCustomerEntity(name).setAddress(streetAddress1, streetAddress2, city, state, zipCode);
                 customer.setCorporateAccount(corporateAccount);
                 session.saveOrUpdate(customer);
@@ -168,6 +168,7 @@ public class Backend {
             }
         } catch (Exception e) {
             System.err.println("error: " + e);
+            session.getTransaction().rollback();
         }
         return getCustomer(name);
     }
@@ -202,13 +203,14 @@ public class Backend {
         session.beginTransaction();
         CustomerEntity customer = null;
         try {
-            if(!isEmptyString(name)){
+            if (!isEmptyString(name)) {
                 customer = new IndividualCustomerEntity(name).setAddress(streetAddress1, streetAddress2, city, state, zipCode);
                 session.saveOrUpdate(customer);
                 session.getTransaction().commit();
             }
         } catch (Exception e) {
             System.err.println("error: " + e);
+            session.getTransaction().rollback();
         }
         return customer;
     }
@@ -249,10 +251,10 @@ public class Backend {
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();
         try {
-            if(!isEmptyString(name)){
+            if (!isEmptyString(name)) {
                 customer = new IndividualCustomerEntity(name);
-                if(!isEmptyString(paymentCardNumber) && !isEmptyString(paymentCardCvv)
-                        && paymentCardExpirationMonth != PaymentCard.INVALID_EXPIRATION_MONTH && paymentCardExpirationYear != PaymentCard.INVALID_EXPIRATION_YEAR){
+                if (!isEmptyString(paymentCardNumber) && !isEmptyString(paymentCardCvv)
+                        && paymentCardExpirationMonth != PaymentCard.INVALID_EXPIRATION_MONTH && paymentCardExpirationYear != PaymentCard.INVALID_EXPIRATION_YEAR) {
                     customer.setPaymentCard(paymentCardNumber, paymentCardExpirationMonth, paymentCardExpirationYear, paymentCardCvv);
                 }
                 session.saveOrUpdate(customer);
@@ -260,89 +262,47 @@ public class Backend {
             }
         } catch (Exception e) {
             System.err.println("error: " + e);
+            session.getTransaction().rollback();
         }
         return customer;
     }
 
-    public boolean updateNegotiatedRateForCorporationCustomer(String name, double negotiatedRate){
-        CorporateCustomerEntity customer = (CorporateCustomerEntity) getCustomer(name);
-        Session session = HibernateUtil.getSession();
-        System.out.println("Starting Hibernate transaction...");
-        session.beginTransaction();
+    public boolean updateNegotiatedRateForCorporateCustomer(String name, double negotiatedRate){
+        return CustomerEntity.getCustomerByName(name) != null
+                && ((CorporateCustomerEntity)CustomerEntity.getCustomerByName(name)).updateNegotiatedRate(negotiatedRate);
+    }
+
+    public boolean updateBankAccountForCorporationCustomer(String name, String bankAccountNumber) {
+        return CustomerEntity.getCustomerByName(name) != null
+                && ((CorporateCustomerEntity)CustomerEntity.getCustomerByName(name)).updateCorporateAccount(bankAccountNumber);
+    }
+
+    public boolean updateCardInformationForIndividualCustomer(String name, String cardNumber, String cvv,
+                                                           Integer expirationMonth, Integer expirationYear) {
+
+        IndividualCustomer customer = ((IndividualCustomerEntity) CustomerEntity.getCustomerByName(name));
         if(customer == null){
             return false;
         }else{
-            try {
-                customer.setNegotiatedRate(negotiatedRate);
-                session.saveOrUpdate(customer);
-                session.getTransaction().commit();
-            } catch (Exception e) {
-                System.err.println("error: " + e);
-                session.getTransaction().rollback();
+            if (customer.getPaymentCard().isActive(cardNumber)) {
+                ((IndividualCustomerEntity) CustomerEntity.getCustomerByName(name)).updatePaymentCard(expirationMonth, expirationYear, cvv);
+            } else {
+                ((IndividualCustomerEntity) CustomerEntity.getCustomerByName(name)).setPaymentCard(cardNumber, expirationMonth, expirationYear, cvv);
             }
             return true;
         }
+
     }
 
-    public boolean updateBankAccountForCorporationCustomer(String name, String bankAccountNumber){
-        CorporateCustomerEntity customer = (CorporateCustomerEntity) getCustomer(name);
-        Session session = HibernateUtil.getSession();
-        System.out.println("Starting Hibernate transaction...");
-        session.beginTransaction();
-        if(customer == null){
-            return false;
-        }else{
-            try {
-                customer.setCorporateAccount(bankAccountNumber);
-                session.saveOrUpdate(customer);
-                session.getTransaction().commit();
-            } catch (Exception e) {
-                System.err.println("error: " + e);
-                session.getTransaction().rollback();
-            }
-            return true;
-        }
+    public boolean updateAddressForCustomer(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode) {
+        return ((CustomerEntity) getCustomer(name)) != null && ((CustomerEntity) getCustomer(name)).updateAddress(streetAddress1, streetAddress2, city, state, zipCode);
     }
 
-    public void updateCardInformationForIndividualCustomer(String name, String cardNumber, String cvv,
-                                                              Integer expirationMonth, Integer expirationYear){
-
-        IndividualCustomer customer = ((IndividualCustomerEntity)CustomerEntity.getCustomerByName(name));
-        if(customer.getPaymentCard().isActive(cardNumber)) {
-            ((IndividualCustomerEntity)CustomerEntity.getCustomerByName(name)).updatePaymentCard(expirationMonth, expirationYear, cvv);
-        } else {
-            ((IndividualCustomerEntity)CustomerEntity.getCustomerByName(name)).setPaymentCard(cardNumber, expirationMonth, expirationYear, cvv);
-        }
-    }
-
-    public boolean updateAddressForCustomer(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
-        CustomerEntity customer = (CustomerEntity) getCustomer(name);
-        Session session = HibernateUtil.getSession();
-        System.out.println("Starting Hibernate transaction...");
-        session.beginTransaction();
-        if(customer == null){
-            return false;
-        }else{
-            try {
-                customer.setAddress((streetAddress1.equals("")?customer.getStreetAddress1():streetAddress1),
-                        (streetAddress2.equals("")?customer.getStreetAddress2():streetAddress2),
-                        (city.equals("")?customer.getCity():city), (state.equals("")?customer.getState():state),
-                        (zipCode.equals("")?customer.getZipCode():zipCode));
-                session.saveOrUpdate(customer);
-                session.getTransaction().commit();
-            } catch (Exception e) {
-                System.err.println("error: " + e);
-                session.getTransaction().rollback();
-            }
-            return true;
-        }
-    }
-
-    public List<Car> getAllCar(){
+    public List<Car> getAllCar() {
         return CarEntity.getAllCars();
     }
 
-    public Model getModelEntityByName(String name){
+    public Model getModelEntityByName(String name) {
         return ModelEntity.getModelByName(name);
     }
 }

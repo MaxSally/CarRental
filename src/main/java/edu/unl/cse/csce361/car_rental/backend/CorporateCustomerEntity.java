@@ -90,4 +90,34 @@ public class CorporateCustomerEntity extends CustomerEntity implements Corporate
     public String getPaymentInformation() {
         return "Corporate Account #" + corporateAccount;
     }
+
+    public boolean updateNegotiatedRate(double negotiatedRate){
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            setNegotiatedRate(negotiatedRate);
+            session.saveOrUpdate(this);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return true;
+    }
+
+    public boolean updateCorporateAccount(String corporateAccount){
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            setCorporateAccount(corporateAccount);
+            session.saveOrUpdate(this);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return true;
+    }
 }

@@ -62,39 +62,38 @@ public class DataLogic {
         return (customer == null?"":customer.getName());
     }
 
-    public boolean setNegotiatedRate(String name, double negotiatedRate){
-        if(Backend.getInstance().updateNegotiatedRateForCorporationCustomer(name, negotiatedRate)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     public boolean setIndividualCustomer(String name, String streetAddress1, String streetAddress2, String city,
                                          String state, String zipCode, String cardNumber, String cvv,
                                          Integer expirationMonth, Integer expirationYear){
-        Backend.getInstance().updateCardInformationForIndividualCustomer(name, cardNumber, cvv, expirationMonth, expirationYear);
-        if(Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode)){
-            return true;
-        }else{
+        if(Backend.getInstance().getCustomer(name) == null){
             return false;
         }
+        boolean isCompleted = true;
+        isCompleted &= Backend.getInstance().updateCardInformationForIndividualCustomer(name, cardNumber, cvv, expirationMonth, expirationYear);
+        if(!(isEmptyString(streetAddress1) && isEmptyString(streetAddress2) && isEmptyString(city) && isEmptyString(state) && isEmptyString(zipCode))){
+            isCompleted &=Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode))
+        }
+        return isCompleted;
     }
 
-    public boolean setCorporateAddress(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
-        if(Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode)){
-            return true;
-        }else{
+    public boolean setCorporateCustomer(String name, String streetAddress1, String streetAddress2,
+                                        String city, String state, String zipCode, String corporateAccount){
+        if(Backend.getInstance().getCustomer(name) == null){
             return false;
         }
+        boolean isCompleted = true;
+        isCompleted &= Backend.getInstance().updateBankAccountForCorporationCustomer(name, corporateAccount);
+        if(!(isEmptyString(streetAddress1) && isEmptyString(streetAddress2) && isEmptyString(city) && isEmptyString(state) && isEmptyString(zipCode))){
+            isCompleted &=Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode))
+        }
+        return isCompleted;
     }
 
-    public boolean setBankAccountNumber(String name, String bankAccountNumber) {
-        if(Backend.getInstance().updateBankAccountForCorporationCustomer(name, bankAccountNumber)){
-            return true;
-        }else{
-            return false;
-        }
+    public boolean setCorporateCustomerByManager(String name, String streetAddress1, String streetAddress2,
+                                        String city, String state, String zipCode, String corporateAccount, double negotiatedRate){
+        boolean isCompleted = setCorporateCustomer(name, streetAddress1, streetAddress2, city, state, zipCode, corporateAccount);
+        isCompleted &= Backend.getInstance().updateNegotiatedRateForCorporateCustomer(name, negotiatedRate);
+        return isCompleted;
     }
 
     public List<String> getAllFuelType(){

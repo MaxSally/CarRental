@@ -223,6 +223,25 @@ public abstract class CustomerEntity implements Customer {
         rental.setCustomer(this);
     }
 
+    public boolean updateAddress(String streetAddress1, String streetAddress2, String city, String state, String zipCode){
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            setAddress((streetAddress1.equals("") ? getStreetAddress1() : streetAddress1),
+                    (streetAddress2.equals("") ? getStreetAddress2() : streetAddress2),
+                    (city.equals("") ? getCity() : city), (state.equals("") ? getState() : state),
+                    (zipCode.equals("") ? getZipCode() : zipCode));
+            session.saveOrUpdate(this);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return true;
+
+    }
+
     @Override
     public List<RentalEntity> getRentals() {
         return Collections.unmodifiableList(rentals);
