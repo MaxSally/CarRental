@@ -8,7 +8,7 @@ public class PricedItemDecorator implements PricedItem{
     }
     @Override
     public int getDailyRate() {
-        
+        return 0;
     }
 
     @Override

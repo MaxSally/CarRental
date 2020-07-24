@@ -65,6 +65,26 @@ public class FiltersController extends ScreenController{
         fuelEconomyOptions.setItems(fuelEconomyChoices);
         transmissionOptions.setValue("");
         transmissionOptions.setItems(transmissionChoices);
+        DataLogic instance = DataLogic.getInstance();
+        refillCriteria(classChoices, classOptions, instance.getCriteriaVehicleClass());
+        refillCriteria(modelChoices, modelOptions, instance.getCriteriaVehicleModel());
+        refillCriteria(transmissionChoices, transmissionOptions, instance.getCriteriaTransmission());
+        refillCriteria(colorChoices, colorOptions, instance.getCriteriaColor());
+        refillCriteria(fuelTypeChoices, fuelTypeOptions, instance.getCriteriaFuelType());
+        refillCriteria(numDoorChoices, numDoorOptions, instance.getCriteriaNumberOfDoor());
+        int previousSelectedMinFuelEconomy = instance.getCriteriaMinFuelEconomy();
+        int previousSelectedMaxFuelEconomy = instance.getCriteriaMaxFuelEconomy();
+        if(previousSelectedMaxFuelEconomy == 150 && previousSelectedMinFuelEconomy == 0){
+            fuelEconomyOptions.setValue("");
+        }else{
+            fuelEconomyOptions.setValue(fuelEconomyChoices.get(previousSelectedMinFuelEconomy/30 + 1));
+        }
+    }
+
+    private <E, Object> void refillCriteria(ObservableList<E> choiceList, ChoiceBox<Object> selectedChoiceBox, Object previousSelectedChoice){
+        if(choiceList.contains(previousSelectedChoice)){
+            selectedChoiceBox.setValue(previousSelectedChoice);
+        }
     }
 
     public void moveToCarSelection(ActionEvent event) throws IOException {

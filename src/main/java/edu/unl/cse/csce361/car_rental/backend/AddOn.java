@@ -3,7 +3,6 @@ package edu.unl.cse.csce361.car_rental.backend;
 public class AddOn implements PricedItem {
 
     public AddOn(PricedItem pricedItem){
-        super(pricedItem);
 
     }
 
@@ -19,6 +18,6 @@ public class AddOn implements PricedItem {
 
     @Override
     public PricedItem getBasePricedItem() {
-        super();
+        return null;
     }
 }

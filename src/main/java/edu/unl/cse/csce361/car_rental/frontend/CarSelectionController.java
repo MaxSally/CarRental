@@ -23,7 +23,7 @@ public class CarSelectionController extends ScreenController {
     private ObservableList<String> priceSortingChoices = FXCollections.observableArrayList("","High to Low", "Low to High");
 
     public void cancelButton(javafx.event.ActionEvent event) throws IOException {
-        DataLogic.getInstance().resetCriteriaFilter();
+        //DataLogic.getInstance().resetCriteriaFilter();
         switchScreen(event, "filters.fxml");
     }
     

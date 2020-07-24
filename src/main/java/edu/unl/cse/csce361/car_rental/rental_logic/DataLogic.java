@@ -227,4 +227,36 @@ public class DataLogic {
         }
         return lstValidCarDescription;
     }
+
+    public String getCriteriaVehicleClass(){
+        return criteriaFilter.getVehicleClass().toString();
+    }
+
+    public String getCriteriaVehicleModel(){
+        return criteriaFilter.getVehicleModel();
+    }
+
+    public String getCriteriaColor(){
+        return criteriaFilter.getColor();
+    }
+
+    public String getCriteriaTransmission(){
+        return criteriaFilter.getTransmission().toString();
+    }
+
+    public String getCriteriaFuelType(){
+        return criteriaFilter.getFuelType().toString();
+    }
+
+    public int getCriteriaMinFuelEconomy(){
+        return criteriaFilter.getMinFuelEconomy();
+    }
+
+    public int getCriteriaMaxFuelEconomy(){
+        return criteriaFilter.getMaxFuelEconomy();
+    }
+
+    public int getCriteriaNumberOfDoor(){
+        return criteriaFilter.getNumberOfDoors();
+    }
 }
