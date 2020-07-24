@@ -153,7 +153,7 @@ public class Backend {
      */
     public Customer createCorporateCustomer(String name, String streetAddress1, String streetAddress2,
                                             String city, String state, String zipCode,
-                                            String corporateAccount, double negotiatedRate)
+                                            String corporateAccount, Double negotiatedRate, boolean isManager)
             throws IllegalStateException, NullPointerException {
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
@@ -161,8 +161,12 @@ public class Backend {
         CorporateCustomerEntity customer = null;
         try {
             if (!isEmptyString(name)) {
-                customer = (CorporateCustomerEntity) new CorporateCustomerEntity(name).setAddress(streetAddress1, streetAddress2, city, state, zipCode);
-                customer.setCorporateAccount(corporateAccount);
+                CorporateCustomerEntityBuilder customerBuilder = new CorporateCustomerEntityBuilder(name).setStreetAddress1(streetAddress1).setStreetAddress2(streetAddress2)
+                        .setCity(city).setState(state).setZipCode(zipCode).setBankAccount(corporateAccount);
+                if(isManager){
+                    customerBuilder.setNegotiatedRate(negotiatedRate);
+                }
+                customer = customerBuilder.build();
                 session.saveOrUpdate(customer);
                 session.getTransaction().commit();
             }
@@ -204,7 +208,8 @@ public class Backend {
         CustomerEntity customer = null;
         try {
             if (!isEmptyString(name)) {
-                customer = new IndividualCustomerEntity(name).setAddress(streetAddress1, streetAddress2, city, state, zipCode);
+                customer = new IndividualCustomerEntityBuilder(name).setStreetAddress1(streetAddress1).setStreetAddress2(streetAddress2)
+                        .setCity(city).setState(state).setZipCode(zipCode).build();
                 session.saveOrUpdate(customer);
                 session.getTransaction().commit();
             }
@@ -243,20 +248,18 @@ public class Backend {
      */
     public Customer createIndividualCustomer(String name, String streetAddress1, String streetAddress2,
                                              String city, String state, String zipCode,
-                                             String paymentCardNumber, int paymentCardExpirationMonth,
-                                             int paymentCardExpirationYear, String paymentCardCvv)
+                                             String paymentCardNumber, Integer paymentCardExpirationMonth,
+                                             Integer paymentCardExpirationYear, String paymentCardCvv)
             throws DateTimeException, IllegalArgumentException, NullPointerException {
-        IndividualCustomerEntity customer = (IndividualCustomerEntity) createIndividualCustomer(name, streetAddress1, streetAddress2, city, state, zipCode);
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();
+        Customer customer = null;
         try {
             if (!isEmptyString(name)) {
-                customer = new IndividualCustomerEntity(name);
-                if (!isEmptyString(paymentCardNumber) && !isEmptyString(paymentCardCvv)
-                        && paymentCardExpirationMonth != PaymentCard.INVALID_EXPIRATION_MONTH && paymentCardExpirationYear != PaymentCard.INVALID_EXPIRATION_YEAR) {
-                    customer.setPaymentCard(paymentCardNumber, paymentCardExpirationMonth, paymentCardExpirationYear, paymentCardCvv);
-                }
+                customer = new IndividualCustomerEntityBuilder(name).setStreetAddress1(streetAddress1).setStreetAddress2(streetAddress2)
+                        .setCity(city).setState(state).setZipCode(zipCode).setCardNumber(paymentCardNumber).setCardCVV(paymentCardCvv)
+                        .setPaymentCardExpirationMonth(paymentCardExpirationMonth).setPaymentCardExpirationYear(paymentCardExpirationYear).build();
                 session.saveOrUpdate(customer);
                 session.getTransaction().commit();
             }

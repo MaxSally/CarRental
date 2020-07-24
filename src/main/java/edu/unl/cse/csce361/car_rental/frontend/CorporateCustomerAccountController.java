@@ -15,21 +15,17 @@ public class CorporateCustomerAccountController extends  ScreenController{
     @FXML TextField txtFieldZip;
     @FXML TextField txtFieldBankAccount;
 
-    public void alertScreen() {
-        alertScreen("Cannot Create Account", "It seems an account already exists with the name you entered!",
-                "Please create an account under an unused name", "Try Again");
-    }
-
     public void createCorporateCustomer(javafx.event.ActionEvent event) throws IOException {
-        if(DataLogic.getInstance().hasCustomerName(txtFieldName.getText()) == true) {
-            alertScreen();
-        } else if(addressFieldValidation(txtFieldStreetAddress1.getText(), txtFieldCity.getText(), txtFieldState.getText(),
-                txtFieldZip.getText()) == false || txtFieldBankAccount.getText().isEmpty()) {
+        if(DataLogic.getInstance().hasCustomerName(txtFieldName.getText())) {
+            alertScreen("Cannot Create Account", "It seems an account already exists with the name you entered!",
+                    "Please create an account under an unused name", "Try Again");
+        } else if(!addressFieldValidation(txtFieldStreetAddress1.getText(), txtFieldCity.getText(), txtFieldState.getText(),
+                txtFieldZip.getText()) || txtFieldBankAccount.getText().isEmpty()) {
             alertScreen("Cannot Create Account", "Please make sure to fill in all fields", "Only street address 2 can be left unfilled",
                     "Try Again");
         } else {
             if(DataLogic.getInstance().createCorporateCustomerAccount(txtFieldName.getText(), txtFieldStreetAddress1.getText(),
-                    txtFieldStreetAddress2.getText(), txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText(), txtFieldBankAccount.getText()) == true) {
+                    txtFieldStreetAddress2.getText(), txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText(), txtFieldBankAccount.getText())) {
                 switchScreen(event, "home.fxml");
             } else {
                 alertScreen("Cannot Create Account", "Something went wrong, please try again", "", "Try Again");

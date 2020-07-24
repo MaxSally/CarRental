@@ -29,8 +29,6 @@ public class PaymentCard {
     private String cvv;
 
     public PaymentCard() { // required 0-argument constructor
-        cardNumber = cvv = "";
-        expirationDate = null;
     }
 
     public PaymentCard(String cardNumber, int expirationMonth, int expirationYear, String cvv)

@@ -43,13 +43,13 @@ public class DataLogic {
 
     public boolean createCorporateCustomerAccount(String name, String streetAddress1, String streetAddress2,
                                                    String city, String state, String zipCode, String corporateAccount){
-        return createCorporateCustomerAccountWithNegotiatedRate(name, streetAddress1, streetAddress2, city, state, zipCode, corporateAccount,
-                CorporateCustomer.DEFAULT_NEGOTIATED_RATE);
+        Customer customer = Backend.getInstance().createCorporateCustomer(name, streetAddress1, streetAddress2, city, state, zipCode, corporateAccount, null, false);
+        return (customer != null);
     }
 
     public boolean createCorporateCustomerAccountWithNegotiatedRate(String name, String streetAddress1, String streetAddress2,
                                                                     String city, String state, String zipCode, String corporateAccount, Double negotiatedRate) {
-        Customer customer = Backend.getInstance().createCorporateCustomer(name, streetAddress1, streetAddress2, city, state, zipCode, corporateAccount, negotiatedRate);
+        Customer customer = Backend.getInstance().createCorporateCustomer(name, streetAddress1, streetAddress2, city, state, zipCode, corporateAccount, negotiatedRate, true);
         return (customer != null);
     }
 

@@ -79,12 +79,6 @@ public abstract class CustomerEntity implements Customer {
     }
 
     public CustomerEntity(String name){
-        super();
-        this.name = name;
-        streetAddress1 = city = INVALID_STRING_INPUT;
-        streetAddress2 = "";
-        state = "NA";
-        zipCode = "00000";
     }
 
     public CustomerEntity(String name, String streetAddress1, String streetAddress2,
