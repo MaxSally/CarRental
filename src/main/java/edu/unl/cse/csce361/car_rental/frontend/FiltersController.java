@@ -20,11 +20,9 @@ import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.isEmptyStrin
 
 public class FiltersController extends ScreenController{
 
-    ObservableList<String> modelChoices = FXCollections.observableArrayList("","ILX", "Model 3", "Stag", "Montego", "Highlander", "Versa",
-            "Pacifica", "Jetta", "Bolt", "Malibu", "Allegro", "Ranger");
+    ObservableList<String> modelChoices;
     ObservableList<String> classChoices;
-    ObservableList<String> colorChoices = FXCollections.observableArrayList("","Black", "White", "Red", "Silver", "Yellow", "Blue",
-            "Fuchsia", "Grey", "Cyan", "Magenta");
+    ObservableList<String> colorChoices;
     ObservableList<Integer> numDoorChoices = FXCollections.observableArrayList(null, 2, 3, 4, 5);
     ObservableList<String> fuelTypeChoices;
     ObservableList<String> transmissionChoices;
@@ -48,6 +46,8 @@ public class FiltersController extends ScreenController{
 
     @FXML
     private void initialize() {
+        modelChoices = FXCollections.observableArrayList(DataLogic.getInstance().getAllModels());
+        colorChoices = FXCollections.observableArrayList(DataLogic.getInstance().getAllColors());
         classChoices = FXCollections.observableArrayList(DataLogic.getInstance().getAllVehicleClass());
         fuelTypeChoices = FXCollections.observableArrayList(DataLogic.getInstance().getAllFuelType());
         transmissionChoices = FXCollections.observableArrayList(DataLogic.getInstance().getAllTransmission());

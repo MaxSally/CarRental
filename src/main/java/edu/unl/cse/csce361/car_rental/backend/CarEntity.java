@@ -281,7 +281,7 @@ public class CarEntity extends PricedItemDecorator implements Car  {
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();
         try {
-            colors.addAll(new HashSet<String>(session.createQuery("SELECT color FROM CarEntity color").getResultList()));
+            colors.addAll(new HashSet<String>(session.createQuery("SELECT color FROM CarEntity car").getResultList()));
             session.getTransaction().commit();
         } catch (Exception e) {
             System.err.println("error: " + e);

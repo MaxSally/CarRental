@@ -337,7 +337,7 @@ public class Backend {
         List<Model> models = ModelEntity.getAllModels();
         List<String> modelAsString = new ArrayList<>();
         for(Model model : models){
-            modelAsString.add(model.toString());
+            modelAsString.add(model.getModel());
         }
         return modelAsString;
     }
