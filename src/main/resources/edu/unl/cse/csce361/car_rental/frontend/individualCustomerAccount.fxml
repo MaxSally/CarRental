@@ -38,21 +38,23 @@
             <Font size="16.0" />
          </font></Label>
       <TextField fx:id="txtFieldCity" layoutX="144.0" layoutY="441.0" promptText="City" />
-      <Label layoutX="151.0" layoutY="478.0" prefHeight="20.0" prefWidth="47.0" text="*State">
+      <Label layoutX="123.0" layoutY="478.0" prefHeight="20.0" prefWidth="48.0" text="*State">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <TextField fx:id="txtFieldState" layoutX="136.0" layoutY="496.0" prefHeight="27.0" prefWidth="76.0" promptText="State" />
-      <Label layoutX="244.0" layoutY="478.0" prefHeight="20.0" prefWidth="73.0" text="*ZIP Code">
+      <TextField fx:id="txtFieldState" layoutX="79.0" layoutY="523.0" prefHeight="27.0" prefWidth="133.0" promptText="State" />
+      <Label layoutX="267.0" layoutY="478.0" prefHeight="20.0" prefWidth="73.0" text="*ZIP Code">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <TextField fx:id="txtFieldZip" layoutX="240.0" layoutY="496.0" prefHeight="27.0" prefWidth="76.0" promptText="ZIP" />
+      <TextField fx:id="txtFieldZip" layoutX="237.0" layoutY="523.0" prefHeight="27.0" prefWidth="133.0" promptText="ZIP" />
       <Button layoutX="164.0" layoutY="625.0" mnemonicParsing="false" onAction="#createIndividualCustomer" prefHeight="27.0" prefWidth="133.0" text="Create Account" />
       <Label layoutX="144.0" layoutY="119.0" text="Fields with * are required" textFill="#e40505">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
+      <Label layoutX="259.0" layoutY="498.0" prefHeight="20.0" prefWidth="90.0" text="Must be 5 digits" />
+      <Label layoutX="96.0" layoutY="498.0" prefHeight="20.0" prefWidth="97.0" text="Must be 2 letters" />
    </children>
 </Pane>
