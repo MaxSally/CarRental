@@ -161,8 +161,7 @@ public class Backend {
         CorporateCustomerEntity customer = null;
         try {
             if(!isEmptyString(name)){
-                customer = new CorporateCustomerEntity(name);
-                customer = (CorporateCustomerEntity) builderSetAddress(customer, streetAddress1, streetAddress2, city, state, zipCode);
+                customer = (CorporateCustomerEntity) new CorporateCustomerEntity(name).setAddress(streetAddress1, streetAddress2, city, state, zipCode);
                 customer.setCorporateAccount(corporateAccount);
                 session.saveOrUpdate(customer);
                 session.getTransaction().commit();
@@ -171,26 +170,6 @@ public class Backend {
             System.err.println("error: " + e);
         }
         return getCustomer(name);
-    }
-
-    private CustomerEntity builderSetAddress(CustomerEntity customer, String streetAddress1, String streetAddress2,
-                                             String city, String state, String zipCode){
-        if(!isEmptyString(streetAddress1)){
-            customer.setStreetAddress1(streetAddress1);
-        }
-        if(!isEmptyString(streetAddress2)){
-            customer.setStreetAddress2(streetAddress1);
-        }
-        if(!isEmptyString(city)){
-            customer.setStreetAddress1(city);
-        }
-        if(!isEmptyString(state)){
-            customer.setStreetAddress1(state);
-        }
-        if(!isEmptyString(zipCode)){
-            customer.setStreetAddress1(zipCode);
-        }
-        return customer;
     }
 
     /**
@@ -224,8 +203,7 @@ public class Backend {
         CustomerEntity customer = null;
         try {
             if(!isEmptyString(name)){
-                customer = new IndividualCustomerEntity(name);
-                customer = builderSetAddress(customer, streetAddress1, streetAddress2, city, state, zipCode);
+                customer = new IndividualCustomerEntity(name).setAddress(streetAddress1, streetAddress2, city, state, zipCode);
                 session.saveOrUpdate(customer);
                 session.getTransaction().commit();
             }
