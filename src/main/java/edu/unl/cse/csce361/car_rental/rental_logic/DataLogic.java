@@ -156,6 +156,7 @@ public class DataLogic {
             criteriaFilter.setFuelType(Model.Fuel.valueOf(fuelType));
         }
     }
+
     public void setFilterNumberOfDoor(Integer numberOfDoor){
         criteriaFilter.setNumberOfDoors(numberOfDoor == null?CriteriaFilter.INVALID_DOOR:numberOfDoor);
     }
@@ -262,5 +263,14 @@ public class DataLogic {
 
     public String getPriceSummary(){
         return Backend.getInstance().getPriceSummary();
+    }
+
+    public boolean createModel(String manufacturer, String model, Model.VehicleClass classType, Integer numberOfDoors,
+                               Model.Transmission transmission, Model.Fuel fuel, Integer fuelEconomyMPG){
+        return Backend.getInstance().createModel(manufacturer, model, classType, numberOfDoors, transmission, fuel, fuelEconomyMPG) != null;
+    }
+
+    public boolean createCar(String model, String color, String licensePlate, String vin, int dailyRate){
+        return Backend.getInstance().createCar(model, color, licensePlate, vin, dailyRate) != null;
     }
 }

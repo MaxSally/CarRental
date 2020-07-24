@@ -91,12 +91,13 @@ public class Backend {
     public Model createModel(String manufacturer, String model, Model.VehicleClass classType, Integer numberOfDoors,
                              Model.Transmission transmission, Model.Fuel fuel, Integer fuelEconomyMPG)
             throws IllegalStateException {
-        Model carModel;
+        Model carModel = null;
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         try {
-            carModel = new ModelEntity(manufacturer, model, classType, numberOfDoors, transmission, fuel,
-                    fuelEconomyMPG);
+            carModel = new ModelEntityBuilder().setManufacturer(manufacturer).setModel(model).setVehicleClass(classType)
+                    .setNumberOfDoors(numberOfDoors).setTransmission(transmission)
+                    .setFuelType(fuel).setFuelEconomy(fuelEconomyMPG).build();
             session.saveOrUpdate(carModel);
             session.getTransaction().commit();
         } catch (PersistenceException exception) {
@@ -125,8 +126,21 @@ public class Backend {
      * @param vin          The car's Vehicle Identification Number
      * @return a new car with the specified parameters, or an existing car model with the same VIN
      */
-    public Car createCar(String model, String color, String licensePlate, String vin) {
-        return null;
+    public Car createCar(String model, String color, String licensePlate, String vin, int dailyRate) {
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        Car car = null;
+        try {
+            car = new CarEntityBuilder().setModel(model).setColor(color).setLicensePlate(licensePlate).setVin(vin)
+                    .setDailyRate(dailyRate).build();
+            session.saveOrUpdate(car);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return car;
     }
 
     /**
