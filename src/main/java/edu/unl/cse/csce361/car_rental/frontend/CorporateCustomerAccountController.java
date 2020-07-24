@@ -36,4 +36,8 @@ public class CorporateCustomerAccountController extends  ScreenController{
             }
         }
     }
+
+    public void cancelButton(javafx.event.ActionEvent event) throws IOException {
+        switchScreen(event, "home.fxml");
+    }
 }

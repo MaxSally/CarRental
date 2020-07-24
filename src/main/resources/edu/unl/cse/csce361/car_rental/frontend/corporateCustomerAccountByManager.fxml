@@ -65,5 +65,6 @@
       <Label layoutX="262.0" layoutY="523.0" text="Must be 5 digits" />
       <Label layoutX="83.0" layoutY="223.0" text="Must be 11 digits" />
       <Label layoutX="223.0" layoutY="223.0" text="Must be a decimal value between 0 and 1" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
    </children>
 </Pane>

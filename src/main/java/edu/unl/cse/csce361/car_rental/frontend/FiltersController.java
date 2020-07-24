@@ -107,4 +107,8 @@ public class FiltersController extends ScreenController{
         }
         switchScreen(event, "carSelection.fxml");
     }
+
+    public void cancelButton(javafx.event.ActionEvent event) throws IOException {
+        switchScreen(event, "home.fxml");
+    }
 }

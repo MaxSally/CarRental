@@ -49,4 +49,8 @@ public class CarSelectionController extends ScreenController {
         listViewCar.getItems().clear();
         listViewCar.getItems().addAll(availableCar);
     }
+
+    public void cancelButton(javafx.event.ActionEvent event) throws IOException {
+        switchScreen(event, "home.fxml");
+    }
 }

@@ -56,5 +56,6 @@
       </Label>
       <Label layoutX="259.0" layoutY="498.0" prefHeight="20.0" prefWidth="90.0" text="Must be 5 digits" />
       <Label layoutX="96.0" layoutY="498.0" prefHeight="20.0" prefWidth="97.0" text="Must be 2 letters" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
    </children>
 </Pane>
