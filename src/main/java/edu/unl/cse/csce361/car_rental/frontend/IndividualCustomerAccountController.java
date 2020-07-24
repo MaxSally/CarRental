@@ -19,13 +19,17 @@ public class IndividualCustomerAccountController extends ScreenController {
         if (DataLogic.getInstance().hasCustomerName(txtFieldName.getText()) == true) {
             alertScreen("Cannot Create Account", "It seems an account already exists with the name you entered!",
                     "Please create an account under an unused name", "Try Again");
-        } else if(txtFieldStreetAddress1.getText().isEmpty() || txtFieldStreetAddress2.getText().isEmpty() || txtFieldCity.getText().isEmpty()
-                || txtFieldState.getText().isEmpty() || txtFieldZip.getText().isEmpty()) {
-            alertScreen("Cannot Create Account", "Please make sure to fill in all fields", "", "Try Again");
+        } else if(addressFieldValidation(txtFieldStreetAddress1.getText(), txtFieldCity.getText(),
+                txtFieldState.getText(), txtFieldZip.getText()) == false) {
+            alertScreen("Cannot Create Account", "Please make sure to fill in all fields", "Only street address 2 can be left unfilled",
+                    "Try Again");
         } else {
-            DataLogic.getInstance().createIndividualCustomerAccount(txtFieldName.getText(), txtFieldStreetAddress1.getText(),
-            txtFieldStreetAddress2.getText(), txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText());
-            switchScreen(event, "home.fxml");
+            if(DataLogic.getInstance().createIndividualCustomerAccount(txtFieldName.getText(), txtFieldStreetAddress1.getText(),
+                    txtFieldStreetAddress2.getText(), txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText()) == true) {
+                switchScreen(event, "home.fxml");
+            } else {
+                alertScreen("Cannot Create Account", "Something went wrong, please try again", "", "Try Again");
+            }
         }
     }
 }

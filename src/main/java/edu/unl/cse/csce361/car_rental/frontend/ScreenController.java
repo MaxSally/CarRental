@@ -55,4 +55,11 @@ public abstract class ScreenController {
         window.showAndWait();
     }
 
+    public boolean addressFieldValidation(String streetAddress1, String city, String state, String zipCode) {
+        if(streetAddress1.isEmpty() || city.isEmpty() || state.isEmpty() || zipCode.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
