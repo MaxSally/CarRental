@@ -70,7 +70,10 @@ public class DataLogic {
         }
     }
 
-    public boolean setIndividualAddress(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
+    public boolean setIndividualCustomer(String name, String streetAddress1, String streetAddress2, String city,
+                                         String state, String zipCode, String cardNumber, String cvv,
+                                         Integer expirationMonth, Integer expirationYear){
+        Backend.getInstance().updateCardInformationForIndividualCustomer(name, cardNumber, cvv, expirationMonth, expirationYear);
         if(Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode)){
             return true;
         }else{
