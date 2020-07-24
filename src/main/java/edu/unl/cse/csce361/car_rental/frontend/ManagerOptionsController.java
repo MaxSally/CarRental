@@ -25,7 +25,7 @@ public class ManagerOptionsController extends ScreenController{
         }else{
             if(!DataLogic.getInstance().hasCustomerName(txtFieldUpdateAccountName.getText())){
                 errorMessageUpdateAccount.setText("Invalid account name");
-            }else if(DataLogic.getInstance().setNegotiatedRate(txtFieldUpdateAccountName.getText(), Double.parseDouble(txtFieldNegotiatedRate.getText()))){
+            }else if(DataLogic.getInstance().setCorporateCustomerByManager(txtFieldUpdateAccountName.getText(), "", "", "", "", "", "", Double.parseDouble(txtFieldNegotiatedRate.getText()))){
                 errorMessageUpdateAccount.setText("Update successfully");
             }else{
                 errorMessageUpdateAccount.setText("Cannot set negotiated rate to this account");

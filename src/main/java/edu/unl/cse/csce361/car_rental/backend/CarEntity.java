@@ -75,6 +75,7 @@ public class CarEntity implements Car {
     private String licensePLate;
     @Column
     private String color;
+    @Column int dailyRate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private ModelEntity model;              // depends on concretion for database purposes
@@ -87,18 +88,19 @@ public class CarEntity implements Car {
         super();
     }
 
-    public CarEntity(String model, String color, String licensePlate, String vin) {
+    public CarEntity(String model, String color, String licensePlate, String vin, int dailyRate) {
         super();
         setVin(vin);
         this.color = color;
         setLicensePlate(licensePlate);
         setModel(model);
         rentals = new ArrayList<>();
+        this.dailyRate = dailyRate;
     }
 
     @Override
     public int getDailyRate() {
-        return 0;
+        return dailyRate;
     }
 
     @Override
@@ -263,10 +265,11 @@ public class CarEntity implements Car {
     }
 
     public String getDescription(){
-        return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s",
+        return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s\nDaily rate: %d",
                 getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
                 (model.getFuelEconomyMPG() == null?"":model.getFuelEconomyMPG().get().toString()),
-                (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()));
+                (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()),
+                dailyRate);
     }
 
     public static List<Car> getAllCars(){

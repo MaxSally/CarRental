@@ -33,9 +33,8 @@ public class UpdateCorporateCustomerAccountController extends ScreenController {
         } else {
             if(!DataLogic.getInstance().hasCustomerName(txtFieldName.getText())){
                 alertScreen("Cannot Update Account", "Please enter a valid account name", "", "Try Again");
-            } else if(DataLogic.getInstance().setCorporateAddress(txtFieldName.getText(), txtFieldStreetAddress1.getText(), txtFieldStreetAddress2.getText(),
-                    txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText()) && DataLogic.getInstance().setBankAccountNumber(txtFieldName.getText(),
-                    txtFieldBankAccount.getText())){
+            } else if(DataLogic.getInstance().setCorporateCustomer(txtFieldName.getText(), txtFieldStreetAddress1.getText(), txtFieldStreetAddress2.getText(),
+                    txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText(), txtFieldBankAccount.getText()) ){
                 alertScreen("Individual Account Update", "Account has been updated successfully", "", "Thank You");
                 switchScreen(event, "home.fxml");
             }else{

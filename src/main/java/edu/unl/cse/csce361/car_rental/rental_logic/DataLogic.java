@@ -71,7 +71,7 @@ public class DataLogic {
         boolean isCompleted = true;
         isCompleted &= Backend.getInstance().updateCardInformationForIndividualCustomer(name, cardNumber, cvv, expirationMonth, expirationYear);
         if(!(isEmptyString(streetAddress1) && isEmptyString(streetAddress2) && isEmptyString(city) && isEmptyString(state) && isEmptyString(zipCode))){
-            isCompleted &=Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode))
+            isCompleted &=Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode);
         }
         return isCompleted;
     }
@@ -84,7 +84,7 @@ public class DataLogic {
         boolean isCompleted = true;
         isCompleted &= Backend.getInstance().updateBankAccountForCorporationCustomer(name, corporateAccount);
         if(!(isEmptyString(streetAddress1) && isEmptyString(streetAddress2) && isEmptyString(city) && isEmptyString(state) && isEmptyString(zipCode))){
-            isCompleted &=Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode))
+            isCompleted &=Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode);
         }
         return isCompleted;
     }
@@ -210,16 +210,11 @@ public class DataLogic {
         Collections.sort(currentListedCarOnCarSelection, new Comparator<Car>() {
             @Override
             public int compare(Car car1, Car car2) {
-                if(Backend.getInstance().getModelEntityByName(car2.getModel()).getFuelEconomyMPG().get()
-                        == Backend.getInstance().getModelEntityByName(car1.getModel()).getFuelEconomyMPG().get()){
-                    if(isAscending){
-                        return car1.getDailyRate() - car2.getDailyRate();
-                    }else{
-                        return car2.getDailyRate() - car1.getDailyRate();
-                    }
+                if(isAscending){
+                    return car1.getDailyRate() - car2.getDailyRate();
+                }else{
+                    return car2.getDailyRate() - car1.getDailyRate();
                 }
-                return Backend.getInstance().getModelEntityByName(car2.getModel()).getFuelEconomyMPG().get()
-                        - Backend.getInstance().getModelEntityByName(car1.getModel()).getFuelEconomyMPG().get();
             }
         });
         return getCarDescriptionFromCurrentListOfCar();

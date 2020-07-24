@@ -17,6 +17,8 @@ public class CarSelectionController extends ScreenController {
 
     @FXML
     private ChoiceBox<String> sortByPriceOptions;
+    @FXML
+    private Label txtCarSelection;
 
     private ObservableList<String> priceSortingChoices = FXCollections.observableArrayList("","High to Low", "Low to High");
 
@@ -34,15 +36,17 @@ public class CarSelectionController extends ScreenController {
     }
 
     public void sortByPrice(){
+        ObservableList<String> availableCar = null;
         switch (priceSortingChoices.indexOf(sortByPriceOptions.getValue())){
             case 1:
-                DataLogic.getInstance().sortByPrice(false);
+                availableCar = FXCollections.observableArrayList(DataLogic.getInstance().sortByPrice(false));
                 break;
             case 2:
-                DataLogic.getInstance().sortByPrice(true);
+                availableCar = FXCollections.observableArrayList(DataLogic.getInstance().sortByPrice(true));
                 break;
             default:
-
         }
+        listViewCar.getItems().clear();
+        listViewCar.getItems().addAll(availableCar);
     }
 }
