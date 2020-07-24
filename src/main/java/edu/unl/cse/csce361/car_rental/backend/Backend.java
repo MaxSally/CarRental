@@ -305,4 +305,10 @@ public class Backend {
     public Model getModelEntityByName(String name) {
         return ModelEntity.getModelByName(name);
     }
+
+    public String getPriceSummary(){
+        PricedItem pricedItem = new TotalPriceItem(new Tax(new Fees(new AddOn(CarEntity.getAllCars().get(0), "Satellite", 5), "Fee", 1), "Sales Tax", 0.05));
+        return pricedItem.getLineItemSummary();
+    }
 }
+

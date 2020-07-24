@@ -259,4 +259,8 @@ public class DataLogic {
     public int getCriteriaNumberOfDoor(){
         return criteriaFilter.getNumberOfDoors();
     }
+
+    public String getPriceSummary(){
+        return Backend.getInstance().getPriceSummary();
+    }
 }

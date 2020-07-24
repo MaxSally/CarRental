@@ -53,4 +53,9 @@ public class CarSelectionController extends ScreenController {
     public void goHomeButton(javafx.event.ActionEvent event) throws IOException {
         switchScreen(event, "home.fxml");
     }
+
+
+    public void goToAddOn(javafx.event.ActionEvent event) throws  IOException{
+        switchScreen(event, "carReviewAddOns.fxml");
+    }
 }

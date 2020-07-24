@@ -20,5 +20,6 @@
       <Label layoutX="347.0" layoutY="6.0" text="Sort By Price" />
       <Button layoutX="328.0" layoutY="65.0" mnemonicParsing="false" onAction="#sortByPrice" prefHeight="25.0" prefWidth="108.0" text="Sort" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
+      <Button layoutX="212.0" layoutY="65.0" mnemonicParsing="false" onAction="#goToAddOn" text="Go Home" />
    </children>
 </Pane>

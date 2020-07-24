@@ -22,7 +22,7 @@ import java.util.Set;
  * Hibernate implementation of {@link Car}.
  */
 @Entity
-public class CarEntity implements Car {
+public class CarEntity extends PricedItemDecorator implements Car  {
 
     /**
      * The minimum number of characters on a license plate
@@ -187,19 +187,7 @@ public class CarEntity implements Car {
 
     @Override
     public String getLineItemSummary() {
-        String description = toString();
-        String dailyRate = CURRENCY_SYMBOL + " " + getDailyRate();
-        int descriptionLength = description.length();
-        int dailyRateLength = dailyRate.length();
-        int numberOfLines = 1;
-        while (descriptionLength > LINE_ITEM_TEXT_LENGTH - dailyRateLength - 1) {
-            // place newline at index 80 on 1st iteration, 161 on 2nd (allows for previous newline), 242 on 3rd, etc.
-            int index = numberOfLines * LINE_ITEM_TEXT_LENGTH + numberOfLines - 1;
-            description = description.substring(0, index+1) + System.lineSeparator() + description.substring(index+1);
-            descriptionLength -= LINE_ITEM_TEXT_LENGTH;
-        }
-        String padding = " ".repeat(LINE_ITEM_TEXT_LENGTH - descriptionLength - dailyRateLength);
-        return description + padding + dailyRate;
+        return getIndividualLineSummary(toString(), getDailyRate());
     }
 
     @Override
