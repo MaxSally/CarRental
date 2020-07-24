@@ -36,4 +36,8 @@ public class ManagerOptionsController extends ScreenController{
     public void cancelButton(javafx.event.ActionEvent event) throws IOException {
         switchScreen(event, "home.fxml");
     }
+
+    public void addNewCar(javafx.event.ActionEvent event) throws IOException {
+        switchScreen(event, "addNewCar.fxml");
+    }
 }

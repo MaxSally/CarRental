@@ -21,7 +21,7 @@
       </Label>
       <Button layoutX="116.0" layoutY="445.0" mnemonicParsing="false" onAction="#switchToCreateIndividualAccount" prefHeight="27.0" prefWidth="217.0" text="Create Individual Customer Account" />
       <Button layoutX="116.0" layoutY="483.0" mnemonicParsing="false" onAction="#switchToCreateCorporateAccount" text="Create Corporate Customer Account" />
-      <Button layoutX="119.0" layoutY="603.0" mnemonicParsing="false" onAction="#switchToManagerOptions" prefHeight="27.0" prefWidth="216.0" text="Click Here to Manage Accounts" />
+      <Button layoutX="101.0" layoutY="603.0" mnemonicParsing="false" onAction="#switchToManagerOptions" prefHeight="27.0" prefWidth="247.0" text="Click Here to Manage Accounts and Cars" />
       <Label layoutX="171.0" layoutY="575.0" text="Are You A Manager?" />
       <Label layoutX="159.0" layoutY="415.0" text="Don't Have an Account?" />
       <Button layoutX="118.0" layoutY="190.0" mnemonicParsing="false" onAction="#logIn" prefHeight="27.0" prefWidth="214.0" text="Login" />
