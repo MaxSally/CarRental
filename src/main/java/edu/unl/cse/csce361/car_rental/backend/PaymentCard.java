@@ -98,4 +98,12 @@ public class PaymentCard {
     public String toString() {
         return "*".repeat(CARD_NUMBER_LENGTH - 4) + cardNumber.substring(CARD_NUMBER_LENGTH - 4);
     }
+
+    public boolean isActive(String cardNumber) {
+        if(cardNumber.isEmpty() || cardNumber == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

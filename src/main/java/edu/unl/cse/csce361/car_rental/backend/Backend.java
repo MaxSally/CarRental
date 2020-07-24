@@ -304,6 +304,17 @@ public class Backend {
         }
     }
 
+    public void updateCardInformationForIndividualCustomer(String name, String cardNumber, String cvv,
+                                                              Integer expirationMonth, Integer expirationYear){
+
+        IndividualCustomer customer = ((IndividualCustomerEntity)CustomerEntity.getCustomerByName(name));
+        if(customer.getPaymentCard().isActive(cardNumber)) {
+            ((IndividualCustomerEntity)CustomerEntity.getCustomerByName(name)).updatePaymentCard(expirationMonth, expirationYear, cvv);
+        } else {
+            ((IndividualCustomerEntity)CustomerEntity.getCustomerByName(name)).setPaymentCard(cardNumber, expirationMonth, expirationYear, cvv);
+        }
+    }
+
     public boolean updateAddressForCustomer(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode){
         CustomerEntity customer = (CustomerEntity) getCustomer(name);
         Session session = HibernateUtil.getSession();
