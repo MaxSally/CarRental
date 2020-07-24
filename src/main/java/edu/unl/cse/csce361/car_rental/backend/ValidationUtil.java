@@ -29,6 +29,9 @@ public class ValidationUtil {
     }
 
     public static boolean availabilityCriteriaChecker(String invalidCase, String criteriaFilter, String input){
+        invalidCase = invalidCase.toLowerCase();
+        criteriaFilter = criteriaFilter.toLowerCase();
+        input = input.toLowerCase();
         return (criteriaFilter.equals(invalidCase)) || (!criteriaFilter.equals(invalidCase) && input.equals(criteriaFilter));
     }
 }

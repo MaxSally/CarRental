@@ -273,4 +273,12 @@ public class DataLogic {
     public boolean createCar(String model, String color, String licensePlate, String vin, int dailyRate){
         return Backend.getInstance().createCar(model, color, licensePlate, vin, dailyRate) != null;
     }
+
+    public List<String> getAllColors(){
+        return Backend.getInstance().getAllColors();
+    }
+
+    public List<String> getAllModels(){
+        return Backend.getInstance().getAllModels();
+    }
 }

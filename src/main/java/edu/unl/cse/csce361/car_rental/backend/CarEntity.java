@@ -274,4 +274,19 @@ public class CarEntity extends PricedItemDecorator implements Car  {
         }
         return allCars;
     }
+
+    public static List<String> getAllColors(){
+        List<String> colors = new ArrayList<>();
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            colors.addAll(new HashSet<String>(session.createQuery("SELECT color FROM CarEntity color").getResultList()));
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return colors;
+    }
 }

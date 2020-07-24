@@ -4,6 +4,7 @@ import org.hibernate.Session;
 
 import javax.persistence.PersistenceException;
 import java.time.DateTimeException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -327,5 +328,19 @@ public class Backend {
         PricedItem pricedItem = new TotalPriceItem(new Tax(new Fees(new AddOn(CarEntity.getAllCars().get(0), "Satellite", 5), "Fee", 1), "Sales Tax", 0.05));
         return pricedItem.getLineItemSummary();
     }
+
+    public List<String> getAllColors(){
+        return CarEntity.getAllColors();
+    }
+
+    public List<String> getAllModels(){
+        List<Model> models = ModelEntity.getAllModels();
+        List<String> modelAsString = new ArrayList<>();
+        for(Model model : models){
+            modelAsString.add(model.toString());
+        }
+        return modelAsString;
+    }
+
 }
 
