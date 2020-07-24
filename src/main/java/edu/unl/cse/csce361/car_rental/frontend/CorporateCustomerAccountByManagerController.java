@@ -23,8 +23,12 @@ public class CorporateCustomerAccountByManagerController extends ScreenControlle
     }
 
     public void createCorporateCustomer(javafx.event.ActionEvent event) throws IOException {
-        if(DataLogic.getInstance().hasCustomerName(txtFieldName.getText()) == true) {
+        if (DataLogic.getInstance().hasCustomerName(txtFieldName.getText()) == true) {
             alertScreen();
+        } else if(txtFieldStreetAddress1.getText().isEmpty() || txtFieldStreetAddress2.getText().isEmpty() || txtFieldCity.getText().isEmpty()
+                || txtFieldState.getText().isEmpty() || txtFieldZip.getText().isEmpty() || txtFieldBankAccount.getText().isEmpty()
+                || txtFieldNegotiatedRate.getText().isEmpty()) {
+            alertScreen("Cannot Create Account", "Please make sure to fill in all fields", "", "Try Again");
         } else {
             DataLogic.getInstance().createCorporateCustomerAccountWithNegotiatedRate(txtFieldName.getText(), txtFieldStreetAddress1.getText(),
                     txtFieldStreetAddress2.getText(), txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText(), txtFieldBankAccount.getText(),
