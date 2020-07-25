@@ -4,14 +4,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -73,12 +66,15 @@ public abstract class CustomerEntity implements Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<RentalEntity> rentals;   // depends on concretion for database purposes
 
+    @Transient
+    private List<Car> selectedCars;
 
     public CustomerEntity() {        // required 0-argument constructor
         super();
     }
 
     public CustomerEntity(String name){
+        this.name = name;
     }
 
     public CustomerEntity(String name, String streetAddress1, String streetAddress2,
@@ -87,8 +83,23 @@ public abstract class CustomerEntity implements Customer {
         this.name = name;
         setAddress(streetAddress1, streetAddress2, city, state, zipCode);
         rentals = new ArrayList<>();
+        selectedCars = new ArrayList<>();
     }
 
+    public List<Car> getSelectedCars() {
+        if(selectedCars == null) {
+            selectedCars = new ArrayList<>();
+        }
+        return selectedCars;
+    }
+
+    public void setSelectedCars(List<Car> selectedCars) {
+        this.selectedCars = selectedCars;
+    }
+
+    public void addToSelectedCar(Car selectedCar) {
+        selectedCars.add(selectedCar);
+    }
 
     @Override
     public String getName() {

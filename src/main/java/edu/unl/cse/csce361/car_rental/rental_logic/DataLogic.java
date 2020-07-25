@@ -62,6 +62,10 @@ public class DataLogic {
         return (customer == null?"":customer.getName());
     }
 
+    public boolean addSelectedCar(Integer carIndex) {
+        return Backend.getInstance().addSelectedCar(currentListedCarOnCarSelection.get(carIndex));
+    }
+
     public boolean setIndividualCustomer(String name, String streetAddress1, String streetAddress2, String city,
                                          String state, String zipCode, String cardNumber, String cvv,
                                          Integer expirationMonth, Integer expirationYear){

@@ -21,9 +21,9 @@ public class CarSelectionController extends ScreenController {
     private Label txtCarSelection;
 
     private ObservableList<String> priceSortingChoices = FXCollections.observableArrayList("","High to Low", "Low to High");
+    private ObservableList<String> availableCar;
 
     public void cancelButton(javafx.event.ActionEvent event) throws IOException {
-        //DataLogic.getInstance().resetCriteriaFilter();
         switchScreen(event, "filters.fxml");
     }
     
@@ -36,7 +36,7 @@ public class CarSelectionController extends ScreenController {
     }
 
     public void sortByPrice(){
-        ObservableList<String> availableCar = null;
+        availableCar = null;
         switch (priceSortingChoices.indexOf(sortByPriceOptions.getValue())){
             case 1:
                 availableCar = FXCollections.observableArrayList(DataLogic.getInstance().sortByPrice(false));
@@ -56,6 +56,7 @@ public class CarSelectionController extends ScreenController {
 
 
     public void goToAddOn(javafx.event.ActionEvent event) throws  IOException{
+        DataLogic.getInstance().addSelectedCar(listViewCar.getSelectionModel().getSelectedIndex());
         switchScreen(event, "carReviewAddOns.fxml");
     }
 }

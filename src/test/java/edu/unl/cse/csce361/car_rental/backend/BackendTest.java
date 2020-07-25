@@ -117,4 +117,13 @@ public class BackendTest {
         //assert
         assertEquals(customer.getName(),name);
     }
+
+    @Test
+    public void testAddSelectedCar() {
+        backend = Backend.getInstance();
+        backend.logIn("Stu Dent");
+        Car car = backend.getAllCar().get(10);
+        backend.addSelectedCar(car);
+        ((CustomerEntity)backend.getCurrentCustomer()).getSelectedCars().get(0);
+    }
 }

@@ -40,4 +40,8 @@ public class ManagerOptionsController extends ScreenController{
     public void addNewCar(javafx.event.ActionEvent event) throws IOException {
         switchScreen(event, "addNewCar.fxml");
     }
+
+    public void manageCarInventoryButton(javafx.event.ActionEvent event) throws IOException {
+        switchScreen(event, "addNewCar.fxml");
+    }
 }

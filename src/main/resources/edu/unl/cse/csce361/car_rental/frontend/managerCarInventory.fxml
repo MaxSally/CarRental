@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.ManagerCarInventoryController">
+   <children>
+      <Label layoutX="163.0" layoutY="30.0" text="Car Inventory">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
+      <ListView fx:id="listView" layoutX="25.0" layoutY="81.0" prefHeight="459.0" prefWidth="398.0" />
+      <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="Move to Garage" />
+      <Button layoutX="305.0" layoutY="561.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="Move out of Garage" />
+      <Button layoutX="159.0" layoutY="561.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="Remove Car" />
+   </children>
+</Pane>

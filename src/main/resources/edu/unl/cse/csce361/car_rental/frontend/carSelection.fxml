@@ -15,11 +15,11 @@
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="45.0" mnemonicParsing="false" onAction="#goHomeButton" text="Go Home" />
-      <ListView fx:id="listViewCar" layoutX="24.0" layoutY="99.0" prefHeight="575.0" prefWidth="402.0" />
+      <ListView fx:id="listViewCar" layoutX="24.0" layoutY="99.0" prefHeight="557.0" prefWidth="402.0" />
       <ChoiceBox fx:id="sortByPriceOptions" layoutX="328.0" layoutY="28.0" prefHeight="27.0" prefWidth="108.0" />
       <Label layoutX="347.0" layoutY="6.0" text="Sort By Price" />
       <Button layoutX="328.0" layoutY="65.0" mnemonicParsing="false" onAction="#sortByPrice" prefHeight="25.0" prefWidth="108.0" text="Sort" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
-      <Button layoutX="212.0" layoutY="65.0" mnemonicParsing="false" onAction="#goToAddOn" text="Go Home" />
+      <Button layoutX="167.0" layoutY="659.0" mnemonicParsing="false" onAction="#goToAddOn" prefHeight="27.0" prefWidth="117.0" text="Select Car" />
    </children>
 </Pane>
