@@ -63,7 +63,10 @@ public class CreateNewModelController extends ScreenController {
                     "Try Again!");
             return;
         }
-        if(createNewCarModelValidation(txtFieldManufacturer.getText(), txtFieldModelName.getText(), classOptions.getValue(),
+        if(DataLogic.getInstance().hasModelName(txtFieldModelName.getText())) {
+            alertScreen("Cannot Create Account", "It seems the model name you entered already exists!",
+                    "Please create a different model", "Try Again");
+        } else if(createNewCarModelValidation(txtFieldManufacturer.getText(), txtFieldModelName.getText(), classOptions.getValue(),
                 numDoorOptions.getValue(), fuelTypeOptions.getValue(), transmissionOptions.getValue(), fuelEconomy)) {
             if(DataLogic.getInstance().createModel(txtFieldManufacturer.getText(), txtFieldModelName.getText(), Model.VehicleClass.valueOf(classOptions.getValue()),
                     numDoorOptions.getValue(), Model.Transmission.valueOf(transmissionOptions.getValue()), Model.Fuel.valueOf(fuelTypeOptions.getValue()),

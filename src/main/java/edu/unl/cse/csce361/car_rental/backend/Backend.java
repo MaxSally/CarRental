@@ -17,6 +17,7 @@ public class Backend {
 
     private static Backend instance;
     private Customer currentCustomer;
+    private Model model;
 
 
     private Backend() {
@@ -63,6 +64,17 @@ public class Backend {
             models = Set.of();
         }
         return models;
+    }
+
+    /**
+     * Retrieves the model that has the specified name, if such a model exists.
+     *
+     * @param name The name of the model
+     * @return The specified model if it is present in the database; <code>null</code> otherwise
+     */
+    public Model getModel(String name) {
+        model = ModelEntity.getModelByName(name);
+        return model;
     }
 
     /* CREATES  NEW OBJECTS */

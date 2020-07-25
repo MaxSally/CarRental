@@ -57,6 +57,10 @@ public class DataLogic {
         return (Backend.getInstance().getCustomer(name) != null);
     }
 
+    public boolean hasModelName(String name) {
+        return (Backend.getInstance().getModel(name) != null);
+    }
+
     public String getCustomerName(String name){
         Customer customer = Backend.getInstance().getCustomer(name);
         return (customer == null?"":customer.getName());
