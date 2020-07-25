@@ -73,8 +73,8 @@ public abstract class ScreenController {
                 isEmptyString(fuelTypeOptions) || isEmptyString(transmissionOption) || fuelEconomy == null);
     }
 
-    public boolean addNewCarValidation(String model, String color, String licensePlateNumber, String vin, Integer dailyRate) {
-        return !(isEmptyString(model) || isEmptyString(color) || isEmptyString(licensePlateNumber) || isEmptyString(vin) || dailyRate == null);
+    public boolean addNewCarValidation(String model, String color, String licensePlateNumber, String vin) {
+        return !(isEmptyString(model) || isEmptyString(color) || isEmptyString(licensePlateNumber) || isEmptyString(vin));
 
     }
 }

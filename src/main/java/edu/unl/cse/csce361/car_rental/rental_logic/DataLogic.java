@@ -275,7 +275,7 @@ public class DataLogic {
     }
 
     public boolean createCar(String model, String color, String licensePlate, String vin,
-                             boolean isRemoved, boolean isUnderMaintenance){
+                             Boolean isRemoved, Boolean isUnderMaintenance){
         return Backend.getInstance().createCar(model, color, licensePlate, vin, isRemoved, isUnderMaintenance) != null;
     }
 

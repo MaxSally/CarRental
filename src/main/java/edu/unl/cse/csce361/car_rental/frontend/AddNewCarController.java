@@ -44,19 +44,10 @@ public class AddNewCarController extends ScreenController {
     }
 
     public void addNewCarButton(javafx.event.ActionEvent event) throws IOException {
-        Integer dailyRate = null;
-        try {
-            dailyRate = parseInt(txtFieldDailyRate.getText());
-        } catch (NumberFormatException e) {
-            System.out.println("Number Format Exception" + e);
-            alertScreen("Cannot Accept Fuel Economy", "Please enter a value for fuel economy", "It cannot be left blank",
-                    "Try Again!");
-            return;
-        }
         if(addNewCarValidation(modelOptions.getValue(), colorOptions.getValue(), txtFieldLicensePlateNumber.getText(),
-                txtFieldVIN.getText(), dailyRate)){
+                txtFieldVIN.getText())){
             if(DataLogic.getInstance().createCar(modelOptions.getValue(), colorOptions.getValue(), txtFieldLicensePlateNumber.getText(),
-                    txtFieldVIN.getText(), dailyRate)) {
+                    txtFieldVIN.getText(), null, null)) {
                 alertScreen("New Car Added", "The car was successfully added to inventory", "",
                         "Thank you!");
                 switchScreen(event, "managerOptions.fxml");

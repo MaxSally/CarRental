@@ -93,7 +93,7 @@ public class CarEntity extends PricedItemDecorator implements Car  {
     }
 
     public CarEntity(String model, String color, String licensePlate, String vin,
-                     boolean isRemoved, boolean isUnderMaintenance) {
+                     Boolean isRemoved, Boolean isUnderMaintenance) {
         super();
         setVin(vin);
         this.color = color;

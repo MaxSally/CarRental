@@ -27,6 +27,6 @@
       <Label layoutX="100.0" layoutY="245.0" text="Would you like to change the negotiated rate?" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
       <Button layoutX="112.0" layoutY="512.0" mnemonicParsing="false" onAction="#addNewCar" prefHeight="27.0" prefWidth="208.0" text="Add new Car to Inventory" />
-      <Button layoutX="112.0" layoutY="580.0" mnemonicParsing="false" onAction="#manageCarInventoryButton" prefHeight="27.0" prefWidth="208.0" text="Manage Car Inventory" />
+      <Button layoutX="112.0" layoutY="580.0" mnemonicParsing="false" onAction="#managerCarInventoryButton" prefHeight="27.0" prefWidth="208.0" text="Manage Car Inventory" />
    </children>
 </Pane>
