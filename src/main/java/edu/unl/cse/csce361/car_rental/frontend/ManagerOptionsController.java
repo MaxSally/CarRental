@@ -1,7 +1,10 @@
 package edu.unl.cse.csce361.car_rental.frontend;
 
 import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -12,13 +15,25 @@ public class ManagerOptionsController extends ScreenController{
     TextField txtFieldUpdateAccountName;
     @FXML
     Label errorMessageUpdateAccount;
-    @FXML TextField txtFieldNegotiatedRate;
+    @FXML
+    TextField txtFieldNegotiatedRate;
+    @FXML
+    ChoiceBox<String> classOptions;
+
+    ObservableList<String> classChoices;
+
+    @FXML
+    private void initialize() {
+        classChoices = FXCollections.observableArrayList(DataLogic.getInstance().getAllVehicleClass());
+        classOptions.setValue("");
+        classOptions.setItems(classChoices);
+    }
 
     public void createCorporateCustomer(javafx.event.ActionEvent event) throws IOException {
         switchScreen(event, "corporateCustomerAccountByManager.fxml");
     }
 
-    public void updateCorporateCustomer(javafx.event.ActionEvent event) throws  IOException{
+    public void updateCorporateCustomer(javafx.event.ActionEvent event) throws  IOException {
         errorMessageUpdateAccount.setVisible(true);
         if(txtFieldUpdateAccountName.getText() == null){
             errorMessageUpdateAccount.setText("Please enter account name that you wish to update");
@@ -32,6 +47,10 @@ public class ManagerOptionsController extends ScreenController{
             }
         }
     }
+
+//    public void updateDailyRate(javafx.event.ActionEvent event) throws  IOException {
+//        switchScreen(event, "home.fxml");
+//    }
 
     public void cancelButton(javafx.event.ActionEvent event) throws IOException {
         switchScreen(event, "home.fxml");

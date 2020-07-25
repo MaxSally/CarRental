@@ -15,15 +15,34 @@ public class ManagerCarInventoryController extends ScreenController {
 
     @FXML
     public void initialize(){
-        ObservableList<String> availableCar = FXCollections.observableArrayList(DataLogic.getInstance().getValidCarDescription());
-        listView.getItems().addAll(availableCar);
+        getListView();
     }
 
     public void removeCarButton(javafx.event.ActionEvent event) throws IOException {
+        DataLogic.getInstance().removeCar(listView.getSelectionModel().getSelectedIndex());
+        alertScreen("Car Removed", "Car was successfully removed from inventory", "", "Thank You");
+        getListView();
+    }
 
+    public void moveToGarageButton(javafx.event.ActionEvent event) throws IOException {
+        DataLogic.getInstance().moveToGarage(listView.getSelectionModel().getSelectedIndex());
+        alertScreen("Car Moved To Garage", "Car was successfully moved to the garage", "", "Thank You");
+        getListView();
+    }
+
+    public void moveOutOfGarageButton(javafx.event.ActionEvent event) throws IOException {
+        DataLogic.getInstance().moveOutOfGarage(listView.getSelectionModel().getSelectedIndex());
+        alertScreen("Car Moved Out Of Garage", "Car was successfully moved out of garage", "", "Thank You");
+        getListView();
     }
 
     public void cancelButton(javafx.event.ActionEvent event) throws IOException {
         switchScreen(event, "managerOptions.fxml");
+    }
+
+    private void getListView() {
+        ObservableList<String> availableCar = FXCollections.observableArrayList(DataLogic.getInstance().getCarDescriptionManager());
+        listView.getItems().clear();
+        listView.getItems().addAll(availableCar);
     }
 }

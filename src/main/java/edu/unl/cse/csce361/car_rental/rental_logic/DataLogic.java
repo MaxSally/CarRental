@@ -26,6 +26,8 @@ public class DataLogic {
     private DataLogic(){
         super();
         criteriaFilter = new CriteriaFilter();
+        currentListedCarOnCarManagerScreen = new ArrayList<>();
+        currentListedCarOnCarSelection = new ArrayList<>();
     }
 
     public boolean logIn(String username){
@@ -228,7 +230,7 @@ public class DataLogic {
 
     private List<String> getCarDescriptionFromCurrentListOfCar(boolean isManger){
         List<String> lstValidCarDescription = new ArrayList<>();
-        for(Car car: currentListedCarOnCarSelection){
+        for(Car car: (isManger?currentListedCarOnCarManagerScreen:currentListedCarOnCarSelection)){
             if(isManger){
                 lstValidCarDescription.add(car.getDescriptionForManager());
             }else{
@@ -312,7 +314,7 @@ public class DataLogic {
         List<Car> lstValidCar = new ArrayList<>();
         for(Car car: lstCar){
             boolean acceptable = true;
-            acceptable &= Backend.getInstance().getIfRemoved((CarEntity) car);
+            acceptable &= !Backend.getInstance().getIfRemoved((CarEntity) car);
             if(acceptable){
                 lstValidCar.add(car);
             }
