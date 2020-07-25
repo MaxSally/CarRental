@@ -28,11 +28,7 @@ public class DataLogic {
     }
 
     public boolean logIn(String username){
-        if(Backend.getInstance().getCustomer(username) == null){
-            return false;
-        }else{
-            return true;
-        }
+        return Backend.getInstance().logIn(username);
     }
 
     public boolean createIndividualCustomerAccount(String name, String streetAddress1, String streetAddress2,

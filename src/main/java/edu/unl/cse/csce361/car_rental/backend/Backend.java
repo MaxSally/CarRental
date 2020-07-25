@@ -40,8 +40,7 @@ public class Backend {
      * @return The specified customer if it is present in the database; <code>null</code> otherwise
      */
     public Customer getCustomer(String name) {
-        currentCustomer = CustomerEntity.getCustomerByName(name);
-        return currentCustomer;
+        return CustomerEntity.getCustomerByName(name);
     }
 
     public Customer getCurrentCustomer() {
@@ -354,5 +353,9 @@ public class Backend {
         return modelAsString;
     }
 
+    public boolean logIn(String name){
+        currentCustomer = getCustomer(name);
+        return currentCustomer != null;
+    }
 }
 
