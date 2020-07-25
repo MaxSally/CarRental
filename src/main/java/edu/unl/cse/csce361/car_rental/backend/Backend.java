@@ -19,7 +19,6 @@ public class Backend {
     private Customer currentCustomer;
     private Model model;
 
-
     private Backend() {
         super();
     }
@@ -213,7 +212,7 @@ public class Backend {
      * retrieved, it is only guaranteed to be a {@link Customer}.</p>
      * <p>Use this method only if the payment card information is not yet known. If the payment card information is
      * known, use
-     * {@link #createIndividualCustomer(String, String, String, String, String, String, String, int, int, String)}</p>
+     * {@link #createIndividualCustomer(String, String, String, String, String, String)}</p>
      *
      * @param name           The customer's name
      * @param streetAddress1 The first line of the customer's street address
@@ -255,7 +254,7 @@ public class Backend {
      * <p>If a new customer is created, it is guaranteed to be a {@link IndividualCustomer}. If an existing customer is
      * retrieved, it is only guaranteed to be a {@link Customer}.</p>
      * <p>If the payment card information is not yet known, use
-     * {@link #createIndividualCustomer(String, String, String, String, String, String)}</p>
+     * {@link #createIndividualCustomer(String, String, String, String, String, String, String, Integer, Integer, String)}</p>
      *
      * @param name                       The customer's name
      * @param streetAddress1             The first line of the customer's street address
@@ -336,7 +335,7 @@ public class Backend {
     }
 
     public String getPriceSummary(){
-        PricedItem pricedItem = new TotalPriceItem(new Tax(new Fees(new AddOn(CarEntity.getAllCars().get(0), "Satellite", 5), "Fee", 1), "Sales Tax", 0.05));
+        PricedItem pricedItem = new TotalPriceItem(new Tax(new Fees(new AddOn(((CustomerEntity)currentCustomer).getSelectedCars().get(0), "Satellite", 5), "Fee", 1), "Sales Tax", 0.05));
         return pricedItem.getLineItemSummary();
     }
 
@@ -353,9 +352,24 @@ public class Backend {
         return modelAsString;
     }
 
-    public boolean logIn(String name){
+    public boolean logIn(String name) {
         currentCustomer = getCustomer(name);
         return currentCustomer != null;
+    }
+//    public boolean setAvailability(String vin) {
+//        return true;
+//    }
+
+    public boolean addSelectedCar(Car userSelectedCar) {
+        if(userSelectedCar.isAvailable()) {
+            for(Car car : ((CustomerEntity) currentCustomer).getSelectedCars()) {
+                if(userSelectedCar.equals(car)) {
+                    return false;
+                }
+            }
+        }
+        ((CustomerEntity) currentCustomer).addToSelectedCar(userSelectedCar);
+        return true;
     }
 }
 
