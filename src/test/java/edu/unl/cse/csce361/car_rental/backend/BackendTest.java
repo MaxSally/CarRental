@@ -1,10 +1,13 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
+import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import org.hibernate.Session;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.xml.crypto.Data;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -124,6 +127,11 @@ public class BackendTest {
         backend.logIn("Stu Dent");
         Car car = backend.getAllCar().get(10);
         backend.addSelectedCar(car);
-        ((CustomerEntity)backend.getCurrentCustomer()).getSelectedCars().get(0);
+        ((CustomerEntity) backend.getCurrentCustomer()).getSelectedCars().get(0);
+    }
+
+    @Test
+    public void testGetAllColor(){
+        System.out.println(ModelEntity.getAllModels());
     }
 }
