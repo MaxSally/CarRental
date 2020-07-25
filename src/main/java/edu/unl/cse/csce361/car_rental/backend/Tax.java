@@ -5,7 +5,7 @@ public class Tax extends PricedItemDecorator {
     private String taxName;
     private double taxRate;
 
-    public Tax(PricedItemDecorator pricedItemDecorator, String taxName, double taxRate){
+    public Tax(PricedItem pricedItemDecorator, String taxName, double taxRate){
         super(pricedItemDecorator);
         this.taxName = taxName;
         this.taxRate = taxRate;

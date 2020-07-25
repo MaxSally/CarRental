@@ -82,9 +82,9 @@ public class CarEntity extends PricedItemDecorator implements Car  {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<RentalEntity> rentals;     // depends on concretion for database purposes
 
-    @Column
+    @Column (nullable = false)
     private boolean isRemoved;
-    @Column
+    @Column (nullable = false)
     private boolean isUnderMaintenance;
 
 
@@ -266,6 +266,16 @@ public class CarEntity extends PricedItemDecorator implements Car  {
                 getDailyRate());
     }
 
+    public String getDescriptionForManager(){
+        return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s\nDaily rate: %d\n" +
+                        "Under Maintenance: %b\n Removed: %b\n" +
+                        "Rented: %b",
+                getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
+                (model.getFuelEconomyMPG() == null?"":model.getFuelEconomyMPG().get().toString()),
+                (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()),
+                getDailyRate(), isUnderMaintenance, isRemoved, isAvailable());
+    }
+
     public static List<Car> getAllCars(){
         List<Car> allCars = null;
         Session session = HibernateUtil.getSession();
@@ -296,30 +306,23 @@ public class CarEntity extends PricedItemDecorator implements Car  {
         return colors;
     }
 
-    public boolean moveToGarage(){
-        if(this != null){
-            isUnderMaintenance = true;
-            return true;
-        }else{
-            return false;
-        }
+    public void moveToGarage(){
+        isUnderMaintenance = true;
     }
 
-    public boolean moveOutOfGarage(){
-        if(this != null){
-            isUnderMaintenance = false;
-            return true;
-        }else{
-            return false;
-        }
+    public void moveOutOfGarage(){
+        isUnderMaintenance = false;
     }
 
-    public boolean removeCar(){
-        if(this != null){
-            isRemoved = true;
-            return true;
-        }else{
-            return false;
-        }
+    public void removeCar(){
+        isRemoved = true;
+    }
+
+    public Boolean getIfRemoved() {
+        return isRemoved;
+    }
+
+    public Boolean getIfUnderMaintenance() {
+        return isUnderMaintenance;
     }
 }

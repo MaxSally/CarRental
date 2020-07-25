@@ -65,9 +65,11 @@ public interface Car extends PricedItem, Comparable<Car> {
 
     String getDescription();
 
-    boolean moveToGarage();
+    void moveToGarage();
 
-    boolean moveOutOfGarage();
+    void moveOutOfGarage();
 
-    boolean removeCar();
+    void removeCar();
+
+    String getDescriptionForManager();
 }

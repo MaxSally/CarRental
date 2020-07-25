@@ -14,6 +14,7 @@ public class DataLogic {
     private static DataLogic instance;
     private CriteriaFilter criteriaFilter;
     private List<Car> currentListedCarOnCarSelection;
+    private List<Car> currentListedCarOnCarManagerScreen;
 
     public static DataLogic getInstance(){
         if(instance == null){
@@ -208,7 +209,7 @@ public class DataLogic {
                         - Backend.getInstance().getModelEntityByName(car1.getModel()).getFuelEconomyMPG().get();
             }
         });
-        return getCarDescriptionFromCurrentListOfCar();
+        return getCarDescriptionFromCurrentListOfCar(false);
     }
 
     public List<String> sortByPrice(boolean isAscending){
@@ -222,13 +223,17 @@ public class DataLogic {
                 }
             }
         });
-        return getCarDescriptionFromCurrentListOfCar();
+        return getCarDescriptionFromCurrentListOfCar(false);
     }
 
-    private List<String> getCarDescriptionFromCurrentListOfCar(){
+    private List<String> getCarDescriptionFromCurrentListOfCar(boolean isManger){
         List<String> lstValidCarDescription = new ArrayList<>();
         for(Car car: currentListedCarOnCarSelection){
-            lstValidCarDescription.add(car.getDescription());
+            if(isManger){
+                lstValidCarDescription.add(car.getDescriptionForManager());
+            }else{
+                lstValidCarDescription.add(car.getDescription());
+            }
         }
         return lstValidCarDescription;
     }
@@ -266,7 +271,7 @@ public class DataLogic {
     }
 
     public String getPriceSummary(){
-        return Backend.getInstance().getPriceSummary();
+        return Backend.getInstance().getFinalPriceSummary();
     }
 
     public boolean createModel(String manufacturer, String model, Model.VehicleClass classType, Integer numberOfDoors,
@@ -285,5 +290,34 @@ public class DataLogic {
 
     public List<String> getAllModels(){
         return Backend.getInstance().getAllModels();
+    }
+
+    public boolean removeCar(int carIndex){
+        Car car = currentListedCarOnCarManagerScreen.get(carIndex);
+        return Backend.getInstance().removeCar(car);
+    }
+
+    public boolean moveToGarage(int carIndex){
+        Car car = currentListedCarOnCarManagerScreen.get(carIndex);
+        return Backend.getInstance().moveToGarage(car);
+    }
+
+    public boolean moveOutOfGarage(int carIndex){
+        Car car = currentListedCarOnCarManagerScreen.get(carIndex);
+        return Backend.getInstance().moveOutOfGarage(car);
+    }
+
+    public List<String> getCarDescriptionManager(){
+        List<Car> lstCar = Backend.getInstance().getAllCar();
+        List<Car> lstValidCar = new ArrayList<>();
+        for(Car car: lstCar){
+            boolean acceptable = true;
+            acceptable &= Backend.getInstance().getIfRemoved((CarEntity) car);
+            if(acceptable){
+                lstValidCar.add(car);
+            }
+        }
+        currentListedCarOnCarManagerScreen = lstValidCar;
+        return getCarDescriptionFromCurrentListOfCar(true);
     }
 }

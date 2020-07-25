@@ -18,6 +18,7 @@ public class Backend {
     private static Backend instance;
     private Customer currentCustomer;
     private Model model;
+    private PricedItem currentPricedItem;
 
     private Backend() {
         super();
@@ -334,9 +335,20 @@ public class Backend {
         return ModelEntity.getModelByName(name);
     }
 
-    public String getPriceSummary(){
-        PricedItem pricedItem = new TotalPriceItem(new Tax(new Fees(new AddOn(((CustomerEntity)currentCustomer).getSelectedCars().get(0), "Satellite", 5), "Fee", 1), "Sales Tax", 0.05));
-        return pricedItem.getLineItemSummary();
+    public String getFinalPriceSummary(){
+        return new TotalPriceItem(currentPricedItem).getLineItemSummary();
+    }
+
+    public PricedItem addFees(String name, int cost){
+        return new Fees(currentPricedItem, name, cost);
+    }
+
+    public PricedItem addTax(String name, double rate){
+        return new Tax(currentPricedItem, name, rate);
+    }
+
+    public PricedItem addAddon(String name, int cost){
+        return new AddOn(currentPricedItem, name, cost);
     }
 
     public List<String> getAllColors(){
@@ -369,19 +381,40 @@ public class Backend {
             }
         }
         ((CustomerEntity) currentCustomer).addToSelectedCar(userSelectedCar);
+        currentPricedItem = userSelectedCar;
         return true;
     }
 
     public boolean moveToGarage(Car selectedCar){
-        return selectedCar.moveToGarage();
+        if(selectedCar.isAvailable()){
+            selectedCar.moveToGarage();
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     public boolean moveOutOfGarage(Car selectedCar){
-        return selectedCar.moveOutOfGarage();
+        if(selectedCar.isAvailable()){
+            selectedCar.moveOutOfGarage();
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean removeCar(Car selectedCar){
-        return selectedCar.removeCar();
+        if(selectedCar.isAvailable()){
+            selectedCar.removeCar();
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean getIfRemoved(CarEntity car){
+        return car.getIfRemoved();
     }
 }
 
