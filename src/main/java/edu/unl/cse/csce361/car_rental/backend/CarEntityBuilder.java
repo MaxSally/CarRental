@@ -8,11 +8,13 @@ public class CarEntityBuilder {
     private String color;
     private String licensePlate;
     private String vin;
-    private int dailyRate;
+    private boolean isRemoved;
+    private boolean isUnderMaintenance;
 
     public CarEntityBuilder(){
         model = color = licensePlate = vin = "Unknown";
-        dailyRate = 0;
+        isRemoved = false;
+        isUnderMaintenance = false;
     }
 
     public CarEntityBuilder setModel(String model) {
@@ -39,13 +41,21 @@ public class CarEntityBuilder {
         return this;
     }
 
-    public CarEntityBuilder setDailyRate(Integer dailyRate) {
-        if(dailyRate != null)
-            this.dailyRate = dailyRate;
+    public CarEntityBuilder setIsRemoved(Boolean isRemoved){
+        if(isRemoved != null){
+            this.isRemoved = isRemoved;
+        }
+        return this;
+    }
+
+    public CarEntityBuilder setUnderMaintenance(Boolean isUnderMaintenance){
+        if(isUnderMaintenance != null){
+            this.isUnderMaintenance = isUnderMaintenance;
+        }
         return this;
     }
 
     public CarEntity build(){
-        return new CarEntity(model, color, licensePlate, vin, dailyRate);
+        return new CarEntity(model, color, licensePlate, vin, isRemoved, isUnderMaintenance);
     }
 }

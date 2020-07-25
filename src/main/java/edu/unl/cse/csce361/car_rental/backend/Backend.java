@@ -137,14 +137,14 @@ public class Backend {
      * @param vin          The car's Vehicle Identification Number
      * @return a new car with the specified parameters, or an existing car model with the same VIN
      */
-    public Car createCar(String model, String color, String licensePlate, String vin, int dailyRate) {
+    public Car createCar(String model, String color, String licensePlate, String vin, Boolean isRemoved, Boolean isUnderMaintenance) {
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();
         Car car = null;
         try {
             car = new CarEntityBuilder().setModel(model).setColor(color).setLicensePlate(licensePlate).setVin(vin)
-                    .setDailyRate(dailyRate).build();
+                    .setIsRemoved(isRemoved).setUnderMaintenance(isUnderMaintenance).build();
             session.saveOrUpdate(car);
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -370,6 +370,18 @@ public class Backend {
         }
         ((CustomerEntity) currentCustomer).addToSelectedCar(userSelectedCar);
         return true;
+    }
+
+    public boolean moveToGarage(Car selectedCar){
+        return selectedCar.moveToGarage();
+    }
+
+    public boolean moveOutOfGarage(Car selectedCar){
+        return selectedCar.moveOutOfGarage();
+    }
+
+    public boolean removeCar(Car selectedCar){
+        return selectedCar.removeCar();
     }
 }
 

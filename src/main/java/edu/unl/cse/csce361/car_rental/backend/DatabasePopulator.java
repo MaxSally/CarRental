@@ -36,27 +36,27 @@ public class DatabasePopulator {
     static Set<Car> createCars() {
         System.out.println("Creating cars...");
         return Set.of(
-                new CarEntity("Ranger", "Blue", "123 ABC", "1234567890ABCDEFG", 123),
-                new CarEntity("Malibu", "Gray", "456 DEF", "HJKLMNPRSTUVWXYZ1",456),
-                new CarEntity("Malibu", "Red", "789 GHI", "234567890ABCDEFGH",789),
-                new CarEntity("ILX", "Red", "AB12", "PL0KM9JN8UHB7YGV6",901),
-                new CarEntity("Pacifica", "Red", "34CD", "TFC5RDX4ESZ3WA21Z",2893),
-                new CarEntity("Versa", "Red", "GBR1", "XCVBNMASDFGHJKLWE", 389),
-                new CarEntity("Highlander", "Red", "GBR2", "RTYUP12345678901A", 9283),
-                new CarEntity("Jetta", "Red", "HUZKRR", "Z2WSX3EDC4RFV5TGB",3948),
-                new CarEntity("Bolt", "Red", "JAVA", "6YHN7UJM8K9L0P1A2",239),
-                new CarEntity("ILX", "Red", "SEEPLUS", "S3D4F5G6H7J8K9L01",29385),
-                new CarEntity("Pacifica", "White", "PYTHON", "2Z3X4C5V6B7N8M9KL",894),
-                new CarEntity("Versa", "White", "RUBY", "ASDFGHJJKLZXCVBNM",3498),
-                new CarEntity("Highlander", "White", "JSCRIPT", "12345678909876543",3498),
-                new CarEntity("Jetta", "White", "ADA", "AZSXDCFVGBHNJMKLT",983),
-                new CarEntity("Bolt", "White", "PASCAL", "ACW3ACCACA23TVAS4",3984),
-                new CarEntity("ILX", "White", "4TRAN", "9283017465LAKSJDH",9839),
-                new CarEntity("Pacifica", "White", "BASIC", "FGMZNXBCVPWUEYRT5",2398),
-                new CarEntity("Versa", "Fuchsia", "ALGOL", "HELL0W0RLDF00BARB",39823),
-                new CarEntity("Highlander", "Magenta", "ASM", "AZ9UUXPLUGHXYZZYW",9893),
-                new CarEntity("Jetta", "Cyan", "LISP", "1BBLEW0BBLET1MEYW",983),
-                new CarEntity("Bolt", "Yellow", "SCHEME", "1MEYG00DBYE543210",3984)
+                new CarEntity("Ranger", "Blue", "123 ABC", "1234567890ABCDEFG", false, false),
+                new CarEntity("Malibu", "Gray", "456 DEF", "HJKLMNPRSTUVWXYZ1",false, false),
+                new CarEntity("Malibu", "Red", "789 GHI", "234567890ABCDEFGH", false, false),
+                new CarEntity("ILX", "Red", "AB12", "PL0KM9JN8UHB7YGV6", false, false),
+                new CarEntity("Pacifica", "Red", "34CD", "TFC5RDX4ESZ3WA21Z", false, false),
+                new CarEntity("Versa", "Red", "GBR1", "XCVBNMASDFGHJKLWE", false, false),
+                new CarEntity("Highlander", "Red", "GBR2", "RTYUP12345678901A", false, false),
+                new CarEntity("Jetta", "Red", "HUZKRR", "Z2WSX3EDC4RFV5TGB", false, false),
+                new CarEntity("Bolt", "Red", "JAVA", "6YHN7UJM8K9L0P1A2", false, false),
+                new CarEntity("ILX", "Red", "SEEPLUS", "S3D4F5G6H7J8K9L01", false, false),
+                new CarEntity("Pacifica", "White", "PYTHON", "2Z3X4C5V6B7N8M9KL", false, false),
+                new CarEntity("Versa", "White", "RUBY", "ASDFGHJJKLZXCVBNM", false, false),
+                new CarEntity("Highlander", "White", "JSCRIPT", "12345678909876543", false, false),
+                new CarEntity("Jetta", "White", "ADA", "AZSXDCFVGBHNJMKLT", false, false),
+                new CarEntity("Bolt", "White", "PASCAL", "ACW3ACCACA23TVAS4", false, false),
+                new CarEntity("ILX", "White", "4TRAN", "9283017465LAKSJDH", false, false),
+                new CarEntity("Pacifica", "White", "BASIC", "FGMZNXBCVPWUEYRT5", false, false),
+                new CarEntity("Versa", "Fuchsia", "ALGOL", "HELL0W0RLDF00BARB", false, false),
+                new CarEntity("Highlander", "Magenta", "ASM", "AZ9UUXPLUGHXYZZYW", false, false),
+                new CarEntity("Jetta", "Cyan", "LISP", "1BBLEW0BBLET1MEYW", false, false),
+                new CarEntity("Bolt", "Yellow", "SCHEME", "1MEYG00DBYE543210", false, false)
         );
     }
 

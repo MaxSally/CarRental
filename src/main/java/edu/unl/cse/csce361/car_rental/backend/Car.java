@@ -64,4 +64,10 @@ public interface Car extends PricedItem, Comparable<Car> {
     void addRental(RentalEntity rental);
 
     String getDescription();
+
+    boolean moveToGarage();
+
+    boolean moveOutOfGarage();
+
+    boolean removeCar();
 }

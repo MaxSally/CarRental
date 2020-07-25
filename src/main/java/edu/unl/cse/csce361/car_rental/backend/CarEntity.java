@@ -75,7 +75,6 @@ public class CarEntity extends PricedItemDecorator implements Car  {
     private String licensePLate;
     @Column
     private String color;
-    @Column int dailyRate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private ModelEntity model;              // depends on concretion for database purposes
@@ -83,24 +82,31 @@ public class CarEntity extends PricedItemDecorator implements Car  {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<RentalEntity> rentals;     // depends on concretion for database purposes
 
+    @Column
+    private boolean isRemoved;
+    @Column
+    private boolean isUnderMaintenance;
+
 
     public CarEntity() {    // required 0-argument constructor
         super();
     }
 
-    public CarEntity(String model, String color, String licensePlate, String vin, int dailyRate) {
+    public CarEntity(String model, String color, String licensePlate, String vin,
+                     boolean isRemoved, boolean isUnderMaintenance) {
         super();
         setVin(vin);
         this.color = color;
         setLicensePlate(licensePlate);
         setModel(model);
         rentals = new ArrayList<>();
-        this.dailyRate = dailyRate;
+        this.isRemoved = isRemoved;
+        this.isUnderMaintenance = isUnderMaintenance;
     }
 
     @Override
     public int getDailyRate() {
-        return dailyRate;
+        return 0;
     }
 
     @Override
@@ -257,7 +263,7 @@ public class CarEntity extends PricedItemDecorator implements Car  {
                 getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
                 (model.getFuelEconomyMPG() == null?"":model.getFuelEconomyMPG().get().toString()),
                 (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()),
-                dailyRate);
+                getDailyRate());
     }
 
     public static List<Car> getAllCars(){
@@ -288,5 +294,32 @@ public class CarEntity extends PricedItemDecorator implements Car  {
             session.getTransaction().rollback();
         }
         return colors;
+    }
+
+    public boolean moveToGarage(){
+        if(this != null){
+            isUnderMaintenance = true;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean moveOutOfGarage(){
+        if(this != null){
+            isUnderMaintenance = false;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean removeCar(){
+        if(this != null){
+            isRemoved = true;
+            return true;
+        }else{
+            return false;
+        }
     }
 }

@@ -274,8 +274,9 @@ public class DataLogic {
         return Backend.getInstance().createModel(manufacturer, model, classType, numberOfDoors, transmission, fuel, fuelEconomyMPG) != null;
     }
 
-    public boolean createCar(String model, String color, String licensePlate, String vin, int dailyRate){
-        return Backend.getInstance().createCar(model, color, licensePlate, vin, dailyRate) != null;
+    public boolean createCar(String model, String color, String licensePlate, String vin,
+                             boolean isRemoved, boolean isUnderMaintenance){
+        return Backend.getInstance().createCar(model, color, licensePlate, vin, isRemoved, isUnderMaintenance) != null;
     }
 
     public List<String> getAllColors(){
