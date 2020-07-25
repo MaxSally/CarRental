@@ -2,6 +2,7 @@ package edu.unl.cse.csce361.car_rental.backend;
 
 import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import org.hibernate.Session;
+import org.hsqldb.Database;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,26 +18,27 @@ public class BackendTest {
 
     Backend backend;
 
-    @Before
-    public void setUp() {
-        backend = Backend.getInstance();
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        DatabasePopulator.createModels().forEach(session::saveOrUpdate);
-        DatabasePopulator.createCars().forEach(session::saveOrUpdate);
-        DatabasePopulator.createCorporateCustomers().forEach(session::saveOrUpdate);
-        DatabasePopulator.createIndividualCustomers().forEach(session::saveOrUpdate);
-        DatabasePopulator.createRentals(session).forEach(session::saveOrUpdate);
-        session.getTransaction().commit();
-    }
-
-    @After
-    public void tearDown() {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        DatabasePopulator.depopulateTables(session);
-        session.getTransaction().commit();
-    }
+//    @Before
+//    public void setUp() {
+//        backend = Backend.getInstance();
+//        Session session = HibernateUtil.getSession();
+//        session.beginTransaction();
+//        DatabasePopulator.createModels().forEach(session::saveOrUpdate);
+//        DatabasePopulator.createCars().forEach(session::saveOrUpdate);
+//        DatabasePopulator.createCorporateCustomers().forEach(session::saveOrUpdate);
+//        DatabasePopulator.createIndividualCustomers().forEach(session::saveOrUpdate);
+//        DatabasePopulator.createRentals(session).forEach(session::saveOrUpdate);
+//        DatabasePopulator.createVehicleClassRate().forEach(session::saveOrUpdate);
+//        session.getTransaction().commit();
+//    }
+//
+//    @After
+//    public void tearDown() {
+//        Session session = HibernateUtil.getSession();
+//        session.beginTransaction();
+//        DatabasePopulator.depopulateTables(session);
+//        session.getTransaction().commit();
+//    }
 
     @Test
     public void testGetCustomer() {
@@ -133,5 +135,11 @@ public class BackendTest {
     @Test
     public void testGetAllColor(){
         System.out.println(ModelEntity.getAllModels());
+    }
+
+    @Test
+    public void testGetAllVehicleRate(){
+        System.out.println("=====================================");
+        System.out.println(VehicleClassRateEntity.getDailyRateByClassType(Model.VehicleClass.COMPACT));
     }
 }

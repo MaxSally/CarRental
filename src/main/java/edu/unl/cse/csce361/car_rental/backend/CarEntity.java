@@ -83,9 +83,9 @@ public class CarEntity extends PricedItemDecorator implements Car  {
     private List<RentalEntity> rentals;     // depends on concretion for database purposes
 
     @Column (nullable = false)
-    private boolean isRemoved;
+    private Boolean isRemoved;
     @Column (nullable = false)
-    private boolean isUnderMaintenance;
+    private Boolean isUnderMaintenance;
 
 
     public CarEntity() {    // required 0-argument constructor

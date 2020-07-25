@@ -107,6 +107,20 @@ public class DatabasePopulator {
         );
     }
 
+    static Set<VehicleClassRateEntity> createVehicleClassRate() {
+        System.out.println("Creating Vehicle Class rate...");
+        return Set.of(
+                new VehicleClassRateEntity(Model.VehicleClass.SUV, 200),
+                new VehicleClassRateEntity(COMPACT, 300),
+                new VehicleClassRateEntity(MIDSIZED, 400),
+                new VehicleClassRateEntity(ECONOMY, 500),
+                new VehicleClassRateEntity(TRUCK, 600),
+                new VehicleClassRateEntity(LARGE, 700),
+                new VehicleClassRateEntity(MINIVAN, 800),
+                new VehicleClassRateEntity(Model.VehicleClass.OTHER, 900)
+        );
+    }
+
     @SuppressWarnings("SpellCheckingInspection")
     static Set<RentalEntity> createRentals(Session session) {
         System.out.println("Creating rentals...");
@@ -163,6 +177,7 @@ public class DatabasePopulator {
         session.createQuery("delete from CustomerEntity").executeUpdate();
         session.createQuery("delete from CorporateCustomerEntity").executeUpdate();
         session.createQuery("delete from IndividualCustomerEntity").executeUpdate();
+        session.createQuery("delete from VehicleClassRateEntity").executeUpdate();
     }
 
     public static void main(String[] args) {
@@ -177,6 +192,7 @@ public class DatabasePopulator {
             createCorporateCustomers().forEach(session::saveOrUpdate);
             createIndividualCustomers().forEach(session::saveOrUpdate);
             createRentals(session).forEach(session::saveOrUpdate);
+            createVehicleClassRate().forEach(session::saveOrUpdate);
             System.out.println("Concluding Hibernate transaction...");
             session.getTransaction().commit();
             System.out.println("Success! The database has been populated.");
