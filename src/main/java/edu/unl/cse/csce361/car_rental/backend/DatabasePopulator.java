@@ -110,14 +110,14 @@ public class DatabasePopulator {
     static Set<VehicleClassRateEntity> createVehicleClassRate() {
         System.out.println("Creating Vehicle Class rate...");
         return Set.of(
-                new VehicleClassRateEntity(Model.VehicleClass.SUV, 200),
-                new VehicleClassRateEntity(COMPACT, 300),
-                new VehicleClassRateEntity(MIDSIZED, 400),
-                new VehicleClassRateEntity(ECONOMY, 500),
-                new VehicleClassRateEntity(TRUCK, 600),
-                new VehicleClassRateEntity(LARGE, 700),
-                new VehicleClassRateEntity(MINIVAN, 800),
-                new VehicleClassRateEntity(Model.VehicleClass.OTHER, 900)
+                new VehicleClassRateEntity(SUV.toString(), 200),
+                new VehicleClassRateEntity(COMPACT.toString(), 300),
+                new VehicleClassRateEntity(MIDSIZED.toString(), 400),
+                new VehicleClassRateEntity(ECONOMY.toString(), 500),
+                new VehicleClassRateEntity(TRUCK.toString(), 600),
+                new VehicleClassRateEntity(LARGE.toString(), 700),
+                new VehicleClassRateEntity(MINIVAN.toString(), 800),
+                new VehicleClassRateEntity(Model.VehicleClass.OTHER.toString(), 900)
         );
     }
 

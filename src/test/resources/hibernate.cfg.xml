@@ -42,6 +42,7 @@
         <mapping class="edu.unl.cse.csce361.car_rental.backend.CorporateCustomerEntity"/>
         <mapping class="edu.unl.cse.csce361.car_rental.backend.IndividualCustomerEntity"/>
         <mapping class="edu.unl.cse.csce361.car_rental.backend.RentalEntity"/>
+        <mapping class="edu.unl.cse.csce361.car_rental.backend.VehicleClassRateEntity"/>
 
     </session-factory>
 </hibernate-configuration>

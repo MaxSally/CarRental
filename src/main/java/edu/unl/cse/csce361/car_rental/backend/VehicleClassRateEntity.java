@@ -6,6 +6,8 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.checkIfItemExistInVehicleClass;
 
 @Entity
@@ -19,24 +21,29 @@ public class VehicleClassRateEntity {
 
     @NaturalId
     @Column (length = MAXIMUM_CLASS_TYPE)
-    private Model.VehicleClass classType;
+    private String classType;
 
     @Column
     private Integer dailyRate;
 
-    public VehicleClassRateEntity(Model.VehicleClass classType, Integer dailyRate){
+    public VehicleClassRateEntity(String classType, Integer dailyRate){
         this.classType = classType;
         this.dailyRate = dailyRate;
     }
 
-    public static String getDailyRateByClassType(Model.VehicleClass selectedClassType){
+    public Integer getDailyRate(){
+        return dailyRate;
+    }
+
+    public static Integer getDailyRateByClassType(Model.VehicleClass selectedClassType){
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
-        String dailyRate = "";
+        Integer dailyRate = 0;
         try {
             selectedClassType = checkIfItemExistInVehicleClass(selectedClassType.toString());
             if(selectedClassType != Model.VehicleClass.UNKNOWN){
-                dailyRate = session.createQuery("from VehicleClassRateEntity where classType = " + selectedClassType.ordinal(), VehicleClassRateEntity.class).getSingleResult().toString();
+                VehicleClassRateEntity vehicleClassRateEntity = session.bySimpleNaturalId(VehicleClassRateEntity.class).load(selectedClassType.toString());
+                dailyRate = vehicleClassRateEntity.getDailyRate();
                 session.getTransaction().commit();
             }
         } catch (HibernateException exception) {
