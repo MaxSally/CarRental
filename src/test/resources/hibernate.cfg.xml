@@ -5,34 +5,35 @@
 <hibernate-configuration>
     <session-factory>
         <property name="dialect">
-            org.hibernate.dialect.HSQLDialect
+            org.hibernate.dialect.MySQL5Dialect
         </property>
         <property name="connection.driver_class">
-            org.hsqldb.jdbcDriver
+            com.mysql.cj.jdbc.Driver
         </property>
         <property name="connection.url">
-            jdbc:hsqldb:.
+            jdbc:mysql://cse.unl.edu/qhnguyen?serverTimezone=America/Chicago
         </property>
         <property name="connection.username">
-            sa
+            qhnguyen
         </property>
         <property name="connection.password">
+            UYlfLstOzPC6
         </property>
 
         <!-- Echo executed SQL to stdout? -->
         <property name="show_sql">
-            true
+            false
         </property>
         <property name="format_sql">
-            true
+            false
         </property>
         <property name="use_sql_comments">
             false
         </property>
 
-        <!-- Create the database schema on startup, drop when session ends -->
+        <!-- create any missing tables, add any missing columns -->
         <property name="hbm2ddl.auto">
-            create-drop
+            update
         </property>
 
         <!-- Names the annotated entity class -->

@@ -18,27 +18,28 @@ public class BackendTest {
 
     Backend backend;
 
-//    @Before
-//    public void setUp() {
-//        backend = Backend.getInstance();
-//        Session session = HibernateUtil.getSession();
-//        session.beginTransaction();
-//        DatabasePopulator.createModels().forEach(session::saveOrUpdate);
-//        DatabasePopulator.createCars().forEach(session::saveOrUpdate);
-//        DatabasePopulator.createCorporateCustomers().forEach(session::saveOrUpdate);
-//        DatabasePopulator.createIndividualCustomers().forEach(session::saveOrUpdate);
-//        DatabasePopulator.createRentals(session).forEach(session::saveOrUpdate);
-//        DatabasePopulator.createVehicleClassRate().forEach(session::saveOrUpdate);
-//        session.getTransaction().commit();
-//    }
-//
-//    @After
-//    public void tearDown() {
-//        Session session = HibernateUtil.getSession();
-//        session.beginTransaction();
-//        DatabasePopulator.depopulateTables(session);
-//        session.getTransaction().commit();
-//    }
+    @Before
+    public void setUp() {
+        backend = Backend.getInstance();
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        DatabasePopulator.depopulateTables(session);
+        DatabasePopulator.createModels().forEach(session::saveOrUpdate);
+        DatabasePopulator.createCars().forEach(session::saveOrUpdate);
+        DatabasePopulator.createCorporateCustomers().forEach(session::saveOrUpdate);
+        DatabasePopulator.createIndividualCustomers().forEach(session::saveOrUpdate);
+        DatabasePopulator.createRentals(session).forEach(session::saveOrUpdate);
+        DatabasePopulator.createVehicleClassRate().forEach(session::saveOrUpdate);
+        session.getTransaction().commit();
+    }
+
+    @After
+    public void tearDown() {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        DatabasePopulator.depopulateTables(session);
+        session.getTransaction().commit();
+    }
 
     @Test
     public void testGetCustomer() {

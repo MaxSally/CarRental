@@ -38,17 +38,19 @@ public class VehicleClassRateEntity {
     public static Integer getDailyRateByClassType(Model.VehicleClass selectedClassType){
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
+        selectedClassType = checkIfItemExistInVehicleClass(selectedClassType.toString());
         Integer dailyRate = 0;
-        try {
-            selectedClassType = checkIfItemExistInVehicleClass(selectedClassType.toString());
-            if(selectedClassType != Model.VehicleClass.UNKNOWN){
+        if(selectedClassType != Model.VehicleClass.UNKNOWN) {
+            try {
                 VehicleClassRateEntity vehicleClassRateEntity = session.bySimpleNaturalId(VehicleClassRateEntity.class).load(selectedClassType.toString());
-                dailyRate = vehicleClassRateEntity.getDailyRate();
+                if(vehicleClassRateEntity != null){
+                    dailyRate = vehicleClassRateEntity.getDailyRate();
+                }
                 session.getTransaction().commit();
+            } catch (HibernateException exception) {
+                System.err.println("Could not load Class type " + selectedClassType.toString() + ". " + exception.getMessage());
+                session.getTransaction().rollback();
             }
-        } catch (HibernateException exception) {
-            System.err.println("Could not load Class type " + selectedClassType.toString() + ". " + exception.getMessage());
-            session.getTransaction().rollback();
         }
         return dailyRate;
     }
