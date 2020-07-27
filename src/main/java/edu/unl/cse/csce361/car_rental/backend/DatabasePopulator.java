@@ -110,14 +110,14 @@ public class DatabasePopulator {
     static Set<VehicleClassRateEntity> createVehicleClassRate() {
         System.out.println("Creating Vehicle Class rate...");
         return Set.of(
-                new VehicleClassRateEntity(SUV.toString(), 200),
-                new VehicleClassRateEntity(COMPACT.toString(), 300),
-                new VehicleClassRateEntity(MIDSIZED.toString(), 400),
-                new VehicleClassRateEntity(ECONOMY.toString(), 500),
-                new VehicleClassRateEntity(TRUCK.toString(), 600),
-                new VehicleClassRateEntity(LARGE.toString(), 700),
-                new VehicleClassRateEntity(MINIVAN.toString(), 800),
-                new VehicleClassRateEntity(Model.VehicleClass.OTHER.toString(), 900)
+                new VehicleClassRateEntity(SUV.toString(), 5500),
+                new VehicleClassRateEntity(COMPACT.toString(), 3000),
+                new VehicleClassRateEntity(MIDSIZED.toString(), 4000),
+                new VehicleClassRateEntity(ECONOMY.toString(), 2000),
+                new VehicleClassRateEntity(TRUCK.toString(), 6000),
+                new VehicleClassRateEntity(LARGE.toString(), 7000),
+                new VehicleClassRateEntity(MINIVAN.toString(), 5000),
+                new VehicleClassRateEntity(Model.VehicleClass.OTHER.toString(), 9000)
         );
     }
 
@@ -129,8 +129,10 @@ public class DatabasePopulator {
         RentalEntity rental;
         Set<RentalEntity> rentals = new HashSet<>();
         // first individual rental (returned)
+        session.beginTransaction();
         car = session.bySimpleNaturalId(CarEntity.class).load("HJKLMNPRSTUVWXYZ1"); // Malibu, "456 DEF" plate
         customer = session.bySimpleNaturalId(CustomerEntity.class).load("Stu Dent");
+        session.getTransaction().commit();
         rental = customer.rentCar(car);
         rental.setDailyRate(4000);
         rental.setRentalStart(LocalDate.of(2020, 1, 15));
@@ -140,8 +142,10 @@ public class DatabasePopulator {
         assert customer instanceof IndividualCustomer;
         rentals.add(rental);
         // second individual rental (active)
+        session.beginTransaction();
         car = session.bySimpleNaturalId(CarEntity.class).load("2Z3X4C5V6B7N8M9KL"); // Pacifica, "PYTHON" plate
         customer = session.bySimpleNaturalId(CustomerEntity.class).load("Stu Dent");
+        session.getTransaction().commit();
         rental = customer.rentCar(car);
         rental.setDailyRate(5000);
         rental.setRentalStart(LocalDate.of(2020, 8, 10));
@@ -149,8 +153,10 @@ public class DatabasePopulator {
         assert customer instanceof IndividualCustomer;
         rentals.add(rental);
         // first corporate rental (active)
+        session.beginTransaction();
         car = session.bySimpleNaturalId(CarEntity.class).load("HJKLMNPRSTUVWXYZ1"); // Malibu, "456 DEF" plate
         customer = session.bySimpleNaturalId(CustomerEntity.class).load("Archie's Pleistocene Petting Zoo");
+        session.getTransaction().commit();
         rental = customer.rentCar(car);
         rental.setDailyRate(2100);
         rental.setRentalStart(LocalDate.of(2020, 7, 31));
@@ -158,8 +164,10 @@ public class DatabasePopulator {
         assert customer instanceof CorporateCustomer;
         rentals.add(rental);
         // second corporate rental (active)
+        session.beginTransaction();
         car = session.bySimpleNaturalId(CarEntity.class).load("FGMZNXBCVPWUEYRT5"); // Pacifica, "BASIC" plate
         customer = session.bySimpleNaturalId(CustomerEntity.class).load("Archie's Pleistocene Petting Zoo");
+        session.getTransaction().commit();
         rental = customer.rentCar(car);
         rental.setDailyRate(2625);
         rental.setRentalStart(LocalDate.of(2020, 7, 31));
@@ -183,17 +191,25 @@ public class DatabasePopulator {
     public static void main(String[] args) {
         System.out.println("Creating Hibernate session...");
         Session session = HibernateUtil.getSession();
-        System.out.println("Starting Hibernate transaction...");
-        session.beginTransaction();
         try {
+            System.out.println("Starting Hibernate transaction to clear tables...");
+            session.beginTransaction();
             depopulateTables(session);
+            System.out.println("Concluding Hibernate transaction...");
+            session.getTransaction().commit();
+            System.out.println("Starting Hibernate transaction to populate tables except RentalEntity...");
+            session.beginTransaction();
+            createVehicleClassRate().forEach(session::saveOrUpdate);
             createModels().forEach(session::saveOrUpdate);
             createCars().forEach(session::saveOrUpdate);
             createCorporateCustomers().forEach(session::saveOrUpdate);
             createIndividualCustomers().forEach(session::saveOrUpdate);
-            createRentals(session).forEach(session::saveOrUpdate);
-            createVehicleClassRate().forEach(session::saveOrUpdate);
             System.out.println("Concluding Hibernate transaction...");
+            session.getTransaction().commit();
+            System.out.println("Now populating RentalEntity...");
+            Set<RentalEntity> rentals = createRentals(session);
+            session.beginTransaction();
+            rentals.forEach(session::saveOrUpdate);
             session.getTransaction().commit();
             System.out.println("Success! The database has been populated.");
         } catch (MappingException mappingException) {
