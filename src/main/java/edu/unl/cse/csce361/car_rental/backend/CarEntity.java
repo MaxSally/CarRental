@@ -106,7 +106,7 @@ public class CarEntity extends PricedItemDecorator implements Car  {
 
     @Override
     public int getDailyRate() {
-        return 0;
+        return VehicleClassRateEntity.getVehicleRateEntityByClassType(model.getClassType()).getDailyRate();
     }
 
     @Override

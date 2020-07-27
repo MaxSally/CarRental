@@ -31,27 +31,34 @@ public class VehicleClassRateEntity {
         this.dailyRate = dailyRate;
     }
 
+    public VehicleClassRateEntity(){
+        super();
+    }
+
     public Integer getDailyRate(){
         return dailyRate;
     }
 
-    public static Integer getDailyRateByClassType(Model.VehicleClass selectedClassType){
+    public static VehicleClassRateEntity getVehicleRateEntityByClassType(Model.VehicleClass selectedClassType){
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         selectedClassType = checkIfItemExistInVehicleClass(selectedClassType.toString());
-        Integer dailyRate = 0;
+        VehicleClassRateEntity vehicleClassRateEntity = null;
         if(selectedClassType != Model.VehicleClass.UNKNOWN) {
             try {
-                VehicleClassRateEntity vehicleClassRateEntity = session.bySimpleNaturalId(VehicleClassRateEntity.class).load(selectedClassType.toString());
-                if(vehicleClassRateEntity != null){
-                    dailyRate = vehicleClassRateEntity.getDailyRate();
-                }
+                vehicleClassRateEntity = session.bySimpleNaturalId(VehicleClassRateEntity.class).load(selectedClassType.toString());
                 session.getTransaction().commit();
             } catch (HibernateException exception) {
                 System.err.println("Could not load Class type " + selectedClassType.toString() + ". " + exception.getMessage());
                 session.getTransaction().rollback();
             }
         }
-        return dailyRate;
+        return vehicleClassRateEntity;
+    }
+
+    public void setDailyRate(Integer dailyRate){
+        if(dailyRate != null){
+            this.dailyRate = dailyRate;
+        }
     }
 }
