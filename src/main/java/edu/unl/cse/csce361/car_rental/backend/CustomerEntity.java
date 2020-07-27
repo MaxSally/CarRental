@@ -5,11 +5,15 @@ import org.hibernate.Session;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import static edu.unl.cse.csce361.car_rental.backend.ModelEntity.getModelByName;
 
 /**
  * Hibernate implementation of {@link Customer}.
@@ -215,11 +219,28 @@ public abstract class CustomerEntity implements Customer {
     public RentalEntity rentCar(PricedItem rentalPackage)
             throws IllegalArgumentException {
         PricedItem car = rentalPackage.getBasePricedItem();
+        RentalEntity newRental = null;
         if (!(car instanceof Car)) {
             throw new IllegalArgumentException(getName() + " wants to rent a Car, not a " +
                     car.getClass().getSimpleName());
+        }else{
+            Session session = HibernateUtil.getSession();
+            System.out.println("Starting Hibernate transaction...");
+            session.beginTransaction();
+
+            try {
+                newRental = new RentalEntity(this, (Car) car, rentalPackage.getDailyRate());
+                newRental.setDailyRate(VehicleClassRateEntity.getVehicleRateEntityByClassType(getModelByName(((Car) car).getModel()).getClassType()).getDailyRate());
+                newRental.setRentalStart(LocalDate.now());
+                session.saveOrUpdate(newRental);
+                session.getTransaction().commit();
+            } catch (Exception e) {
+                System.err.println("error: " + e);
+                session.getTransaction().rollback();
+            }
         }
-        return new RentalEntity(this, (Car) car, rentalPackage.getDailyRate());
+
+        return newRental;
     }
 
     @Override

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -13,5 +16,39 @@
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
+      <ListView fx:id="txtFieldCarInfo" layoutX="25.0" layoutY="104.0" prefHeight="90.0" prefWidth="383.0" />
+      <ListView fx:id="txtFieldAddOn" layoutX="22.0" layoutY="213.0" prefHeight="107.0" prefWidth="389.0" />
+      <Label layoutX="115.0" layoutY="336.0" prefHeight="28.0" prefWidth="236.0" text="Payment Information">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="379.0" prefHeight="20.0" prefWidth="98.0" text="Card Number">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtFieldCardNumber" layoutX="19.0" layoutY="419.0" promptText="Card Number" />
+      <Label layoutX="313.0" layoutY="377.0" prefHeight="20.0" prefWidth="37.0" text="CVV">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtFieldCVV" layoutX="251.0" layoutY="417.0" promptText="CVV" />
+      <Label layoutX="276.0" layoutY="397.0" prefHeight="20.0" prefWidth="111.0" text="Must be 3 or 4 digits" />
+      <Label layoutX="50.0" layoutY="399.0" prefHeight="20.0" prefWidth="98.0" text="Must be 16 digits" />
+      <ChoiceBox fx:id="expirationMonthOptions" layoutX="18.0" layoutY="503.0" prefWidth="150.0" />
+      <Label layoutX="34.0" layoutY="483.0" prefHeight="20.0" prefWidth="118.0" text="Expiration Month">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="expirationYearOptions" layoutX="261.0" layoutY="500.0" prefWidth="150.0" />
+      <Label layoutX="284.0" layoutY="480.0" prefHeight="20.0" prefWidth="105.0" text="Expiration Year">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnRent" layoutX="350.0" layoutY="633.0" mnemonicParsing="false" onAction="#rentCar" text="Rent Car" />
    </children>
 </Pane>

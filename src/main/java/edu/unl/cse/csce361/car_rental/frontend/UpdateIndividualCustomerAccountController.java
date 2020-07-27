@@ -12,21 +12,21 @@ import java.io.IOException;
 public class UpdateIndividualCustomerAccountController extends ScreenController {
 
     @FXML
-    TextField txtFieldName;
+    private TextField txtFieldName;
     @FXML
-    TextField txtFieldStreetAddress1;
+    private TextField txtFieldStreetAddress1;
     @FXML
-    TextField txtFieldStreetAddress2;
+    private TextField txtFieldStreetAddress2;
     @FXML
-    TextField txtFieldCity;
+    private TextField txtFieldCity;
     @FXML
-    TextField txtFieldState;
+    private TextField txtFieldState;
     @FXML
-    TextField txtFieldZip;
+    private TextField txtFieldZip;
     @FXML
-    TextField txtFieldCardNumber;
+    private TextField txtFieldCardNumber;
     @FXML
-    TextField txtFieldCVV;
+    private TextField txtFieldCVV;
     @FXML
     private ChoiceBox<Integer> expirationMonthOptions;
     @FXML

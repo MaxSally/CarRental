@@ -259,21 +259,21 @@ public class CarEntity extends PricedItemDecorator implements Car  {
     }
 
     public String getDescription(){
-        return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s\nDaily rate: %d",
+        return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s\nDaily rate: %d\nVIN: %s\nLicense plate: %s",
                 getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
                 (model.getFuelEconomyMPG() == null?"":model.getFuelEconomyMPG().get().toString()),
                 (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()),
-                getDailyRate());
+                getDailyRate(), getVin(), getLicensePlate());
     }
 
     public String getDescriptionForManager(){
         return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s\nDaily rate: %d\n" +
                         "Under Maintenance: %b\n Removed: %b\n" +
-                        "Rented: %b",
+                        "Rented: %b\nVIN: %s\nLicense plate: %s",
                 getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
                 (model.getFuelEconomyMPG() == null?"":model.getFuelEconomyMPG().get().toString()),
                 (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()),
-                getDailyRate(), isUnderMaintenance, isRemoved, isAvailable());
+                getDailyRate(), isUnderMaintenance, isRemoved, isAvailable(), getVin(), getLicensePlate());
     }
 
     public static List<Car> getAllCars(){

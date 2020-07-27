@@ -97,11 +97,7 @@ public class PaymentCard {
         return "*".repeat(CARD_NUMBER_LENGTH - 4) + cardNumber.substring(CARD_NUMBER_LENGTH - 4);
     }
 
-    public boolean isActive(String cardNumber) {
-        if(cardNumber.isEmpty() || cardNumber == null) {
-            return false;
-        } else {
-            return true;
-        }
+    public boolean isActive() {
+        return !cardNumber.equals("0000000000000000") && cardNumber != null && !cardNumber.equals("");
     }
 }

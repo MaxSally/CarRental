@@ -313,10 +313,10 @@ public class Backend {
         if(customer == null){
             return false;
         }else{
-            if (customer.getPaymentCard().isActive(cardNumber)) {
-                ((IndividualCustomerEntity) CustomerEntity.getCustomerByName(name)).updatePaymentCard(expirationMonth, expirationYear, cvv);
+            if (customer.getPaymentCard() != null && customer.getPaymentCard().isActive()) {
+                customer.updatePaymentCard(expirationMonth, expirationYear, cvv);
             } else {
-                ((IndividualCustomerEntity) CustomerEntity.getCustomerByName(name)).setPaymentCard(cardNumber, expirationMonth, expirationYear, cvv);
+                customer.setPaymentCard(cardNumber, expirationMonth, expirationYear, cvv);
             }
             return true;
         }
@@ -442,5 +442,8 @@ public class Backend {
     public void resetSelectedCars() {
         ((CustomerEntity)currentCustomer).setSelectedCars(new ArrayList<Car>());
     }
-}
 
+    public boolean rentCar(){
+        return ((CustomerEntity)currentCustomer).canRent() && currentCustomer.rentCar(currentPricedItem) != null;
+    }
+}

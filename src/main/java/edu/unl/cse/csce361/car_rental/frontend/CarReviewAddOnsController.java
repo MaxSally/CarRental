@@ -37,11 +37,10 @@ public class CarReviewAddOnsController extends ScreenController {
         if(sunShade.isSelected()){
             DataLogic.getInstance().addNewAddOn("Dashboard Sunshade", 5);
         }
-        reviewCarDetails.getItems().add(DataLogic.getInstance().getPriceSummary());
         if(DataLogic.getInstance().isIndividualCustomerType()) {
-            switchScreen(event, "individualCheckout");
+            switchScreen(event, "individualCheckout.fxml");
         } else if(DataLogic.getInstance().isCorporateCustomerType()) {
-            switchScreen(event, "corporateCheckout");
+            switchScreen(event, "corporateCheckout.fxml");
         } else {
             alertScreen("Unsuccessful", "Something went wrong", "We don't seem to recognize you", "Try Again!");
         }
