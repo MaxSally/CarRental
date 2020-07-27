@@ -103,6 +103,10 @@ public class DataLogic {
         return isCompleted;
     }
 
+    public boolean setDailyRateByManager(String vehicleClass, Integer dailyRate) {
+        return Backend.getInstance().updateDailyRateByManager(Model.VehicleClass.valueOf(vehicleClass), dailyRate);
+    }
+
     public List<String> getAllFuelType(){
         List<String> lstFuelType = new ArrayList<>();
         for(Model.Fuel fuel: Model.Fuel.values()){

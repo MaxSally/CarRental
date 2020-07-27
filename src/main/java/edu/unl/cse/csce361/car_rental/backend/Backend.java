@@ -327,6 +327,15 @@ public class Backend {
         return ((CustomerEntity) getCustomer(name)) != null && ((CustomerEntity) getCustomer(name)).updateAddress(streetAddress1, streetAddress2, city, state, zipCode);
     }
 
+    public boolean updateDailyRateByManager(Model.VehicleClass classType, Integer dailyRate) {
+        VehicleClassRateEntity vehicleClassRate = VehicleClassRateEntity.getVehicleRateEntityByClassType(classType);
+        if(vehicleClassRate != null) {
+            vehicleClassRate.setDailyRate(dailyRate);
+            return true;
+        }
+        return false;
+    }
+
     public List<Car> getAllCar() {
         return CarEntity.getAllCars();
     }

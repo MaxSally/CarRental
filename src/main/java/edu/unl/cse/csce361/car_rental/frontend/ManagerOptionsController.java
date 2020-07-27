@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
+import static java.lang.Integer.parseInt;
+
 public class ManagerOptionsController extends ScreenController{
     @FXML
     TextField txtFieldUpdateAccountName;
@@ -17,6 +19,8 @@ public class ManagerOptionsController extends ScreenController{
     Label errorMessageUpdateAccount;
     @FXML
     TextField txtFieldNegotiatedRate;
+    @FXML
+    TextField txtFieldDailyRate;
     @FXML
     ChoiceBox<String> classOptions;
 
@@ -48,9 +52,23 @@ public class ManagerOptionsController extends ScreenController{
         }
     }
 
-//    public void updateDailyRate(javafx.event.ActionEvent event) throws  IOException {
-//        switchScreen(event, "home.fxml");
-//    }
+    public void updateDailyRate(javafx.event.ActionEvent event) throws  IOException {
+        Integer dailyRate = null;
+        try {
+            dailyRate = parseInt(txtFieldDailyRate.getText());
+        } catch (NumberFormatException e) {
+            System.out.println("Number Format Exception" + e);
+            alertScreen("Cannot Accept Daily Rate", "Please enter a whole number for the daily rate", "",
+                    "Try Again!");
+            return;
+        }
+        if(txtFieldDailyRate.getText() != null && !classOptions.getValue().equals("")) {
+            DataLogic.getInstance().setDailyRateByManager(classOptions.getValue(), dailyRate);
+            alertScreen("Daily Rate Update", "The daily rate was successfully updated", "", "Thank you!");
+        } else {
+            alertScreen("Error", "Please choose a class type", "Please enter a daily rate", "Try Again!");
+        }
+    }
 
     public void cancelButton(javafx.event.ActionEvent event) throws IOException {
         switchScreen(event, "home.fxml");

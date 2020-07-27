@@ -57,8 +57,18 @@ public class VehicleClassRateEntity {
     }
 
     public void setDailyRate(Integer dailyRate){
-        if(dailyRate != null){
-            this.dailyRate = dailyRate;
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            if(dailyRate != null){
+                this.dailyRate = dailyRate;
+                session.saveOrUpdate(this);
+            }
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
         }
     }
 }

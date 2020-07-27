@@ -141,6 +141,6 @@ public class BackendTest {
     @Test
     public void testGetAllVehicleRate(){
         System.out.println("=====================================");
-        System.out.println(VehicleClassRateEntity.getDailyRateByClassType(Model.VehicleClass.COMPACT));
+        System.out.println(VehicleClassRateEntity.getVehicleRateEntityByClassType(Model.VehicleClass.COMPACT));
     }
 }
