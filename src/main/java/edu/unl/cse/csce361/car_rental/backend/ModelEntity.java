@@ -49,6 +49,7 @@ public class ModelEntity implements Model {
             session.getTransaction().commit();
         } catch (HibernateException exception) {
             System.err.println("Could not load Model " + name + ". " + exception.getMessage());
+            session.getTransaction().rollback();
         }
         return model;
     }
@@ -62,6 +63,7 @@ public class ModelEntity implements Model {
             session.getTransaction().commit();
         } catch (HibernateException exception) {
             System.err.println("Could not load all Models " + exception.getMessage());
+            session.getTransaction().rollback();
         }
         return lstModels;
     }

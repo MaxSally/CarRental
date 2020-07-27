@@ -132,4 +132,8 @@ public class FiltersController extends ScreenController{
         switchScreen(event, "home.fxml");
     }
 
+    public void returnCarButton(javafx.event.ActionEvent event) throws IOException {
+        switchScreen(event, "returnCar.fxml");
+    }
+
 }

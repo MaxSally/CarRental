@@ -52,6 +52,8 @@ public class VehicleClassRateEntity {
                 System.err.println("Could not load Class type " + selectedClassType.toString() + ". " + exception.getMessage());
                 session.getTransaction().rollback();
             }
+        } else {
+            session.getTransaction().rollback();
         }
         return vehicleClassRateEntity;
     }

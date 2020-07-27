@@ -41,12 +41,13 @@ public class IndividualCheckoutController extends ScreenController {
         expirationYearOptions.setItems(expirationYearChoices);
     }
 
-    public void rentCar(){
-        if(DataLogic.getInstance().rentCar(txtFieldCardNumber.getText(), expirationMonthOptions.getValue(), expirationYearOptions.getValue(),
+    public void rentCar(javafx.event.ActionEvent event) throws IOException{
+        if(DataLogic.getInstance().rentCarIndividual(txtFieldCardNumber.getText(), expirationMonthOptions.getValue(), expirationYearOptions.getValue(),
                 txtFieldCVV.getText())){
-            alertScreen("Congrats", "Congrats", "Congrats", "Out of idea");
+            alertScreen("Congratulations", "You have successfully rented the car!", "", "Thank you!");
+            switchScreen(event, "thankYou.fxml");
         }else{
-            alertScreen("Failed", "Failed", "Failed", "Failed");
+            alertScreen("Failed", "We were unable to process your request", "You can only rent one car!", "Try Again!");
         }
     }
 

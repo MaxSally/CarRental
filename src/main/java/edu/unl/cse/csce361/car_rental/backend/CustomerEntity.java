@@ -224,14 +224,15 @@ public abstract class CustomerEntity implements Customer {
             throw new IllegalArgumentException(getName() + " wants to rent a Car, not a " +
                     car.getClass().getSimpleName());
         }else{
+            Model.VehicleClass vehicleClass = getModelByName(((Car) car).getModel()).getClassType();
             Session session = HibernateUtil.getSession();
             System.out.println("Starting Hibernate transaction...");
-            session.beginTransaction();
-
             try {
                 newRental = new RentalEntity(this, (Car) car, rentalPackage.getDailyRate());
-                newRental.setDailyRate(VehicleClassRateEntity.getVehicleRateEntityByClassType(getModelByName(((Car) car).getModel()).getClassType()).getDailyRate());
+                newRental.setDailyRate(rentalPackage.getDailyRate());
                 newRental.setRentalStart(LocalDate.now());
+                addRental(newRental);
+                session.beginTransaction();
                 session.saveOrUpdate(newRental);
                 session.getTransaction().commit();
             } catch (Exception e) {

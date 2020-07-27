@@ -67,6 +67,6 @@ public class IndividualCustomerEntity extends CustomerEntity implements Individu
     @Override
     boolean canRent() {
         List<RentalEntity> rentals = getRentals();
-        return rentals.get(rentals.size()-1).hasBeenReturned();
+        return rentals.size() == 0 || rentals.get(rentals.size()-1).hasBeenReturned();
     }
 }

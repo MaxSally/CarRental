@@ -345,6 +345,9 @@ public class Backend {
     }
 
     public String getFinalPriceSummary(){
+        if(isCorporateCustomer()) {
+            currentPricedItem = new Tax(currentPricedItem, "Discount:", -(1.0 - ((CorporateCustomerEntity)currentCustomer).getNegotiatedRate()));
+        }
         return new TotalPriceItem(currentPricedItem).getLineItemSummary();
     }
 
@@ -444,6 +447,14 @@ public class Backend {
     }
 
     public boolean rentCar(){
-        return ((CustomerEntity)currentCustomer).canRent() && currentCustomer.rentCar(currentPricedItem) != null;
+        if(((CustomerEntity)currentCustomer).canRent()) {
+            RentalEntity rental = currentCustomer.rentCar(currentPricedItem);
+            if(rental == null) {
+                return false;
+            }
+            ((Car)currentPricedItem.getBasePricedItem()).addRental(rental);
+            return true;
+        }
+        return false;
     }
 }

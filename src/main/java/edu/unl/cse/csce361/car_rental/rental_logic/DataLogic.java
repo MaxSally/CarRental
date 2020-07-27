@@ -357,9 +357,18 @@ public class DataLogic {
         Backend.getInstance().resetSelectedCars();
     }
 
-    public boolean rentCar(String cardNumber, Integer expirationMonth, Integer expirationYear, String cardCVV){
+    public boolean rentCarIndividual(String cardNumber, Integer expirationMonth, Integer expirationYear, String cardCVV){
         if(Backend.getInstance().updateCardInformationForIndividualCustomer(
                 Backend.getInstance().getCurrentCustomer().getName(), cardNumber, cardCVV, expirationMonth, expirationYear)){
+            return Backend.getInstance().rentCar();
+        }else{
+            return false;
+        }
+    }
+
+    public boolean rentCarCorporate(String bankAccountNumber){
+        if(Backend.getInstance().updateBankAccountForCorporationCustomer(
+                Backend.getInstance().getCurrentCustomer().getName(), bankAccountNumber)){
             return Backend.getInstance().rentCar();
         }else{
             return false;
