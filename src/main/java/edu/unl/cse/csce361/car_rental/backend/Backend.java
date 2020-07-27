@@ -349,15 +349,18 @@ public class Backend {
     }
 
     public PricedItem addFees(String name, int cost){
-        return new Fees(currentPricedItem, name, cost);
+        currentPricedItem = new Fees(currentPricedItem, name, cost);
+        return currentPricedItem;
     }
 
     public PricedItem addTax(String name, double rate){
-        return new Tax(currentPricedItem, name, rate);
+        currentPricedItem = new Tax(currentPricedItem, name, rate);
+        return currentPricedItem;
     }
 
     public PricedItem addAddon(String name, int cost){
-        return new AddOn(currentPricedItem, name, cost);
+        currentPricedItem = new AddOn(currentPricedItem, name, cost);
+        return currentPricedItem;
     }
 
     public List<String> getAllColors(){
@@ -377,9 +380,6 @@ public class Backend {
         currentCustomer = getCustomer(name);
         return currentCustomer != null;
     }
-//    public boolean setAvailability(String vin) {
-//        return true;
-//    }
 
     public boolean addSelectedCar(Car userSelectedCar) {
         if(userSelectedCar.isAvailable()) {
@@ -392,6 +392,11 @@ public class Backend {
         ((CustomerEntity) currentCustomer).addToSelectedCar(userSelectedCar);
         currentPricedItem = userSelectedCar;
         return true;
+    }
+
+    public Car getSelectedCar() {
+        List<Car> userSelectedCars = ((CustomerEntity)currentCustomer).getSelectedCars();
+        return (userSelectedCars.size() > 0? userSelectedCars.get(userSelectedCars.size() - 1) : null);
     }
 
     public boolean moveToGarage(Car selectedCar){

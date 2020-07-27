@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.CarReviewAddOnsController">
    <children>
@@ -21,7 +21,10 @@
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToFilterScreen" text="Cancel" />
-      <ListView fx:id="addOnOptions" layoutX="27.0" layoutY="364.0" prefHeight="262.0" prefWidth="397.0" />
-      <Button layoutX="136.0" layoutY="649.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="180.0" text="Proceed To Checkout" />
+      <Button layoutX="136.0" layoutY="649.0" mnemonicParsing="false" onAction="#switchToCheckoutButton" prefHeight="27.0" prefWidth="180.0" text="Proceed To Checkout" />
+      <CheckBox fx:id="rentalInsurance" layoutX="42.0" layoutY="401.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="219.0" text="Rental Insurance, 25 Zorkmids/day" />
+      <CheckBox fx:id="satelliteRadio" layoutX="42.0" layoutY="448.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="200.0" text="Satellite Radio, 10 Zorkmids/day" />
+      <CheckBox fx:id="sunShade" layoutX="42.0" layoutY="492.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="238.0" text="Dashboard Sunshade, 5 Zorkmids/day" />
+      <Label layoutX="40.0" layoutY="537.0" prefHeight="46.0" prefWidth="372.0" snapToPixel="false" text="If you select any add-ons, you can see the updated daily rate for the rental on the next screen" wrapText="true" />
    </children>
 </Pane>

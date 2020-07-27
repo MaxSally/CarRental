@@ -326,4 +326,12 @@ public class DataLogic {
         currentListedCarOnCarManagerScreen = lstValidCar;
         return getCarDescriptionFromCurrentListOfCar(true);
     }
+
+    public String getSelectedCarDescription() {
+        return Backend.getInstance().getSelectedCar().getDescription();
+    }
+
+    public void addNewAddOn(String addOnName, Integer price) {
+        Backend.getInstance().addAddon(addOnName, price);
+    }
 }
