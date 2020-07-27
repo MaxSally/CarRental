@@ -430,5 +430,13 @@ public class Backend {
     public boolean getIfRemoved(CarEntity car){
         return car.getIfRemoved();
     }
+
+    public boolean isIndividualCustomer() {
+        return currentCustomer instanceof IndividualCustomerEntity;
+    }
+
+    public boolean isCorporateCustomer() {
+        return currentCustomer instanceof CorporateCustomerEntity;
+    }
 }
 

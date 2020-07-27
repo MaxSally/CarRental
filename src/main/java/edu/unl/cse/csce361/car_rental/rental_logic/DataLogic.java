@@ -1,6 +1,7 @@
 package edu.unl.cse.csce361.car_rental.rental_logic;
 
 import edu.unl.cse.csce361.car_rental.backend.*;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -333,5 +334,13 @@ public class DataLogic {
 
     public void addNewAddOn(String addOnName, Integer price) {
         Backend.getInstance().addAddon(addOnName, price);
+    }
+
+    public boolean getCustomerType() {
+        if(Backend.getInstance().isIndividualCustomer()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
