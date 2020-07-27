@@ -20,7 +20,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToFilterScreen" text="Cancel" />
+      <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
       <Button layoutX="136.0" layoutY="649.0" mnemonicParsing="false" onAction="#switchToCheckoutButton" prefHeight="27.0" prefWidth="180.0" text="Proceed To Checkout" />
       <CheckBox fx:id="rentalInsurance" layoutX="42.0" layoutY="401.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="219.0" text="Rental Insurance, 25 Zorkmids/day" />
       <CheckBox fx:id="satelliteRadio" layoutX="42.0" layoutY="448.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="200.0" text="Satellite Radio, 10 Zorkmids/day" />

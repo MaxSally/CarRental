@@ -18,9 +18,9 @@ public class CarReviewAddOnsController extends ScreenController {
     @FXML
     CheckBox sunShade;
 
-    public void switchToFilterScreen(javafx.event.ActionEvent event) throws IOException {
-        DataLogic.getInstance().resetCriteriaFilter();
-        switchScreen(event, "filters.fxml");
+    public void cancelButton(javafx.event.ActionEvent event) throws IOException {
+        DataLogic.getInstance().resetSelectedCars();
+        switchScreen(event, "carSelection.fxml");
     }
     @FXML
     public void initialize(){
@@ -38,10 +38,12 @@ public class CarReviewAddOnsController extends ScreenController {
             DataLogic.getInstance().addNewAddOn("Dashboard Sunshade", 5);
         }
         reviewCarDetails.getItems().add(DataLogic.getInstance().getPriceSummary());
-        if(DataLogic.getInstance().getCustomerType()) {
+        if(DataLogic.getInstance().isIndividualCustomerType()) {
             switchScreen(event, "individualCheckout");
-        } else {
+        } else if(DataLogic.getInstance().isCorporateCustomerType()) {
             switchScreen(event, "corporateCheckout");
+        } else {
+            alertScreen("Unsuccessful", "Something went wrong", "We don't seem to recognize you", "Try Again!");
         }
     }
 }

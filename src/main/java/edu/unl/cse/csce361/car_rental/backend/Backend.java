@@ -438,5 +438,9 @@ public class Backend {
     public boolean isCorporateCustomer() {
         return currentCustomer instanceof CorporateCustomerEntity;
     }
+
+    public void resetSelectedCars() {
+        ((CustomerEntity)currentCustomer).setSelectedCars(new ArrayList<Car>());
+    }
 }
 
