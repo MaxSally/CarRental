@@ -1,14 +1,10 @@
 package edu.unl.cse.csce361.car_rental.rental_logic;
 
 import edu.unl.cse.csce361.car_rental.backend.*;
-import javafx.scene.layout.Pane;
-import org.hibernate.engine.jdbc.batch.spi.BatchKey;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import static com.sun.xml.fastinfoset.stax.events.Util.isEmptyString;
 import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.availabilityCriteriaChecker;
 
@@ -18,14 +14,14 @@ public class DataLogic {
     private List<Car> currentListedCarOnCarSelection;
     private List<Car> currentListedCarOnCarManagerScreen;
 
-    public static DataLogic getInstance(){
-        if(instance == null){
+    public static DataLogic getInstance() {
+        if(instance == null) {
             instance = new DataLogic();
         }
         return instance;
     }
 
-    private DataLogic(){
+    private DataLogic() {
         super();
         criteriaFilter = new CriteriaFilter();
         currentListedCarOnCarManagerScreen = new ArrayList<>();
@@ -62,7 +58,7 @@ public class DataLogic {
         return (Backend.getInstance().getModel(name) != null);
     }
 
-    public String getCustomerName(String name){
+    public String getCustomerName(String name) {
         Customer customer = Backend.getInstance().getCustomer(name);
         return (customer == null?"":customer.getName());
     }
@@ -73,33 +69,33 @@ public class DataLogic {
 
     public boolean setIndividualCustomer(String name, String streetAddress1, String streetAddress2, String city,
                                          String state, String zipCode, String cardNumber, String cvv,
-                                         Integer expirationMonth, Integer expirationYear){
-        if(Backend.getInstance().getCustomer(name) == null){
+                                         Integer expirationMonth, Integer expirationYear) {
+        if(Backend.getInstance().getCustomer(name) == null) {
             return false;
         }
         boolean isCompleted = true;
         isCompleted &= Backend.getInstance().updateCardInformationForIndividualCustomer(name, cardNumber, cvv, expirationMonth, expirationYear);
-        if(!(isEmptyString(streetAddress1) && isEmptyString(streetAddress2) && isEmptyString(city) && isEmptyString(state) && isEmptyString(zipCode))){
+        if(!(isEmptyString(streetAddress1) && isEmptyString(streetAddress2) && isEmptyString(city) && isEmptyString(state) && isEmptyString(zipCode))) {
             isCompleted &=Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode);
         }
         return isCompleted;
     }
 
     public boolean setCorporateCustomer(String name, String streetAddress1, String streetAddress2,
-                                        String city, String state, String zipCode, String corporateAccount){
-        if(Backend.getInstance().getCustomer(name) == null){
+                                        String city, String state, String zipCode, String corporateAccount) {
+        if(Backend.getInstance().getCustomer(name) == null) {
             return false;
         }
         boolean isCompleted = true;
         isCompleted &= Backend.getInstance().updateBankAccountForCorporationCustomer(name, corporateAccount);
-        if(!(isEmptyString(streetAddress1) && isEmptyString(streetAddress2) && isEmptyString(city) && isEmptyString(state) && isEmptyString(zipCode))){
+        if(!(isEmptyString(streetAddress1) && isEmptyString(streetAddress2) && isEmptyString(city) && isEmptyString(state) && isEmptyString(zipCode))) {
             isCompleted &=Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode);
         }
         return isCompleted;
     }
 
     public boolean setCorporateCustomerByManager(String name, String streetAddress1, String streetAddress2,
-                                        String city, String state, String zipCode, String corporateAccount, double negotiatedRate){
+                                        String city, String state, String zipCode, String corporateAccount, double negotiatedRate) {
         boolean isCompleted = setCorporateCustomer(name, streetAddress1, streetAddress2, city, state, zipCode, corporateAccount);
         isCompleted &= Backend.getInstance().updateNegotiatedRateForCorporateCustomer(name, negotiatedRate);
         return isCompleted;
@@ -109,35 +105,38 @@ public class DataLogic {
         return Backend.getInstance().updateDailyRateByManager(Model.VehicleClass.valueOf(vehicleClass), dailyRate);
     }
 
-    public List<String> getAllFuelType(){
+    public List<String> getAllFuelType() {
         List<String> lstFuelType = new ArrayList<>();
-        for(Model.Fuel fuel: Model.Fuel.values()){
-            if(fuel == Model.Fuel.UNKNOWN)
+        for(Model.Fuel fuel: Model.Fuel.values()) {
+            if (fuel == Model.Fuel.UNKNOWN) {
                 lstFuelType.add("");
-            else
+            } else {
                 lstFuelType.add(fuel.toString());
+            }
         }
         return lstFuelType;
     }
 
-    public List<String> getAllTransmission(){
+    public List<String> getAllTransmission() {
         List<String> lstTransmissionType = new ArrayList<>();
-        for(Model.Transmission transmission : Model.Transmission.values()){
-            if(transmission == Model.Transmission.UNKNOWN)
+        for(Model.Transmission transmission : Model.Transmission.values()) {
+            if (transmission == Model.Transmission.UNKNOWN) {
                 lstTransmissionType.add("");
-            else
+            } else {
                 lstTransmissionType.add(transmission.toString());
+            }
         }
         return lstTransmissionType;
     }
 
-    public List<String> getAllVehicleClass(){
+    public List<String> getAllVehicleClass() {
         List<String> lstVehicleClass = new ArrayList<>();
-        for(Model.VehicleClass vehicleClass : Model.VehicleClass.values()){
-            if(vehicleClass == Model.VehicleClass.UNKNOWN)
+        for(Model.VehicleClass vehicleClass : Model.VehicleClass.values()) {
+            if(vehicleClass == Model.VehicleClass.UNKNOWN) {
                 lstVehicleClass.add("");
-            else
+            } else {
                 lstVehicleClass.add(vehicleClass.toString());
+            }
         }
         return lstVehicleClass;
     }
@@ -146,40 +145,40 @@ public class DataLogic {
         criteriaFilter.setVehicleModel(model);
     }
 
-    public void setFilterClass(String vehicleClass){
-        if(isEmptyString(vehicleClass)){
+    public void setFilterClass(String vehicleClass) {
+        if(isEmptyString(vehicleClass)) {
             criteriaFilter.setVehicleClass(Model.VehicleClass.UNKNOWN);
-        }else{
+        } else {
             criteriaFilter.setVehicleClass(Model.VehicleClass.valueOf(vehicleClass));
         }
     }
 
-    public void setFilterTransmission(String transmission){
-        if(isEmptyString(transmission)){
+    public void setFilterTransmission(String transmission) {
+        if(isEmptyString(transmission)) {
             criteriaFilter.setTransmission(Model.Transmission.UNKNOWN);
-        }else {
+        } else {
             criteriaFilter.setTransmission(Model.Transmission.valueOf(transmission));
         }
     }
 
-    public void setFilterFuelType(String fuelType){
-        if(isEmptyString(fuelType)){
+    public void setFilterFuelType(String fuelType) {
+        if(isEmptyString(fuelType)) {
             criteriaFilter.setFuelType(Model.Fuel.UNKNOWN);
-        }else{
+        } else {
             criteriaFilter.setFuelType(Model.Fuel.valueOf(fuelType));
         }
     }
 
-    public void setFilterNumberOfDoor(Integer numberOfDoor){
+    public void setFilterNumberOfDoor(Integer numberOfDoor) {
         criteriaFilter.setNumberOfDoors(numberOfDoor == null?CriteriaFilter.INVALID_DOOR:numberOfDoor);
     }
 
-    public void setFilterFuelEconomy(int minFuelEconomy, int maxFuelEconomy){
+    public void setFilterFuelEconomy(int minFuelEconomy, int maxFuelEconomy) {
         criteriaFilter.setMinFuelEconomy(minFuelEconomy);
         criteriaFilter.setMaxFuelEconomy(maxFuelEconomy);
     }
 
-    public void setFilterColor(String color){
+    public void setFilterColor(String color) {
         criteriaFilter.setColor(color);
     }
 
@@ -187,10 +186,10 @@ public class DataLogic {
         criteriaFilter = new CriteriaFilter();
     }
 
-    public List<String> getValidCarDescription(){
+    public List<String> getValidCarDescription() {
         List<Car> lstCar = Backend.getInstance().getAllCar();
         List<Car> lstValidCar = new ArrayList<>();
-        for(Car car: lstCar){
+        for(Car car: lstCar) {
             boolean acceptable = true;
             Model currentCarModel = Backend.getInstance().getModelEntityByName(car.getModel());
             acceptable &= car.isAvailable();
@@ -226,7 +225,7 @@ public class DataLogic {
             public int compare(Car car1, Car car2) {
                 if(isAscending){
                     return car1.getDailyRate() - car2.getDailyRate();
-                }else{
+                } else {
                     return car2.getDailyRate() - car1.getDailyRate();
                 }
             }
@@ -234,12 +233,12 @@ public class DataLogic {
         return getCarDescriptionFromCurrentListOfCar(false);
     }
 
-    private List<String> getCarDescriptionFromCurrentListOfCar(boolean isManger){
+    private List<String> getCarDescriptionFromCurrentListOfCar(boolean isManger) {
         List<String> lstValidCarDescription = new ArrayList<>();
-        for(Car car: (isManger?currentListedCarOnCarManagerScreen:currentListedCarOnCarSelection)){
-            if(isManger){
+        for(Car car: (isManger?currentListedCarOnCarManagerScreen:currentListedCarOnCarSelection)) {
+            if(isManger) {
                 lstValidCarDescription.add(car.getDescriptionForManager());
-            }else{
+            } else {
                 lstValidCarDescription.add(car.getDescription());
             }
         }
@@ -283,12 +282,12 @@ public class DataLogic {
     }
 
     public boolean createModel(String manufacturer, String model, Model.VehicleClass classType, Integer numberOfDoors,
-                               Model.Transmission transmission, Model.Fuel fuel, Integer fuelEconomyMPG){
+                               Model.Transmission transmission, Model.Fuel fuel, Integer fuelEconomyMPG) {
         return Backend.getInstance().createModel(manufacturer, model, classType, numberOfDoors, transmission, fuel, fuelEconomyMPG) != null;
     }
 
     public boolean createCar(String model, String color, String licensePlate, String vin,
-                             Boolean isRemoved, Boolean isUnderMaintenance){
+                             Boolean isRemoved, Boolean isUnderMaintenance) {
         return Backend.getInstance().createCar(model, color, licensePlate, vin, isRemoved, isUnderMaintenance) != null;
     }
 
@@ -300,28 +299,28 @@ public class DataLogic {
         return Backend.getInstance().getAllModels();
     }
 
-    public boolean removeCar(int carIndex){
+    public boolean removeCar(int carIndex) {
         Car car = currentListedCarOnCarManagerScreen.get(carIndex);
         return Backend.getInstance().removeCar(car);
     }
 
-    public boolean moveToGarage(int carIndex){
+    public boolean moveToGarage(int carIndex) {
         Car car = currentListedCarOnCarManagerScreen.get(carIndex);
         return Backend.getInstance().moveToGarage(car);
     }
 
-    public boolean moveOutOfGarage(int carIndex){
+    public boolean moveOutOfGarage(int carIndex) {
         Car car = currentListedCarOnCarManagerScreen.get(carIndex);
         return Backend.getInstance().moveOutOfGarage(car);
     }
 
-    public List<String> getCarDescriptionManager(){
+    public List<String> getCarDescriptionManager() {
         List<Car> lstCar = Backend.getInstance().getAllCar();
         List<Car> lstValidCar = new ArrayList<>();
-        for(Car car: lstCar){
+        for(Car car: lstCar) {
             boolean acceptable = true;
             acceptable &= !Backend.getInstance().getIfRemoved((CarEntity) car);
-            if(acceptable){
+            if(acceptable) {
                 lstValidCar.add(car);
             }
         }
@@ -365,20 +364,20 @@ public class DataLogic {
         Backend.getInstance().resetSelectedCars();
     }
 
-    public boolean rentCarIndividual(String cardNumber, Integer expirationMonth, Integer expirationYear, String cardCVV){
+    public boolean rentCarIndividual(String cardNumber, Integer expirationMonth, Integer expirationYear, String cardCVV) {
         if(Backend.getInstance().updateCardInformationForIndividualCustomer(
-                Backend.getInstance().getCurrentCustomer().getName(), cardNumber, cardCVV, expirationMonth, expirationYear)){
+                Backend.getInstance().getCurrentCustomer().getName(), cardNumber, cardCVV, expirationMonth, expirationYear)) {
             return Backend.getInstance().rentCar();
-        }else{
+        } else {
             return false;
         }
     }
 
-    public boolean rentCarCorporate(String bankAccountNumber){
+    public boolean rentCarCorporate(String bankAccountNumber) {
         if(Backend.getInstance().updateBankAccountForCorporationCustomer(
-                Backend.getInstance().getCurrentCustomer().getName(), bankAccountNumber)){
+                Backend.getInstance().getCurrentCustomer().getName(), bankAccountNumber)) {
             return Backend.getInstance().rentCar();
-        }else{
+        } else {
             return false;
         }
     }
