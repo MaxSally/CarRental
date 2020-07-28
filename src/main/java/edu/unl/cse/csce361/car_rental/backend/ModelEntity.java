@@ -10,12 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Hibernate implementation of {@link Model}.
@@ -54,10 +49,24 @@ public class ModelEntity implements Model {
             session.getTransaction().commit();
         } catch (HibernateException exception) {
             System.err.println("Could not load Model " + name + ". " + exception.getMessage());
+            session.getTransaction().rollback();
         }
         return model;
     }
 
+    static List<Model> getAllModels() {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        List<Model> lstModels = null;
+        try {
+            lstModels = session.createQuery("SELECT model from ModelEntity model", Model.class).list();
+            session.getTransaction().commit();
+        } catch (HibernateException exception) {
+            System.err.println("Could not load all Models " + exception.getMessage());
+            session.getTransaction().rollback();
+        }
+        return lstModels;
+    }
 
     /* POJO code */
 

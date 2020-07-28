@@ -1,5 +1,6 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
+import org.hibernate.Session;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.CascadeType;
@@ -21,7 +22,7 @@ import java.util.Set;
  * Hibernate implementation of {@link Car}.
  */
 @Entity
-public class CarEntity implements Car {
+public class CarEntity extends PricedItemDecorator implements Car {
 
     /**
      * The minimum number of characters on a license plate
@@ -81,23 +82,31 @@ public class CarEntity implements Car {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<RentalEntity> rentals;     // depends on concretion for database purposes
 
+    @Column(nullable = false)
+    private Boolean isRemoved;
+    @Column(nullable = false)
+    private Boolean isUnderMaintenance;
+
 
     public CarEntity() {    // required 0-argument constructor
         super();
     }
 
-    public CarEntity(String model, String color, String licensePlate, String vin) {
+    public CarEntity(String model, String color, String licensePlate, String vin,
+                     Boolean isRemoved, Boolean isUnderMaintenance) {
         super();
         setVin(vin);
         this.color = color;
         setLicensePlate(licensePlate);
         setModel(model);
         rentals = new ArrayList<>();
+        this.isRemoved = isRemoved;
+        this.isUnderMaintenance = isUnderMaintenance;
     }
 
     @Override
     public int getDailyRate() {
-        return 0;
+        return VehicleClassRateEntity.getVehicleRateEntityByClassType(model.getClassType()).getDailyRate();
     }
 
     @Override
@@ -179,24 +188,12 @@ public class CarEntity implements Car {
 
     @Override
     public boolean isAvailable() {
-        return rentals.get(rentals.size() - 1).hasBeenReturned();
+        return rentals.size() == 0 || rentals.get(rentals.size() - 1).hasBeenReturned();
     }
 
     @Override
     public String getLineItemSummary() {
-        String description = toString();
-        String dailyRate = CURRENCY_SYMBOL + " " + getDailyRate();
-        int descriptionLength = description.length();
-        int dailyRateLength = dailyRate.length();
-        int numberOfLines = 1;
-        while (descriptionLength > LINE_ITEM_TEXT_LENGTH - dailyRateLength - 1) {
-            // place newline at index 80 on 1st iteration, 161 on 2nd (allows for previous newline), 242 on 3rd, etc.
-            int index = numberOfLines * LINE_ITEM_TEXT_LENGTH + numberOfLines - 1;
-            description = description.substring(0, index+1) + System.lineSeparator() + description.substring(index+1);
-            descriptionLength -= LINE_ITEM_TEXT_LENGTH;
-        }
-        String padding = " ".repeat(LINE_ITEM_TEXT_LENGTH - descriptionLength - dailyRateLength);
-        return description + padding + dailyRate;
+        return getIndividualLineSummary(toString(), getDailyRate());
     }
 
     @Override
@@ -259,5 +256,73 @@ public class CarEntity implements Car {
 
     void setModel(ModelEntity model) {
         this.model = model;
+    }
+
+    public String getDescription() {
+        return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s\nDaily rate: %d\nVIN: %s\nLicense plate: %s",
+                getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
+                (model.getFuelEconomyMPG() == null ? "" : model.getFuelEconomyMPG().get().toString()),
+                (model.getNumberOfDoors() == null ? "" : model.getNumberOfDoors().get().toString()),
+                getDailyRate(), getVin(), getLicensePlate());
+    }
+
+    public String getDescriptionForManager() {
+        return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s\nDaily rate: %d\n" +
+                        "Under Maintenance: %b\n Removed: %b\n" +
+                        "Rented: %b\nVIN: %s\nLicense plate: %s",
+                getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
+                (model.getFuelEconomyMPG() == null ? "" : model.getFuelEconomyMPG().get().toString()),
+                (model.getNumberOfDoors() == null ? "" : model.getNumberOfDoors().get().toString()),
+                getDailyRate(), isUnderMaintenance, isRemoved, isAvailable(), getVin(), getLicensePlate());
+    }
+
+    public static List<Car> getAllCars() {
+        List<Car> allCars = null;
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            allCars = session.createQuery("SELECT car FROM CarEntity car").getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return allCars;
+    }
+
+    public static List<String> getAllColors() {
+        List<String> colors = new ArrayList<>();
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            colors.addAll(new HashSet<String>(session.createQuery("SELECT color FROM CarEntity car").getResultList()));
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return colors;
+    }
+
+    public void moveToGarage() {
+        isUnderMaintenance = true;
+    }
+
+    public void moveOutOfGarage() {
+        isUnderMaintenance = false;
+    }
+
+    public void removeCar() {
+        isRemoved = true;
+    }
+
+    public Boolean getIfRemoved() {
+        return isRemoved;
+    }
+
+    public Boolean getIfUnderMaintenance() {
+        return isUnderMaintenance;
     }
 }

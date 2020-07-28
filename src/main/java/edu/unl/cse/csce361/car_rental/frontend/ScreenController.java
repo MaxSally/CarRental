@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public abstract class ScreenController {
@@ -28,7 +27,7 @@ public abstract class ScreenController {
         window.show();
     }
 
-    public void invalidAlert(String title, String message, String message2) {
+    public void alertScreen(String title, String message, String message2, String buttonLabel) {
 
         Stage window = new Stage();
         //application modality allows the application and screen below to remain open,
@@ -43,7 +42,7 @@ public abstract class ScreenController {
         Label label2 = new Label();
         label2.setText(message2);
 
-        Button tryAgain = new Button("Try Again");
+        Button tryAgain = new Button(buttonLabel);
         tryAgain.setOnAction(e -> window.close());
 
         VBox layout = new VBox(10);
@@ -55,4 +54,25 @@ public abstract class ScreenController {
         window.showAndWait();
     }
 
+    public boolean addressFieldValidation(String streetAddress1, String city, String state, String zipCode) {
+        if(streetAddress1.isEmpty() || city.isEmpty() || state.isEmpty() || zipCode.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean createNewCarModelValidation(String manufacturer, String model, String vehicleClass, Integer numDoorOptions,
+                                               String fuelTypeOptions, String transmissionOption, Integer fuelEconomy) {
+        return !(isEmptyString(manufacturer) || isEmptyString(model) || isEmptyString(vehicleClass) || numDoorOptions == null ||
+                isEmptyString(fuelTypeOptions) || isEmptyString(transmissionOption) || fuelEconomy == null);
+    }
+
+    public boolean addNewCarValidation(String model, String color, String licensePlateNumber, String vin) {
+        return !(isEmptyString(model) || isEmptyString(color) || isEmptyString(licensePlateNumber) || isEmptyString(vin));
+    }
+
+    private static boolean isEmptyString(String checker) {
+        return (checker.equals("") || checker == null);
+    }
 }

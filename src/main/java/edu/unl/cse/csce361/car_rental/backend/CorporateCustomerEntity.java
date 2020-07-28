@@ -12,7 +12,9 @@ import java.util.Set;
 @Entity
 public class CorporateCustomerEntity extends CustomerEntity implements CorporateCustomer {
 
-    /** Upper limit on the length of the account number */
+    /**
+     * Upper limit on the length of the account number
+     */
     public static final int ACCOUNT_LENGTH = 11;
 
     @Column(nullable = false, length = ACCOUNT_LENGTH)
@@ -23,6 +25,11 @@ public class CorporateCustomerEntity extends CustomerEntity implements Corporate
 
     public CorporateCustomerEntity() {        // required 0-argument constructor
         super();
+    }
+
+    public CorporateCustomerEntity(String name) {
+        super(name);
+        negotiatedRate = DEFAULT_NEGOTIATED_RATE;
     }
 
     public CorporateCustomerEntity(String name, String streetAddress1, String streetAddress2,
@@ -66,13 +73,14 @@ public class CorporateCustomerEntity extends CustomerEntity implements Corporate
     }
 
     @Override
-    public void setNegotiatedRate(double newRate)
+    public CorporateCustomerEntity setNegotiatedRate(double newRate)
             throws IllegalArgumentException {
         if ((newRate <= 0.0) || (newRate > 1.0)) {
             throw new IllegalArgumentException("Negotiated rate must be a multiplier between 0.0 (exclusive) and 1.0 " +
                     "(inclusive);" + newRate + "is not in this range.");
         }
         negotiatedRate = newRate;
+        return this;
     }
 
     @Override
@@ -83,5 +91,35 @@ public class CorporateCustomerEntity extends CustomerEntity implements Corporate
     @Override
     public String getPaymentInformation() {
         return "Corporate Account #" + corporateAccount;
+    }
+
+    public boolean updateNegotiatedRate(double negotiatedRate) {
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            setNegotiatedRate(negotiatedRate);
+            session.saveOrUpdate(this);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return true;
+    }
+
+    public boolean updateCorporateAccount(String corporateAccount) {
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        session.beginTransaction();
+        try {
+            setCorporateAccount(corporateAccount);
+            session.saveOrUpdate(this);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
+        return true;
     }
 }

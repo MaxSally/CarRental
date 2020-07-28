@@ -5,6 +5,10 @@ package edu.unl.cse.csce361.car_rental.backend;
  * by having a negotiated rate that allows them to pay less than the "list price."
  */
 public interface CorporateCustomer extends Customer {
+
+
+    double DEFAULT_NEGOTIATED_RATE = 1.0;
+
     /**
      * Provides the corporate account that any rentals will be charged to.
      *
@@ -37,5 +41,5 @@ public interface CorporateCustomer extends Customer {
      *
      * @param newRate This customer's negotiated rate
      */
-    void setNegotiatedRate(double newRate);
+    CorporateCustomer setNegotiatedRate(double newRate);
 }

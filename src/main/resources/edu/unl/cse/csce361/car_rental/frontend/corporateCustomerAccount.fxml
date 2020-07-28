@@ -6,58 +6,62 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.CorporateCustomerAccountController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" style="-fx-background-color: #141313#141313 #141313#141313;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.CorporateCustomerAccountController">
    <children>
-      <Label layoutX="148.0" layoutY="41.0" text="Create Account">
+      <Label layoutX="127.0" layoutY="41.0" text="Create Account" textFill="WHITE">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="180.0" layoutY="129.0" text="*Full Name" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <TextField fx:id="txtFieldName" layoutX="141.0" layoutY="157.0" promptText="Name" />
+      <Label alignment="CENTER" layoutX="148.0" layoutY="239.0" prefHeight="23.0" prefWidth="147.0" text="*Street Address" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <TextField fx:id="txtFieldStreetAddress1" layoutX="144.0" layoutY="262.0" promptText="Street Address" />
+      <Label alignment="CENTER" layoutX="150.0" layoutY="300.0" prefHeight="23.0" prefWidth="147.0" text="Street Address 2" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <TextField fx:id="txtFieldStreetAddress2" layoutX="144.0" layoutY="323.0" promptText="Street Address 2" />
+      <Label alignment="CENTER" layoutX="170.0" layoutY="208.0" prefHeight="28.0" prefWidth="103.0" text="Address" textFill="WHITE">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label layoutX="185.0" layoutY="137.0" text="*Full Name">
+      <Label alignment="CENTER" layoutX="183.0" layoutY="364.0" prefHeight="23.0" prefWidth="76.0" text="*City" textFill="WHITE">
          <font>
-            <Font size="16.0" />
-         </font></Label>
-      <TextField fx:id="txtFieldName" layoutX="144.0" layoutY="157.0" promptText="Name" />
-      <Label layoutX="167.0" layoutY="242.0" prefHeight="20.0" prefWidth="109.0" text="*Street Address">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <TextField fx:id="txtFieldStreetAddress1" layoutX="144.0" layoutY="262.0" promptText="Street Address" />
-      <Label layoutX="166.0" layoutY="296.0" prefHeight="20.0" prefWidth="115.0" text="Street Address 2">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <TextField fx:id="txtFieldStreetAddress2" layoutX="144.0" layoutY="316.0" promptText="Street Address 2" />
-      <Label layoutX="186.0" layoutY="202.0" prefHeight="24.0" prefWidth="76.0" text="Address">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Label>
-      <Label layoutX="203.0" layoutY="367.0" prefHeight="20.0" prefWidth="37.0" text="*City">
-         <font>
-            <Font size="16.0" />
+            <Font size="18.0" />
          </font></Label>
       <TextField fx:id="txtFieldCity" layoutX="144.0" layoutY="387.0" promptText="City" />
-      <Label layoutX="152.0" layoutY="439.0" prefHeight="20.0" prefWidth="44.0" text="*State">
+      <Label alignment="CENTER" layoutX="82.0" layoutY="429.0" prefHeight="23.0" prefWidth="90.0" text="*State" textFill="WHITE">
          <font>
-            <Font size="16.0" />
+            <Font size="18.0" />
          </font></Label>
-      <TextField fx:id="txtFieldState" layoutX="136.0" layoutY="457.0" prefHeight="27.0" prefWidth="76.0" promptText="State" />
-      <Label layoutX="240.0" layoutY="439.0" prefHeight="20.0" prefWidth="73.0" text="*ZIP Code">
+      <TextField fx:id="txtFieldState" layoutX="79.0" layoutY="471.0" prefHeight="27.0" prefWidth="97.0" promptText="State" />
+      <Label alignment="CENTER" layoutX="277.0" layoutY="429.0" prefHeight="23.0" prefWidth="109.0" text="*ZIP Code" textFill="WHITE">
          <font>
-            <Font size="16.0" />
+            <Font size="18.0" />
          </font></Label>
-      <TextField fx:id="txtFieldZip" layoutX="238.0" layoutY="457.0" prefHeight="27.0" prefWidth="76.0" promptText="ZIP" />
-      <Button layoutX="160.0" layoutY="631.0" mnemonicParsing="false" onAction="#createCorporateCustomer" prefHeight="27.0" prefWidth="130.0" text="Create Account" />
-      <Label layoutX="146.0" layoutY="520.0" text="*Bank Account Number">
+      <TextField fx:id="txtFieldZip" layoutX="284.0" layoutY="471.0" prefHeight="27.0" prefWidth="97.0" promptText="ZIP" />
+      <Button layoutX="146.0" layoutY="631.0" mnemonicParsing="false" onAction="#createCorporateCustomer" prefHeight="27.0" prefWidth="160.0" text="Create Account" />
+      <Label layoutX="136.0" layoutY="524.0" text="*Bank Account Number" textFill="WHITE">
          <font>
-            <Font size="16.0" />
+            <Font size="18.0" />
          </font></Label>
-      <TextField fx:id="txtFieldBankAccount" layoutX="145.0" layoutY="540.0" promptText="Bank Account Number" />
-      <Label layoutX="142.0" layoutY="92.0" text="Fields with * are required" textFill="#e40505">
+      <TextField fx:id="txtFieldBankAccount" layoutX="145.0" layoutY="567.0" promptText="Bank Account Number" />
+      <Label layoutX="116.0" layoutY="96.0" text="Fields with * are required" textFill="#e40505">
          <font>
-            <Font size="16.0" />
+            <Font size="21.0" />
          </font>
       </Label>
+      <Label layoutX="287.0" layoutY="449.0" prefHeight="20.0" prefWidth="90.0" text="Must be 5 digits" textFill="WHITE" />
+      <Label layoutX="79.0" layoutY="449.0" prefHeight="20.0" prefWidth="97.0" text="Must be 2 letters" textFill="WHITE" />
+      <Label layoutX="177.0" layoutY="547.0" prefHeight="20.0" prefWidth="97.0" text="Must be 11 digits" textFill="WHITE" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
    </children>
 </Pane>
