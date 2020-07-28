@@ -12,7 +12,9 @@ import java.util.Set;
 @Entity
 public class CorporateCustomerEntity extends CustomerEntity implements CorporateCustomer {
 
-    /** Upper limit on the length of the account number */
+    /**
+     * Upper limit on the length of the account number
+     */
     public static final int ACCOUNT_LENGTH = 11;
 
     @Column(nullable = false, length = ACCOUNT_LENGTH)
@@ -25,7 +27,7 @@ public class CorporateCustomerEntity extends CustomerEntity implements Corporate
         super();
     }
 
-    public CorporateCustomerEntity(String name){
+    public CorporateCustomerEntity(String name) {
         super(name);
         negotiatedRate = DEFAULT_NEGOTIATED_RATE;
     }
@@ -91,7 +93,7 @@ public class CorporateCustomerEntity extends CustomerEntity implements Corporate
         return "Corporate Account #" + corporateAccount;
     }
 
-    public boolean updateNegotiatedRate(double negotiatedRate){
+    public boolean updateNegotiatedRate(double negotiatedRate) {
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();
@@ -106,7 +108,7 @@ public class CorporateCustomerEntity extends CustomerEntity implements Corporate
         return true;
     }
 
-    public boolean updateCorporateAccount(String corporateAccount){
+    public boolean updateCorporateAccount(String corporateAccount) {
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();

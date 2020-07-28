@@ -7,7 +7,8 @@ package edu.unl.cse.csce361.car_rental.backend;
 public interface CorporateCustomer extends Customer {
 
 
-    public static double DEFAULT_NEGOTIATED_RATE = 1.0;
+    double DEFAULT_NEGOTIATED_RATE = 1.0;
+
     /**
      * Provides the corporate account that any rentals will be charged to.
      *

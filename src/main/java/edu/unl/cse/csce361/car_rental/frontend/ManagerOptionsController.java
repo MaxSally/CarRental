@@ -7,9 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
-
 import static java.lang.Integer.parseInt;
 
 public class ManagerOptionsController extends ScreenController{
@@ -39,14 +37,14 @@ public class ManagerOptionsController extends ScreenController{
 
     public void updateCorporateCustomer(javafx.event.ActionEvent event) throws  IOException {
         errorMessageUpdateAccount.setVisible(true);
-        if(txtFieldUpdateAccountName.getText() == null){
+        if(txtFieldUpdateAccountName.getText() == null) {
             errorMessageUpdateAccount.setText("Please enter account name that you wish to update");
-        }else{
-            if(!DataLogic.getInstance().hasCustomerName(txtFieldUpdateAccountName.getText())){
+        } else {
+            if(!DataLogic.getInstance().hasCustomerName(txtFieldUpdateAccountName.getText())) {
                 errorMessageUpdateAccount.setText("Invalid account name");
-            }else if(DataLogic.getInstance().setCorporateCustomerByManager(txtFieldUpdateAccountName.getText(), "", "", "", "", "", "", Double.parseDouble(txtFieldNegotiatedRate.getText()))){
+            } else if(DataLogic.getInstance().setCorporateCustomerByManager(txtFieldUpdateAccountName.getText(), "", "", "", "", "", "", Double.parseDouble(txtFieldNegotiatedRate.getText()))){
                 errorMessageUpdateAccount.setText("Update successfully");
-            }else{
+            } else {
                 errorMessageUpdateAccount.setText("Cannot set negotiated rate to this account");
             }
         }

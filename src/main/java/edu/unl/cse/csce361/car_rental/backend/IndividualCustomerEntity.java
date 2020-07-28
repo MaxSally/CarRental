@@ -19,7 +19,7 @@ public class IndividualCustomerEntity extends CustomerEntity implements Individu
         super();
     }
 
-    public IndividualCustomerEntity(String name){
+    public IndividualCustomerEntity(String name) {
         super(name);
         paymentCard = new PaymentCard();
     }
@@ -42,7 +42,7 @@ public class IndividualCustomerEntity extends CustomerEntity implements Individu
 
 
     @Override
-    public String getPaymentInformation(){
+    public String getPaymentInformation() {
         return paymentCard.toString();
     }
 
@@ -67,6 +67,6 @@ public class IndividualCustomerEntity extends CustomerEntity implements Individu
     @Override
     boolean canRent() {
         List<RentalEntity> rentals = getRentals();
-        return rentals.size() == 0 || rentals.get(rentals.size()-1).hasBeenReturned();
+        return rentals.size() == 0 || rentals.get(rentals.size() - 1).hasBeenReturned();
     }
 }

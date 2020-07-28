@@ -1,19 +1,12 @@
 package edu.unl.cse.csce361.car_rental.frontend;
 
-import edu.unl.cse.csce361.car_rental.backend.Model;
-import edu.unl.cse.csce361.car_rental.backend.ValidationUtil;
 import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-
-import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.isEmptyString;
@@ -74,15 +67,15 @@ public class FiltersController extends ScreenController{
         refillCriteria(numDoorChoices, numDoorOptions, instance.getCriteriaNumberOfDoor());
         int previousSelectedMinFuelEconomy = instance.getCriteriaMinFuelEconomy();
         int previousSelectedMaxFuelEconomy = instance.getCriteriaMaxFuelEconomy();
-        if(previousSelectedMaxFuelEconomy == 150 && previousSelectedMinFuelEconomy == 0){
+        if(previousSelectedMaxFuelEconomy == 150 && previousSelectedMinFuelEconomy == 0) {
             fuelEconomyOptions.setValue("");
-        }else{
+        } else {
             fuelEconomyOptions.setValue(fuelEconomyChoices.get(previousSelectedMinFuelEconomy/30 + 1));
         }
     }
 
-    private <E, Object> void refillCriteria(ObservableList<E> choiceList, ChoiceBox<Object> selectedChoiceBox, Object previousSelectedChoice){
-        if(choiceList.contains(previousSelectedChoice)){
+    private <E, Object> void refillCriteria(ObservableList<E> choiceList, ChoiceBox<Object> selectedChoiceBox, Object previousSelectedChoice) {
+        if(choiceList.contains(previousSelectedChoice)) {
             selectedChoiceBox.setValue(previousSelectedChoice);
         }
     }
@@ -95,9 +88,9 @@ public class FiltersController extends ScreenController{
         instance.setFilterModel(!isEmptyString(modelOptions.getValue())?modelOptions.getValue():"");
         instance.setFilterFuelType(!isEmptyString(fuelTypeOptions.getValue())?fuelTypeOptions.getValue():"");
         instance.setFilterNumberOfDoor(numDoorOptions.getValue() != null?numDoorOptions.getValue():null);
-        if(!isEmptyString(fuelEconomyOptions.getValue())){
+        if(!isEmptyString(fuelEconomyOptions.getValue())) {
             int minFuelEconomy, maxFuelEconomy;
-            switch (fuelEconomyChoices.indexOf(fuelEconomyOptions.getValue())){
+            switch (fuelEconomyChoices.indexOf(fuelEconomyOptions.getValue())) {
                 case 1:
                     minFuelEconomy = 0;
                     maxFuelEconomy = 29;

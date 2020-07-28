@@ -3,7 +3,7 @@ package edu.unl.cse.csce361.car_rental.backend;
 import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.isEmptyString;
 
 public class IndividualCustomerEntityBuilder {
-    private String name;
+    private final String name;
     private String streetAddress1;
     private String streetAddress2;
     private String city;
@@ -14,12 +14,12 @@ public class IndividualCustomerEntityBuilder {
     private int paymentCardExpirationMonth;
     private int paymentCardExpirationYear;
 
-    public IndividualCustomerEntity build(){
+    public IndividualCustomerEntity build() {
         return new IndividualCustomerEntity(name, streetAddress1, streetAddress2, city, state, zipCode,
                 cardNumber, paymentCardExpirationMonth, paymentCardExpirationYear, cardCVV);
     }
 
-    public IndividualCustomerEntityBuilder(String name){
+    public IndividualCustomerEntityBuilder(String name) {
         this.name = name; //name is compulsory. No default for it.
         streetAddress1 = city = "Unknown";
         state = "NA";
@@ -32,56 +32,56 @@ public class IndividualCustomerEntityBuilder {
     }
 
     public IndividualCustomerEntityBuilder setStreetAddress1(String streetAddress1) {
-        if(!isEmptyString(streetAddress1))
+        if (!isEmptyString(streetAddress1))
             this.streetAddress1 = streetAddress1;
         return this;
     }
-    
-    public IndividualCustomerEntityBuilder setStreetAddress2(String streetAddress2){
-        if(!isEmptyString(streetAddress2))
+
+    public IndividualCustomerEntityBuilder setStreetAddress2(String streetAddress2) {
+        if (!isEmptyString(streetAddress2))
             this.streetAddress2 = streetAddress2;
         return this;
     }
-    
-    public IndividualCustomerEntityBuilder setCity(String city){
-        if(!isEmptyString(city))
+
+    public IndividualCustomerEntityBuilder setCity(String city) {
+        if (!isEmptyString(city))
             this.city = city;
         return this;
     }
-    
-    public IndividualCustomerEntityBuilder setState(String state){
-        if(!isEmptyString(state))
+
+    public IndividualCustomerEntityBuilder setState(String state) {
+        if (!isEmptyString(state))
             this.state = state;
         return this;
     }
-    
-    public IndividualCustomerEntityBuilder setZipCode(String zipCode){
-        if(!isEmptyString(zipCode))
+
+    public IndividualCustomerEntityBuilder setZipCode(String zipCode) {
+        if (!isEmptyString(zipCode))
             this.zipCode = zipCode;
         return this;
     }
-    
-    public IndividualCustomerEntityBuilder setCardNumber(String cardNumber){
-        if(!isEmptyString(cardNumber))
+
+    public IndividualCustomerEntityBuilder setCardNumber(String cardNumber) {
+        if (!isEmptyString(cardNumber))
             this.cardNumber = cardNumber;
         return this;
     }
 
     public IndividualCustomerEntityBuilder setCardCVV(String cardCVV) {
-        if(!isEmptyString(cardCVV))
+        if (!isEmptyString(cardCVV))
             this.cardCVV = cardCVV;
         return this;
     }
 
     public IndividualCustomerEntityBuilder setPaymentCardExpirationMonth(Integer paymentCardExpirationMonth) {
-        if(paymentCardExpirationMonth != null)
+        if (paymentCardExpirationMonth != null)
             this.paymentCardExpirationMonth = paymentCardExpirationMonth;
-        return  this;
+        return this;
     }
 
     public IndividualCustomerEntityBuilder setPaymentCardExpirationYear(Integer paymentCardExpirationYear) {
-        if(paymentCardExpirationYear != null)
+        if (paymentCardExpirationYear != null)
             this.paymentCardExpirationYear = paymentCardExpirationYear;
-        return  this;
+        return this;
     }
 }

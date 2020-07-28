@@ -20,31 +20,31 @@ public class VehicleClassRateEntity {
     private Long id;
 
     @NaturalId
-    @Column (length = MAXIMUM_CLASS_TYPE)
+    @Column(length = MAXIMUM_CLASS_TYPE)
     private String classType;
 
     @Column
     private Integer dailyRate;
 
-    public VehicleClassRateEntity(String classType, Integer dailyRate){
+    public VehicleClassRateEntity(String classType, Integer dailyRate) {
         this.classType = classType;
         this.dailyRate = dailyRate;
     }
 
-    public VehicleClassRateEntity(){
+    public VehicleClassRateEntity() {
         super();
     }
 
-    public Integer getDailyRate(){
+    public Integer getDailyRate() {
         return dailyRate;
     }
 
-    public static VehicleClassRateEntity getVehicleRateEntityByClassType(Model.VehicleClass selectedClassType){
+    public static VehicleClassRateEntity getVehicleRateEntityByClassType(Model.VehicleClass selectedClassType) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         selectedClassType = checkIfItemExistInVehicleClass(selectedClassType.toString());
         VehicleClassRateEntity vehicleClassRateEntity = null;
-        if(selectedClassType != Model.VehicleClass.UNKNOWN) {
+        if (selectedClassType != Model.VehicleClass.UNKNOWN) {
             try {
                 vehicleClassRateEntity = session.bySimpleNaturalId(VehicleClassRateEntity.class).load(selectedClassType.toString());
                 session.getTransaction().commit();
@@ -58,12 +58,12 @@ public class VehicleClassRateEntity {
         return vehicleClassRateEntity;
     }
 
-    public void setDailyRate(Integer dailyRate){
+    public void setDailyRate(Integer dailyRate) {
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();
         try {
-            if(dailyRate != null){
+            if (dailyRate != null) {
                 this.dailyRate = dailyRate;
                 session.saveOrUpdate(this);
             }

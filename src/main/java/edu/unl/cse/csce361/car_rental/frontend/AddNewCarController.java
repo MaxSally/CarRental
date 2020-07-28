@@ -45,7 +45,7 @@ public class AddNewCarController extends ScreenController {
 
     public void addNewCarButton(javafx.event.ActionEvent event) throws IOException {
         if(addNewCarValidation(modelOptions.getValue(), colorOptions.getValue(), txtFieldLicensePlateNumber.getText(),
-                txtFieldVIN.getText())){
+                txtFieldVIN.getText())) {
             if(DataLogic.getInstance().createCar(modelOptions.getValue(), colorOptions.getValue(), txtFieldLicensePlateNumber.getText(),
                     txtFieldVIN.getText(), null, null)) {
                 alertScreen("New Car Added", "The car was successfully added to inventory", "",

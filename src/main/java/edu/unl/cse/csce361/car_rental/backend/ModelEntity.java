@@ -59,7 +59,7 @@ public class ModelEntity implements Model {
         session.beginTransaction();
         List<Model> lstModels = null;
         try {
-            lstModels = session.createQuery("SELECT model from ModelEntity model",Model.class).list();
+            lstModels = session.createQuery("SELECT model from ModelEntity model", Model.class).list();
             session.getTransaction().commit();
         } catch (HibernateException exception) {
             System.err.println("Could not load all Models " + exception.getMessage());

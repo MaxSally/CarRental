@@ -7,8 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-
-import javax.xml.crypto.Data;
 import java.io.IOException;
 
 public class IndividualCheckoutController extends ScreenController {
@@ -41,12 +39,12 @@ public class IndividualCheckoutController extends ScreenController {
         expirationYearOptions.setItems(expirationYearChoices);
     }
 
-    public void rentCar(javafx.event.ActionEvent event) throws IOException{
+    public void rentCar(javafx.event.ActionEvent event) throws IOException {
         if(DataLogic.getInstance().rentCarIndividual(txtFieldCardNumber.getText(), expirationMonthOptions.getValue(), expirationYearOptions.getValue(),
-                txtFieldCVV.getText())){
+                txtFieldCVV.getText())) {
             alertScreen("Congratulations", "You have successfully rented the car!", "", "Thank you!");
             switchScreen(event, "thankYou.fxml");
-        }else{
+        } else {
             alertScreen("Failed", "We were unable to process your request", "You can only rent one car!", "Try Again!");
         }
     }

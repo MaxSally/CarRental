@@ -4,7 +4,6 @@ import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
 
 public class CorporateCheckoutController extends ScreenController {
@@ -21,16 +20,16 @@ public class CorporateCheckoutController extends ScreenController {
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         txtFieldCarInfo.getItems().add(DataLogic.getInstance().getSelectedCarDescription());
         txtFieldAddOn.getItems().add(DataLogic.getInstance().getPriceSummary());
     }
 
-    public void rentCar(javafx.event.ActionEvent event) throws IOException{
-        if(DataLogic.getInstance().rentCarCorporate(txtFieldBankAccountNumber.getText())){
+    public void rentCar(javafx.event.ActionEvent event) throws IOException {
+        if(DataLogic.getInstance().rentCarCorporate(txtFieldBankAccountNumber.getText())) {
             alertScreen("Congratulations", "You have successfully rented the car!", "", "Thank you!");
             switchScreen(event, "thankYou.fxml");
-        }else{
+        } else {
             alertScreen("Failed", "We were unable to process your request", "You can only rent one car!", "Try Again!");
         }
     }

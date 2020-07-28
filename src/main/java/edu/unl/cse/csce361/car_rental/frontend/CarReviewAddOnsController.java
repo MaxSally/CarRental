@@ -34,7 +34,7 @@ public class CarReviewAddOnsController extends ScreenController {
         if(satelliteRadio.isSelected()) {
             DataLogic.getInstance().addNewAddOn("Satellite Radio", 10);
         }
-        if(sunShade.isSelected()){
+        if(sunShade.isSelected()) {
             DataLogic.getInstance().addNewAddOn("Dashboard Sunshade", 5);
         }
         if(DataLogic.getInstance().isIndividualCustomerType()) {

@@ -2,8 +2,8 @@ package edu.unl.cse.csce361.car_rental.backend;
 
 public class AddOn extends PricedItemDecorator {
 
-    private int cost;
-    private String name;
+    private final int cost;
+    private final String name;
 
     public AddOn(PricedItem pricedItem, String name, int cost) {
         super(pricedItem);

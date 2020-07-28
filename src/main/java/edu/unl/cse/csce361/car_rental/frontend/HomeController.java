@@ -3,7 +3,6 @@ package edu.unl.cse.csce361.car_rental.frontend;
 import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
 
 public class HomeController extends ScreenController{

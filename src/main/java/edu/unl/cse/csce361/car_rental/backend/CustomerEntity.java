@@ -3,17 +3,13 @@ package edu.unl.cse.csce361.car_rental.backend;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import static edu.unl.cse.csce361.car_rental.backend.ModelEntity.getModelByName;
 
 /**
  * Hibernate implementation of {@link Customer}.
@@ -22,7 +18,7 @@ import static edu.unl.cse.csce361.car_rental.backend.ModelEntity.getModelByName;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class CustomerEntity implements Customer {
 
-    private static String INVALID_STRING_INPUT = "UNKNOWN";
+    private static final String INVALID_STRING_INPUT = "UNKNOWN";
     /* Database code */
 
     /**
@@ -53,7 +49,8 @@ public abstract class CustomerEntity implements Customer {
     private Long customerId;
 
     @NaturalId
-    @Column(length = Customer.MAXIMUM_LINE_LENGTH)   // apparently we have to define the size to enforce NaturalID's uniqueness?
+    @Column(length = Customer.MAXIMUM_LINE_LENGTH)
+    // apparently we have to define the size to enforce NaturalID's uniqueness?
     private String name;
 
     @Column(nullable = false, length = Customer.MAXIMUM_LINE_LENGTH)
@@ -77,7 +74,7 @@ public abstract class CustomerEntity implements Customer {
         super();
     }
 
-    public CustomerEntity(String name){
+    public CustomerEntity(String name) {
         this.name = name;
     }
 
@@ -91,7 +88,7 @@ public abstract class CustomerEntity implements Customer {
     }
 
     public List<Car> getSelectedCars() {
-        if(selectedCars == null) {
+        if (selectedCars == null) {
             selectedCars = new ArrayList<>();
         }
         return selectedCars;
@@ -110,7 +107,7 @@ public abstract class CustomerEntity implements Customer {
         return name;
     }
 
-    public CustomerEntity setName(String name){
+    public CustomerEntity setName(String name) {
         this.name = name;
         return this;
     }
@@ -223,7 +220,7 @@ public abstract class CustomerEntity implements Customer {
         if (!(car instanceof Car)) {
             throw new IllegalArgumentException(getName() + " wants to rent a Car, not a " +
                     car.getClass().getSimpleName());
-        }else{
+        } else {
             Session session = HibernateUtil.getSession();
             System.out.println("Starting Hibernate transaction...");
             try {
@@ -236,7 +233,7 @@ public abstract class CustomerEntity implements Customer {
                 session.beginTransaction();
                 session.saveOrUpdate(newRental);
                 session.saveOrUpdate(this);
-                session.saveOrUpdate((Car)car);
+                session.saveOrUpdate(car);
                 session.getTransaction().commit();
             } catch (Exception e) {
                 System.err.println("error: " + e);
@@ -253,7 +250,7 @@ public abstract class CustomerEntity implements Customer {
         rental.setCustomer(this);
     }
 
-    public boolean updateAddress(String streetAddress1, String streetAddress2, String city, String state, String zipCode){
+    public boolean updateAddress(String streetAddress1, String streetAddress2, String city, String state, String zipCode) {
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
         session.beginTransaction();

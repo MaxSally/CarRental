@@ -1,7 +1,7 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
 public class TotalPriceItem extends PricedItemDecorator {
-    private String name = "Subtotal";
+    private final String name = "Subtotal";
 
     public TotalPriceItem() {
         super();

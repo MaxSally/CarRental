@@ -11,51 +11,55 @@ public class CarEntityBuilder {
     private boolean isRemoved;
     private boolean isUnderMaintenance;
 
-    public CarEntityBuilder(){
+    public CarEntityBuilder() {
         model = color = licensePlate = vin = "Unknown";
         isRemoved = false;
         isUnderMaintenance = false;
     }
 
     public CarEntityBuilder setModel(String model) {
-        if(!isEmptyString(model))
+        if (!isEmptyString(model)) {
             this.model = model;
+        }
         return this;
     }
 
     public CarEntityBuilder setColor(String color) {
-        if(!isEmptyString(color))
-        this.color = color;
-        return  this;
-    }
-
-    public CarEntityBuilder setLicensePlate(String licensePlate) {
-        if(!isEmptyString(licensePlate))
-            this.licensePlate = licensePlate;
-        return  this;
-    }
-
-    public CarEntityBuilder setVin(String vin) {
-        if(!isEmptyString(vin))
-            this.vin = vin;
+        if (!isEmptyString(color)) {
+            this.color = color;
+        }
         return this;
     }
 
-    public CarEntityBuilder setIsRemoved(Boolean isRemoved){
-        if(isRemoved != null){
+    public CarEntityBuilder setLicensePlate(String licensePlate) {
+        if (!isEmptyString(licensePlate)) {
+            this.licensePlate = licensePlate;
+        }
+        return this;
+    }
+
+    public CarEntityBuilder setVin(String vin) {
+        if (!isEmptyString(vin)) {
+            this.vin = vin;
+        }
+        return this;
+    }
+
+    public CarEntityBuilder setIsRemoved(Boolean isRemoved) {
+        if (isRemoved != null) {
             this.isRemoved = isRemoved;
         }
         return this;
     }
 
-    public CarEntityBuilder setUnderMaintenance(Boolean isUnderMaintenance){
-        if(isUnderMaintenance != null){
+    public CarEntityBuilder setUnderMaintenance(Boolean isUnderMaintenance) {
+        if (isUnderMaintenance != null) {
             this.isUnderMaintenance = isUnderMaintenance;
         }
         return this;
     }
 
-    public CarEntity build(){
+    public CarEntity build() {
         return new CarEntity(model, color, licensePlate, vin, isRemoved, isUnderMaintenance);
     }
 }

@@ -4,7 +4,6 @@ import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-
 import java.io.IOException;
 
 public class ReturnCarController extends ScreenController{

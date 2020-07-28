@@ -5,11 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
-import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CarSelectionController extends ScreenController {
     @FXML
@@ -28,14 +24,14 @@ public class CarSelectionController extends ScreenController {
     }
     
     @FXML
-    public void initialize(){
+    public void initialize() {
         ObservableList<String> availableCar = FXCollections.observableArrayList(DataLogic.getInstance().getValidCarDescription());
         listViewCar.getItems().addAll(availableCar);
         sortByPriceOptions.setValue("");
         sortByPriceOptions.setItems(priceSortingChoices);
     }
 
-    public void sortByPrice(){
+    public void sortByPrice() {
         availableCar = null;
         switch (priceSortingChoices.indexOf(sortByPriceOptions.getValue())){
             case 1:
@@ -55,7 +51,7 @@ public class CarSelectionController extends ScreenController {
     }
 
 
-    public void goToAddOn(javafx.event.ActionEvent event) throws  IOException{
+    public void goToAddOn(javafx.event.ActionEvent event) throws  IOException {
         DataLogic.getInstance().addSelectedCar(listViewCar.getSelectionModel().getSelectedIndex());
         switchScreen(event, "carReviewAddOns.fxml");
     }

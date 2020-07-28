@@ -22,7 +22,7 @@ import java.util.Set;
  * Hibernate implementation of {@link Car}.
  */
 @Entity
-public class CarEntity extends PricedItemDecorator implements Car  {
+public class CarEntity extends PricedItemDecorator implements Car {
 
     /**
      * The minimum number of characters on a license plate
@@ -82,9 +82,9 @@ public class CarEntity extends PricedItemDecorator implements Car  {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<RentalEntity> rentals;     // depends on concretion for database purposes
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Boolean isRemoved;
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Boolean isUnderMaintenance;
 
 
@@ -258,25 +258,25 @@ public class CarEntity extends PricedItemDecorator implements Car  {
         this.model = model;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s\nDaily rate: %d\nVIN: %s\nLicense plate: %s",
                 getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
-                (model.getFuelEconomyMPG() == null?"":model.getFuelEconomyMPG().get().toString()),
-                (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()),
+                (model.getFuelEconomyMPG() == null ? "" : model.getFuelEconomyMPG().get().toString()),
+                (model.getNumberOfDoors() == null ? "" : model.getNumberOfDoors().get().toString()),
                 getDailyRate(), getVin(), getLicensePlate());
     }
 
-    public String getDescriptionForManager(){
+    public String getDescriptionForManager() {
         return String.format("(%s %s)\n Vehicle class: %s\n %s %s\n FuelType: %s\nMPG:%s Door:%s\nDaily rate: %d\n" +
                         "Under Maintenance: %b\n Removed: %b\n" +
                         "Rented: %b\nVIN: %s\nLicense plate: %s",
                 getMake(), getModel(), model.getClassType().toString(), getColor(), model.getTransmission().toString(), model.getFuel().toString(),
-                (model.getFuelEconomyMPG() == null?"":model.getFuelEconomyMPG().get().toString()),
-                (model.getNumberOfDoors() == null?"":model.getNumberOfDoors().get().toString()),
+                (model.getFuelEconomyMPG() == null ? "" : model.getFuelEconomyMPG().get().toString()),
+                (model.getNumberOfDoors() == null ? "" : model.getNumberOfDoors().get().toString()),
                 getDailyRate(), isUnderMaintenance, isRemoved, isAvailable(), getVin(), getLicensePlate());
     }
 
-    public static List<Car> getAllCars(){
+    public static List<Car> getAllCars() {
         List<Car> allCars = null;
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
@@ -291,7 +291,7 @@ public class CarEntity extends PricedItemDecorator implements Car  {
         return allCars;
     }
 
-    public static List<String> getAllColors(){
+    public static List<String> getAllColors() {
         List<String> colors = new ArrayList<>();
         Session session = HibernateUtil.getSession();
         System.out.println("Starting Hibernate transaction...");
@@ -306,15 +306,15 @@ public class CarEntity extends PricedItemDecorator implements Car  {
         return colors;
     }
 
-    public void moveToGarage(){
+    public void moveToGarage() {
         isUnderMaintenance = true;
     }
 
-    public void moveOutOfGarage(){
+    public void moveOutOfGarage() {
         isUnderMaintenance = false;
     }
 
-    public void removeCar(){
+    public void removeCar() {
         isRemoved = true;
     }
 

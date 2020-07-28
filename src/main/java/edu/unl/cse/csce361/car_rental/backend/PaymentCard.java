@@ -12,11 +12,17 @@ import java.util.Set;
  */
 @Embeddable
 public class PaymentCard {
-    /** The exact length of a payment card's number */
+    /**
+     * The exact length of a payment card's number
+     */
     public static final int CARD_NUMBER_LENGTH = 16;
-    /** The minimum length of a card's CVV */
+    /**
+     * The minimum length of a card's CVV
+     */
     public static final int CVV_MINIMUM_LENGTH = 3;
-    /** The maximum length of a card's CVV */
+    /**
+     * The maximum length of a card's CVV
+     */
     public static final int CVV_MAXIMUM_LENGTH = 4;
 
     public static final int INVALID_EXPIRATION_MONTH = 0;

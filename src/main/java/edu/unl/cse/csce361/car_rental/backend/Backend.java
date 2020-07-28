@@ -189,7 +189,7 @@ public class Backend {
             if (!isEmptyString(name)) {
                 CorporateCustomerEntityBuilder customerBuilder = new CorporateCustomerEntityBuilder(name).setStreetAddress1(streetAddress1).setStreetAddress2(streetAddress2)
                         .setCity(city).setState(state).setZipCode(zipCode).setBankAccount(corporateAccount);
-                if(isManager){
+                if (isManager) {
                     customerBuilder.setNegotiatedRate(negotiatedRate);
                 }
                 customer = customerBuilder.build();
@@ -296,23 +296,23 @@ public class Backend {
         return customer;
     }
 
-    public boolean updateNegotiatedRateForCorporateCustomer(String name, double negotiatedRate){
+    public boolean updateNegotiatedRateForCorporateCustomer(String name, double negotiatedRate) {
         return CustomerEntity.getCustomerByName(name) != null
-                && ((CorporateCustomerEntity)CustomerEntity.getCustomerByName(name)).updateNegotiatedRate(negotiatedRate);
+                && ((CorporateCustomerEntity) CustomerEntity.getCustomerByName(name)).updateNegotiatedRate(negotiatedRate);
     }
 
     public boolean updateBankAccountForCorporationCustomer(String name, String bankAccountNumber) {
         return CustomerEntity.getCustomerByName(name) != null
-                && ((CorporateCustomerEntity)CustomerEntity.getCustomerByName(name)).updateCorporateAccount(bankAccountNumber);
+                && ((CorporateCustomerEntity) CustomerEntity.getCustomerByName(name)).updateCorporateAccount(bankAccountNumber);
     }
 
     public boolean updateCardInformationForIndividualCustomer(String name, String cardNumber, String cvv,
-                                                           Integer expirationMonth, Integer expirationYear) {
+                                                              Integer expirationMonth, Integer expirationYear) {
 
         IndividualCustomer customer = ((IndividualCustomerEntity) CustomerEntity.getCustomerByName(name));
-        if(customer == null){
+        if (customer == null) {
             return false;
-        }else{
+        } else {
             if (customer.getPaymentCard() != null && customer.getPaymentCard().isActive()) {
                 customer.updatePaymentCard(expirationMonth, expirationYear, cvv);
             } else {
@@ -320,16 +320,16 @@ public class Backend {
             }
             return true;
         }
-
     }
 
     public boolean updateAddressForCustomer(String name, String streetAddress1, String streetAddress2, String city, String state, String zipCode) {
-        return ((CustomerEntity) getCustomer(name)) != null && ((CustomerEntity) getCustomer(name)).updateAddress(streetAddress1, streetAddress2, city, state, zipCode);
+        return getCustomer(name) != null && ((CustomerEntity) getCustomer(name)).updateAddress(streetAddress1,
+                streetAddress2, city, state, zipCode);
     }
 
     public boolean updateDailyRateByManager(Model.VehicleClass classType, Integer dailyRate) {
         VehicleClassRateEntity vehicleClassRate = VehicleClassRateEntity.getVehicleRateEntityByClassType(classType);
-        if(vehicleClassRate != null) {
+        if (vehicleClassRate != null) {
             vehicleClassRate.setDailyRate(dailyRate);
             return true;
         }
@@ -344,36 +344,36 @@ public class Backend {
         return ModelEntity.getModelByName(name);
     }
 
-    public String getFinalPriceSummary(){
-        if(isCorporateCustomer()) {
-            currentPricedItem = new Tax(currentPricedItem, "Discount:", -(1.0 - ((CorporateCustomerEntity)currentCustomer).getNegotiatedRate()));
+    public String getFinalPriceSummary() {
+        if (isCorporateCustomer()) {
+            currentPricedItem = new Tax(currentPricedItem, "Discount:", -(1.0 - ((CorporateCustomerEntity) currentCustomer).getNegotiatedRate()));
         }
         return new TotalPriceItem(currentPricedItem).getLineItemSummary();
     }
 
-    public PricedItem addFees(String name, int cost){
+    public PricedItem addFees(String name, int cost) {
         currentPricedItem = new Fees(currentPricedItem, name, cost);
         return currentPricedItem;
     }
 
-    public PricedItem addTax(String name, double rate){
+    public PricedItem addTax(String name, double rate) {
         currentPricedItem = new Tax(currentPricedItem, name, rate);
         return currentPricedItem;
     }
 
-    public PricedItem addAddon(String name, int cost){
+    public PricedItem addAddon(String name, int cost) {
         currentPricedItem = new AddOn(currentPricedItem, name, cost);
         return currentPricedItem;
     }
 
-    public List<String> getAllColors(){
+    public List<String> getAllColors() {
         return CarEntity.getAllColors();
     }
 
-    public List<String> getAllModels(){
+    public List<String> getAllModels() {
         List<Model> models = ModelEntity.getAllModels();
         List<String> modelAsString = new ArrayList<>();
-        for(Model model : models){
+        for (Model model : models) {
             modelAsString.add(model.getModel());
         }
         return modelAsString;
@@ -385,9 +385,9 @@ public class Backend {
     }
 
     public boolean addSelectedCar(Car userSelectedCar) {
-        if(userSelectedCar.isAvailable()) {
-            for(Car car : ((CustomerEntity) currentCustomer).getSelectedCars()) {
-                if(userSelectedCar.equals(car)) {
+        if (userSelectedCar.isAvailable()) {
+            for (Car car : ((CustomerEntity) currentCustomer).getSelectedCars()) {
+                if (userSelectedCar.equals(car)) {
                     return false;
                 }
             }
@@ -398,44 +398,43 @@ public class Backend {
     }
 
     public Car getSelectedCar() {
-        List<Car> userSelectedCars = ((CustomerEntity)currentCustomer).getSelectedCars();
-        return (userSelectedCars.size() > 0? userSelectedCars.get(userSelectedCars.size() - 1) : null);
+        List<Car> userSelectedCars = ((CustomerEntity) currentCustomer).getSelectedCars();
+        return (userSelectedCars.size() > 0 ? userSelectedCars.get(userSelectedCars.size() - 1) : null);
     }
 
     public String getRentedCarDescription() {
-        List<RentalEntity> rentedCars = ((CustomerEntity)currentCustomer).getRentals();
-            return (rentedCars.size() > 0 && !rentedCars.get(rentedCars.size() - 1).hasBeenReturned()? rentedCars.get(rentedCars.size() - 1).getCar().getDescription() : "");
+        List<RentalEntity> rentedCars = currentCustomer.getRentals();
+        return (rentedCars.size() > 0 && !rentedCars.get(rentedCars.size() - 1).hasBeenReturned() ? rentedCars.get(rentedCars.size() - 1).getCar().getDescription() : "");
     }
 
-    public boolean moveToGarage(Car selectedCar){
-        if(selectedCar.isAvailable()){
+    public boolean moveToGarage(Car selectedCar) {
+        if (selectedCar.isAvailable()) {
             selectedCar.moveToGarage();
             return true;
-        }else{
+        } else {
             return false;
         }
-
     }
 
-    public boolean moveOutOfGarage(Car selectedCar){
-        if(selectedCar.isAvailable()){
+    public boolean moveOutOfGarage(Car selectedCar) {
+        if (selectedCar.isAvailable()) {
             selectedCar.moveOutOfGarage();
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public boolean removeCar(Car selectedCar){
-        if(selectedCar.isAvailable()){
+    public boolean removeCar(Car selectedCar) {
+        if (selectedCar.isAvailable()) {
             selectedCar.removeCar();
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public boolean getIfRemoved(CarEntity car){
+    public boolean getIfRemoved(CarEntity car) {
         return car.getIfRemoved();
     }
 
@@ -448,24 +447,21 @@ public class Backend {
     }
 
     public void resetSelectedCars() {
-        ((CustomerEntity)currentCustomer).setSelectedCars(new ArrayList<Car>());
+        ((CustomerEntity) currentCustomer).setSelectedCars(new ArrayList<Car>());
     }
 
-    public boolean rentCar(){
-        if(((CustomerEntity)currentCustomer).canRent()) {
+    public boolean rentCar() {
+        if (((CustomerEntity) currentCustomer).canRent()) {
             RentalEntity rental = currentCustomer.rentCar(currentPricedItem);
-            if(rental == null) {
-                return false;
-            }
-            return true;
+            return rental != null;
         }
         return false;
     }
 
     public Long returnCarGetLeftoverCosts() {
-        List<RentalEntity> currentRentals = ((CustomerEntity)currentCustomer).getRentals();
+        List<RentalEntity> currentRentals = currentCustomer.getRentals();
         Long amountDue = null;
-        if(currentRentals.size() > 0 && !currentRentals.get(currentRentals.size() - 1).hasBeenReturned()) {
+        if (currentRentals.size() > 0 && !currentRentals.get(currentRentals.size() - 1).hasBeenReturned()) {
             amountDue = currentRentals.get(currentRentals.size() - 1).returnCar();
         }
         return amountDue;

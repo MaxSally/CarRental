@@ -37,7 +37,7 @@ public class DatabasePopulator {
         System.out.println("Creating cars...");
         return Set.of(
                 new CarEntity("Ranger", "Blue", "123 ABC", "1234567890ABCDEFG", false, false),
-                new CarEntity("Malibu", "Gray", "456 DEF", "HJKLMNPRSTUVWXYZ1",false, false),
+                new CarEntity("Malibu", "Gray", "456 DEF", "HJKLMNPRSTUVWXYZ1", false, false),
                 new CarEntity("Malibu", "Red", "789 GHI", "234567890ABCDEFGH", false, false),
                 new CarEntity("ILX", "Red", "AB12", "PL0KM9JN8UHB7YGV6", false, false),
                 new CarEntity("Pacifica", "Red", "34CD", "TFC5RDX4ESZ3WA21Z", false, false),

@@ -1,11 +1,11 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
 public class Tax extends PricedItemDecorator {
-    private final Double SALES_TAX_PERCENT =  0.05;
-    private String taxName;
-    private double taxRate;
+    private final Double SALES_TAX_PERCENT = 0.05;
+    private final String taxName;
+    private final double taxRate;
 
-    public Tax(PricedItem pricedItemDecorator, String taxName, double taxRate){
+    public Tax(PricedItem pricedItemDecorator, String taxName, double taxRate) {
         super(pricedItemDecorator);
         this.taxName = taxName;
         this.taxRate = taxRate;
@@ -16,7 +16,7 @@ public class Tax extends PricedItemDecorator {
         return (int) (super.getDailyRate() * (1.0 + taxRate));
     }
 
-    public int getTax(){
+    public int getTax() {
         return (int) (super.getDailyRate() * taxRate);
     }
 
