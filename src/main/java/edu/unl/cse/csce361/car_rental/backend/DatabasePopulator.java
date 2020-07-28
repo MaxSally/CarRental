@@ -148,8 +148,8 @@ public class DatabasePopulator {
         session.getTransaction().commit();
         rental = customer.rentCar(car);
         rental.setDailyRate(5000);
-        rental.setRentalStart(LocalDate.of(2020, 8, 10));
-        rental.makePayment(5000);
+        rental.setRentalStart(LocalDate.of(2020, 5, 10));
+        //rental.makePayment(5000);
         assert customer instanceof IndividualCustomer;
         rentals.add(rental);
         // first corporate rental (active)

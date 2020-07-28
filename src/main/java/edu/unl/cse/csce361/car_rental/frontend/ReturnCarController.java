@@ -19,11 +19,18 @@ public class ReturnCarController extends ScreenController{
     }
 
     public void returnButton(javafx.event.ActionEvent event) throws IOException {
-        switchScreen(event, "rentalReceipt.fxml");
+        alertScreen("Rental Returned", "Your receipt has been sent to your email", "", "Thank You!");
+        switchScreen(event, "thankYou.fxml");
     }
 
     @FXML
-    public void initialize(){
-        listViewVehicle.getItems().add(DataLogic.getInstance().getSelectedCarDescription());
+    public void initialize() throws IOException {
+        listViewVehicle.getItems().add(DataLogic.getInstance().getRentedCarDescription());
+        Long amountDue = DataLogic.getInstance().returnCar();
+        if(amountDue == null) {
+            alertScreen("Failed", "It seems you don't have any car rented", "", "Try Again!");
+        } else {
+            textAreaAmountOwed.setText("The total amount due is: " + amountDue);
+        }
     }
 }

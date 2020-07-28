@@ -330,7 +330,15 @@ public class DataLogic {
     }
 
     public String getSelectedCarDescription() {
-        return Backend.getInstance().getSelectedCar().getDescription();
+        if(Backend.getInstance().getSelectedCar() == null) {
+            return "No rented Car";
+        } else {
+            return Backend.getInstance().getSelectedCar().getDescription();
+        }
+    }
+
+    public String getRentedCarDescription() {
+        return Backend.getInstance().getRentedCarDescription();
     }
 
     public void addNewAddOn(String addOnName, Integer price) {
@@ -373,6 +381,10 @@ public class DataLogic {
         }else{
             return false;
         }
+    }
+
+    public Long returnCar() {
+        return Backend.getInstance().returnCarGetLeftoverCosts();
     }
 
 }

@@ -402,6 +402,11 @@ public class Backend {
         return (userSelectedCars.size() > 0? userSelectedCars.get(userSelectedCars.size() - 1) : null);
     }
 
+    public String getRentedCarDescription() {
+        List<RentalEntity> rentedCars = ((CustomerEntity)currentCustomer).getRentals();
+            return (rentedCars.size() > 0 && !rentedCars.get(rentedCars.size() - 1).hasBeenReturned()? rentedCars.get(rentedCars.size() - 1).getCar().getDescription() : "");
+    }
+
     public boolean moveToGarage(Car selectedCar){
         if(selectedCar.isAvailable()){
             selectedCar.moveToGarage();
@@ -452,9 +457,17 @@ public class Backend {
             if(rental == null) {
                 return false;
             }
-            ((Car)currentPricedItem.getBasePricedItem()).addRental(rental);
             return true;
         }
         return false;
+    }
+
+    public Long returnCarGetLeftoverCosts() {
+        List<RentalEntity> currentRentals = ((CustomerEntity)currentCustomer).getRentals();
+        Long amountDue = null;
+        if(currentRentals.size() > 0 && !currentRentals.get(currentRentals.size() - 1).hasBeenReturned()) {
+            amountDue = currentRentals.get(currentRentals.size() - 1).returnCar();
+        }
+        return amountDue;
     }
 }
