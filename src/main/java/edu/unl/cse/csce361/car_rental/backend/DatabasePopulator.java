@@ -36,27 +36,27 @@ public class DatabasePopulator {
     static Set<Car> createCars() {
         System.out.println("Creating cars...");
         return Set.of(
-                new CarEntity("Ranger", "Blue", "123 ABC", "1234567890ABCDEFG"),
-                new CarEntity("Malibu", "Gray", "456 DEF", "HJKLMNPRSTUVWXYZ1"),
-                new CarEntity("Malibu", "Red", "789 GHI", "234567890ABCDEFGH"),
-                new CarEntity("ILX", "Red", "AB12", "PL0KM9JN8UHB7YGV6"),
-                new CarEntity("Pacifica", "Red", "34CD", "TFC5RDX4ESZ3WA21Z"),
-                new CarEntity("Versa", "Red", "GBR1", "XCVBNMASDFGHJKLWE"),
-                new CarEntity("Highlander", "Red", "GBR2", "RTYUP12345678901A"),
-                new CarEntity("Jetta", "Red", "HUZKRR", "Z2WSX3EDC4RFV5TGB"),
-                new CarEntity("Bolt", "Red", "JAVA", "6YHN7UJM8K9L0P1A2"),
-                new CarEntity("ILX", "Red", "SEEPLUS", "S3D4F5G6H7J8K9L01"),
-                new CarEntity("Pacifica", "White", "PYTHON", "2Z3X4C5V6B7N8M9KL"),
-                new CarEntity("Versa", "White", "RUBY", "ASDFGHJJKLZXCVBNM"),
-                new CarEntity("Highlander", "White", "JSCRIPT", "12345678909876543"),
-                new CarEntity("Jetta", "White", "ADA", "AZSXDCFVGBHNJMKLT"),
-                new CarEntity("Bolt", "White", "PASCAL", "ACW3ACCACA23TVAS4"),
-                new CarEntity("ILX", "White", "4TRAN", "9283017465LAKSJDH"),
-                new CarEntity("Pacifica", "White", "BASIC", "FGMZNXBCVPWUEYRT5"),
-                new CarEntity("Versa", "Fuchsia", "ALGOL", "HELL0W0RLDF00BARB"),
-                new CarEntity("Highlander", "Magenta", "ASM", "AZ9UUXPLUGHXYZZYW"),
-                new CarEntity("Jetta", "Cyan", "LISP", "1BBLEW0BBLET1MEYW"),
-                new CarEntity("Bolt", "Yellow", "SCHEME", "1MEYG00DBYE543210")
+                new CarEntity("Ranger", "Blue", "123 ABC", "1234567890ABCDEFG", false, false),
+                new CarEntity("Malibu", "Gray", "456 DEF", "HJKLMNPRSTUVWXYZ1", false, false),
+                new CarEntity("Malibu", "Red", "789 GHI", "234567890ABCDEFGH", false, false),
+                new CarEntity("ILX", "Red", "AB12", "PL0KM9JN8UHB7YGV6", false, false),
+                new CarEntity("Pacifica", "Red", "34CD", "TFC5RDX4ESZ3WA21Z", false, false),
+                new CarEntity("Versa", "Red", "GBR1", "XCVBNMASDFGHJKLWE", false, false),
+                new CarEntity("Highlander", "Red", "GBR2", "RTYUP12345678901A", false, false),
+                new CarEntity("Jetta", "Red", "HUZKRR", "Z2WSX3EDC4RFV5TGB", false, false),
+                new CarEntity("Bolt", "Red", "JAVA", "6YHN7UJM8K9L0P1A2", false, false),
+                new CarEntity("ILX", "Red", "SEEPLUS", "S3D4F5G6H7J8K9L01", false, false),
+                new CarEntity("Pacifica", "White", "PYTHON", "2Z3X4C5V6B7N8M9KL", false, false),
+                new CarEntity("Versa", "White", "RUBY", "ASDFGHJJKLZXCVBNM", false, false),
+                new CarEntity("Highlander", "White", "JSCRIPT", "12345678909876543", false, false),
+                new CarEntity("Jetta", "White", "ADA", "AZSXDCFVGBHNJMKLT", false, false),
+                new CarEntity("Bolt", "White", "PASCAL", "ACW3ACCACA23TVAS4", false, false),
+                new CarEntity("ILX", "White", "4TRAN", "9283017465LAKSJDH", false, false),
+                new CarEntity("Pacifica", "White", "BASIC", "FGMZNXBCVPWUEYRT5", false, false),
+                new CarEntity("Versa", "Fuchsia", "ALGOL", "HELL0W0RLDF00BARB", false, false),
+                new CarEntity("Highlander", "Magenta", "ASM", "AZ9UUXPLUGHXYZZYW", false, false),
+                new CarEntity("Jetta", "Cyan", "LISP", "1BBLEW0BBLET1MEYW", false, false),
+                new CarEntity("Bolt", "Yellow", "SCHEME", "1MEYG00DBYE543210", false, false)
         );
     }
 
@@ -107,6 +107,20 @@ public class DatabasePopulator {
         );
     }
 
+    static Set<VehicleClassRateEntity> createVehicleClassRate() {
+        System.out.println("Creating Vehicle Class rate...");
+        return Set.of(
+                new VehicleClassRateEntity(SUV.toString(), 5500),
+                new VehicleClassRateEntity(COMPACT.toString(), 3000),
+                new VehicleClassRateEntity(MIDSIZED.toString(), 4000),
+                new VehicleClassRateEntity(ECONOMY.toString(), 2000),
+                new VehicleClassRateEntity(TRUCK.toString(), 6000),
+                new VehicleClassRateEntity(LARGE.toString(), 7000),
+                new VehicleClassRateEntity(MINIVAN.toString(), 5000),
+                new VehicleClassRateEntity(Model.VehicleClass.OTHER.toString(), 9000)
+        );
+    }
+
     @SuppressWarnings("SpellCheckingInspection")
     static Set<RentalEntity> createRentals(Session session) {
         System.out.println("Creating rentals...");
@@ -115,8 +129,10 @@ public class DatabasePopulator {
         RentalEntity rental;
         Set<RentalEntity> rentals = new HashSet<>();
         // first individual rental (returned)
+        session.beginTransaction();
         car = session.bySimpleNaturalId(CarEntity.class).load("HJKLMNPRSTUVWXYZ1"); // Malibu, "456 DEF" plate
         customer = session.bySimpleNaturalId(CustomerEntity.class).load("Stu Dent");
+        session.getTransaction().commit();
         rental = customer.rentCar(car);
         rental.setDailyRate(4000);
         rental.setRentalStart(LocalDate.of(2020, 1, 15));
@@ -126,17 +142,21 @@ public class DatabasePopulator {
         assert customer instanceof IndividualCustomer;
         rentals.add(rental);
         // second individual rental (active)
+        session.beginTransaction();
         car = session.bySimpleNaturalId(CarEntity.class).load("2Z3X4C5V6B7N8M9KL"); // Pacifica, "PYTHON" plate
         customer = session.bySimpleNaturalId(CustomerEntity.class).load("Stu Dent");
+        session.getTransaction().commit();
         rental = customer.rentCar(car);
         rental.setDailyRate(5000);
-        rental.setRentalStart(LocalDate.of(2020, 8, 10));
-        rental.makePayment(5000);
+        rental.setRentalStart(LocalDate.of(2020, 5, 10));
+        //rental.makePayment(5000);
         assert customer instanceof IndividualCustomer;
         rentals.add(rental);
         // first corporate rental (active)
+        session.beginTransaction();
         car = session.bySimpleNaturalId(CarEntity.class).load("HJKLMNPRSTUVWXYZ1"); // Malibu, "456 DEF" plate
         customer = session.bySimpleNaturalId(CustomerEntity.class).load("Archie's Pleistocene Petting Zoo");
+        session.getTransaction().commit();
         rental = customer.rentCar(car);
         rental.setDailyRate(2100);
         rental.setRentalStart(LocalDate.of(2020, 7, 31));
@@ -144,8 +164,10 @@ public class DatabasePopulator {
         assert customer instanceof CorporateCustomer;
         rentals.add(rental);
         // second corporate rental (active)
+        session.beginTransaction();
         car = session.bySimpleNaturalId(CarEntity.class).load("FGMZNXBCVPWUEYRT5"); // Pacifica, "BASIC" plate
         customer = session.bySimpleNaturalId(CustomerEntity.class).load("Archie's Pleistocene Petting Zoo");
+        session.getTransaction().commit();
         rental = customer.rentCar(car);
         rental.setDailyRate(2625);
         rental.setRentalStart(LocalDate.of(2020, 7, 31));
@@ -155,18 +177,39 @@ public class DatabasePopulator {
         return rentals;
     }
 
+    static void depopulateTables(Session session) {
+        System.out.println("Emptying tables...");
+        session.createQuery("delete from RentalEntity").executeUpdate();
+        session.createQuery("delete from CarEntity").executeUpdate();
+        session.createQuery("delete from ModelEntity").executeUpdate();
+        session.createQuery("delete from CustomerEntity").executeUpdate();
+        session.createQuery("delete from CorporateCustomerEntity").executeUpdate();
+        session.createQuery("delete from IndividualCustomerEntity").executeUpdate();
+        session.createQuery("delete from VehicleClassRateEntity").executeUpdate();
+    }
+
     public static void main(String[] args) {
         System.out.println("Creating Hibernate session...");
         Session session = HibernateUtil.getSession();
-        System.out.println("Starting Hibernate transaction...");
-        session.beginTransaction();
         try {
+            System.out.println("Starting Hibernate transaction to clear tables...");
+            session.beginTransaction();
+            depopulateTables(session);
+            System.out.println("Concluding Hibernate transaction...");
+            session.getTransaction().commit();
+            System.out.println("Starting Hibernate transaction to populate tables except RentalEntity...");
+            session.beginTransaction();
+            createVehicleClassRate().forEach(session::saveOrUpdate);
             createModels().forEach(session::saveOrUpdate);
             createCars().forEach(session::saveOrUpdate);
             createCorporateCustomers().forEach(session::saveOrUpdate);
             createIndividualCustomers().forEach(session::saveOrUpdate);
-            createRentals(session).forEach(session::saveOrUpdate);
             System.out.println("Concluding Hibernate transaction...");
+            session.getTransaction().commit();
+            System.out.println("Now populating RentalEntity...");
+            Set<RentalEntity> rentals = createRentals(session);
+            session.beginTransaction();
+            rentals.forEach(session::saveOrUpdate);
             session.getTransaction().commit();
             System.out.println("Success! The database has been populated.");
         } catch (MappingException mappingException) {
@@ -179,8 +222,9 @@ public class DatabasePopulator {
             System.err.println("  " + mappingException.getMessage());
             session.getTransaction().rollback();
         } catch (PersistenceException persistenceException) {
-            System.err.println("Problem encountered when populating a table. The most likely problem is that\n" +
-                    "    you're running this populator without dropping the existing tables first.");
+            System.err.println("Problem encountered when populating or depopulating a table. It's not clear why\n" +
+                    "    this would happen unless it's a network or server failure. But it's probably\n" +
+                    "    something completely unexpected.");
             StackTraceElement[] trace = persistenceException.getStackTrace();
             System.err.println("  " + trace[trace.length - 1]);
             System.err.println("  " + persistenceException.getMessage());
@@ -188,7 +232,7 @@ public class DatabasePopulator {
             session.getTransaction().rollback();
         } catch (Exception exception) {
             System.err.println("Problem encountered that (probably) has nothing to do with creating and\n" +
-                    "    populating tables. This is (most likely) is a plain, old-fashioned\n" +
+                    "    (de)populating tables. This is (most likely) is a plain, old-fashioned\n" +
                     "    programming boo-boo.");
             StackTraceElement[] trace = exception.getStackTrace();
             System.err.println("  " + trace[trace.length - 1]);

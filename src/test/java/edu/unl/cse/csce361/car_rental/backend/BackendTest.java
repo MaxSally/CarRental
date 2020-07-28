@@ -1,10 +1,14 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
+import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import org.hibernate.Session;
+import org.hsqldb.Database;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.xml.crypto.Data;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,11 +23,13 @@ public class BackendTest {
         backend = Backend.getInstance();
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
+        DatabasePopulator.depopulateTables(session);
         DatabasePopulator.createModels().forEach(session::saveOrUpdate);
         DatabasePopulator.createCars().forEach(session::saveOrUpdate);
         DatabasePopulator.createCorporateCustomers().forEach(session::saveOrUpdate);
         DatabasePopulator.createIndividualCustomers().forEach(session::saveOrUpdate);
         DatabasePopulator.createRentals(session).forEach(session::saveOrUpdate);
+        DatabasePopulator.createVehicleClassRate().forEach(session::saveOrUpdate);
         session.getTransaction().commit();
     }
 
@@ -31,12 +37,7 @@ public class BackendTest {
     public void tearDown() {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
-        session.createQuery("delete from RentalEntity").executeUpdate();
-        session.createQuery("delete from CarEntity").executeUpdate();
-        session.createQuery("delete from ModelEntity").executeUpdate();
-        session.createQuery("delete from CustomerEntity").executeUpdate();
-        session.createQuery("delete from CorporateCustomerEntity").executeUpdate();
-        session.createQuery("delete from IndividualCustomerEntity").executeUpdate();
+        DatabasePopulator.depopulateTables(session);
         session.getTransaction().commit();
     }
 
@@ -98,5 +99,48 @@ public class BackendTest {
         // assert
         assertEquals(name, model.getModel());
         assertEquals(expectedTransmission, model.getTransmission());
+    }
+
+    @Test public void testGetCurrentCustomer(){
+        // arrange
+        String customerName = "Mary O'Kart";
+        String expectedCurrentCustomer = customerName;
+        // act
+        Customer customer = backend.getCustomer(customerName);
+        Customer currentCustomer = backend.getCurrentCustomer();
+        // assert
+        assertTrue(currentCustomer.getName().equals(expectedCurrentCustomer));
+    }
+
+    @Test
+    public void testCreateIndividualCustomer(){
+        //arrange
+        String name = "Max";
+        String streetAddress1 = "home", streetAddress2 = "", city = "Omaha", state = "NH", zip = "25383", creditCardNumber = "1234567891234565", creditCVV = "456";
+        int month = 12, year = 2020;
+        //act
+        Customer customer = Backend.getInstance().createIndividualCustomer(name, streetAddress1, streetAddress2, city, state, zip);
+        //assert
+        assertEquals(customer.getName(),name);
+    }
+
+    @Test
+    public void testAddSelectedCar() {
+        backend = Backend.getInstance();
+        backend.logIn("Stu Dent");
+        Car car = backend.getAllCar().get(10);
+        backend.addSelectedCar(car);
+        ((CustomerEntity) backend.getCurrentCustomer()).getSelectedCars().get(0);
+    }
+
+    @Test
+    public void testGetAllColor(){
+        System.out.println(ModelEntity.getAllModels());
+    }
+
+    @Test
+    public void testGetAllVehicleRate(){
+        System.out.println("=====================================");
+        System.out.println(VehicleClassRateEntity.getVehicleRateEntityByClassType(Model.VehicleClass.COMPACT));
     }
 }

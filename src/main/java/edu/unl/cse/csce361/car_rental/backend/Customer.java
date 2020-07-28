@@ -7,13 +7,21 @@ import java.util.List;
  */
 public interface Customer {
 
-    /** The maximum length of each of the customer's name and two street address lines */
+    /**
+     * The maximum length of each of the customer's name and two street address lines
+     */
     int MAXIMUM_LINE_LENGTH = 48;
-    /** The maximum length of the city's name */
+    /**
+     * The maximum length of the city's name
+     */
     int MAXIMUM_CITY_LENGTH = 32;
-    /** The exact length of the state's abbreviation */
+    /**
+     * The exact length of the state's abbreviation
+     */
     int STATE_LENGTH = 2;
-    /** The exact length of the zip code (without the "plus-four") */
+    /**
+     * The exact length of the zip code (without the "plus-four")
+     */
     int ZIPCODE_LENGTH = 5;
 
     /**

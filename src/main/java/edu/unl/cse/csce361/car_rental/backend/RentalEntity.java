@@ -1,5 +1,7 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
+import org.hibernate.Session;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -106,7 +108,21 @@ public class RentalEntity implements Comparable<RentalEntity> {
      */
     public long returnCar() {
         rentalEnd = LocalDate.now();
+        Session session = HibernateUtil.getSession();
+        System.out.println("Starting Hibernate transaction...");
+        try {
+            session.beginTransaction();
+            session.saveOrUpdate(this);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+            session.getTransaction().rollback();
+        }
         return amountDue();
+    }
+
+    public CarEntity getCar() {
+        return car;
     }
 
     /**

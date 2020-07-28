@@ -21,7 +21,7 @@ public interface IndividualCustomer extends Customer {
      * @param cardExpirationYear  The year of the card's expiration date
      * @param cvv                 The Card Verification Value
      */
-    void setPaymentCard(String cardNumber, int cardExpirationMonth, int cardExpirationYear, String cvv);
+    IndividualCustomer setPaymentCard(String cardNumber, int cardExpirationMonth, int cardExpirationYear, String cvv);
 
     /**
      * Updates some of this customer's billing information. This method preserves the customer's existing card number

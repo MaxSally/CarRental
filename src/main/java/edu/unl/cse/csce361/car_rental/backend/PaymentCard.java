@@ -12,13 +12,21 @@ import java.util.Set;
  */
 @Embeddable
 public class PaymentCard {
-    /** The exact length of a payment card's number */
+    /**
+     * The exact length of a payment card's number
+     */
     public static final int CARD_NUMBER_LENGTH = 16;
-    /** The minimum length of a card's CVV */
+    /**
+     * The minimum length of a card's CVV
+     */
     public static final int CVV_MINIMUM_LENGTH = 3;
-    /** The maximum length of a card's CVV */
+    /**
+     * The maximum length of a card's CVV
+     */
     public static final int CVV_MAXIMUM_LENGTH = 4;
 
+    public static final int INVALID_EXPIRATION_MONTH = 0;
+    public static final int INVALID_EXPIRATION_YEAR = 0;
     @Column
     private String cardNumber;
     @Column
@@ -26,7 +34,7 @@ public class PaymentCard {
     @Column
     private String cvv;
 
-    public PaymentCard() {      // required 0-argument constructor
+    public PaymentCard() { // required 0-argument constructor
     }
 
     public PaymentCard(String cardNumber, int expirationMonth, int expirationYear, String cvv)
@@ -93,5 +101,9 @@ public class PaymentCard {
 
     public String toString() {
         return "*".repeat(CARD_NUMBER_LENGTH - 4) + cardNumber.substring(CARD_NUMBER_LENGTH - 4);
+    }
+
+    public boolean isActive() {
+        return !cardNumber.equals("0000000000000000") && cardNumber != null && !cardNumber.equals("");
     }
 }

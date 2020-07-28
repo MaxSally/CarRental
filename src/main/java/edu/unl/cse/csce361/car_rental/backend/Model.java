@@ -85,6 +85,7 @@ public interface Model extends Comparable<Model> {
 
     /**
      * Returns the collection of cars for this model.
+     *
      * @return Cars of this model
      */
     Set<Car> getCars();

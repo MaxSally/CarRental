@@ -62,4 +62,14 @@ public interface Car extends PricedItem, Comparable<Car> {
      * @param rental The {@link RentalEntity} that the car is to be added to
      */
     void addRental(RentalEntity rental);
+
+    String getDescription();
+
+    void moveToGarage();
+
+    void moveOutOfGarage();
+
+    void removeCar();
+
+    String getDescriptionForManager();
 }

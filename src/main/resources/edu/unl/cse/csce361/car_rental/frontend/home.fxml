@@ -1,11 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="edu.unl.cse.csce361.car_rental.frontend.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" style="-fx-background-color: #141313#141313;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.HomeController">
    <children>
-      <Label text="This is a placeholder." />
+      <Label layoutX="60.0" layoutY="29.0" text="Husker Klunker Car Rentals" textFill="WHITE">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtUsername" layoutX="62.0" layoutY="141.0" prefHeight="27.0" prefWidth="321.0" promptText="Enter your name" />
+      <Label alignment="CENTER" layoutX="134.0" layoutY="113.0" prefHeight="28.0" prefWidth="178.0" text="Customer Login" textFill="WHITE">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Button layoutX="95.0" layoutY="432.0" mnemonicParsing="false" onAction="#switchToCreateIndividualAccount" prefHeight="28.0" prefWidth="254.0" text="Create Individual Customer Account">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="95.0" layoutY="479.0" mnemonicParsing="false" onAction="#switchToCreateCorporateAccount" prefHeight="28.0" prefWidth="254.0" text="Create Corporate Customer Account">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="86.0" layoutY="603.0" mnemonicParsing="false" onAction="#switchToManagerOptions" prefHeight="28.0" prefWidth="273.0" text="Click Here to Manage Accounts and Cars">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Label alignment="CENTER" layoutX="120.0" layoutY="568.0" prefHeight="27.0" prefWidth="214.0" text="Are You A Manager?" textFill="WHITE">
+         <font>
+            <Font size="21.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="99.0" layoutY="399.0" prefHeight="27.0" prefWidth="247.0" text="Don't Have an Account?" textFill="WHITE">
+         <font>
+            <Font size="21.0" />
+         </font></Label>
+      <Button layoutX="96.0" layoutY="174.0" mnemonicParsing="false" onAction="#logIn" prefHeight="28.0" prefWidth="254.0" text="Login">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="96.0" layoutY="284.0" mnemonicParsing="false" onAction="#switchToUpdateIndividualAccount" prefHeight="28.0" prefWidth="254.0" text="Update Individual Customer Account">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="96.0" layoutY="330.0" mnemonicParsing="false" onAction="#switchToUpdateCorporateAccount" prefHeight="28.0" prefWidth="254.0" text="Update Corporate Customer Account">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Label alignment="CENTER" layoutX="73.0" layoutY="249.0" prefHeight="27.0" prefWidth="308.0" text="Want to Update Your Account?" textFill="#fcfcfc">
+         <font>
+            <Font size="21.0" />
+         </font></Label>
    </children>
-</GridPane>
+</Pane>
