@@ -13,8 +13,6 @@ public class CarSelectionController extends ScreenController {
 
     @FXML
     private ChoiceBox<String> sortByPriceOptions;
-    @FXML
-    private Label txtCarSelection;
 
     private ObservableList<String> priceSortingChoices = FXCollections.observableArrayList("","High to Low", "Low to High");
     private ObservableList<String> availableCar;

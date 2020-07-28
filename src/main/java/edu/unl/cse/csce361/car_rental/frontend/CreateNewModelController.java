@@ -1,6 +1,5 @@
 package edu.unl.cse.csce361.car_rental.frontend;
 
-import edu.unl.cse.csce361.car_rental.backend.Model;
 import edu.unl.cse.csce361.car_rental.rental_logic.DataLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -68,8 +67,8 @@ public class CreateNewModelController extends ScreenController {
                     "Please create a different model", "Try Again");
         } else if(createNewCarModelValidation(txtFieldManufacturer.getText(), txtFieldModelName.getText(), classOptions.getValue(),
                 numDoorOptions.getValue(), fuelTypeOptions.getValue(), transmissionOptions.getValue(), fuelEconomy)) {
-            if(DataLogic.getInstance().createModel(txtFieldManufacturer.getText(), txtFieldModelName.getText(), Model.VehicleClass.valueOf(classOptions.getValue()),
-                    numDoorOptions.getValue(), Model.Transmission.valueOf(transmissionOptions.getValue()), Model.Fuel.valueOf(fuelTypeOptions.getValue()),
+            if(DataLogic.getInstance().createModel(txtFieldManufacturer.getText(), txtFieldModelName.getText(), classOptions.getValue(),
+                    numDoorOptions.getValue(), transmissionOptions.getValue(), fuelTypeOptions.getValue(),
                     fuelEconomy)) {
                 alertScreen("New Car Added", "The car was successfully added to inventory", "",
                         "Thank you!");

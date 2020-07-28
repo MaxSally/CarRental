@@ -42,7 +42,6 @@ public class UpdateIndividualCustomerAccountController extends ScreenController 
 
 
     public void updateIndividualCustomer(javafx.event.ActionEvent event) throws IOException {
-
         if(txtFieldName.getText() == null){
             alertScreen("Cannot Update Account", "Please enter account name that you wish to update", "", "Try Again");
         } else {

@@ -24,14 +24,14 @@ public class CorporateCustomerAccountByManagerController extends ScreenControlle
     public void createCorporateCustomer(javafx.event.ActionEvent event) throws IOException {
         if (DataLogic.getInstance().hasCustomerName(txtFieldName.getText()) == true) {
             alertScreen();
-        } else if(addressFieldValidation(txtFieldStreetAddress1.getText(),txtFieldCity.getText(),txtFieldState.getText(),
-                txtFieldZip.getText()) == false || txtFieldBankAccount.getText().isEmpty() || txtFieldNegotiatedRate.getText().isEmpty()) {
+        } else if(!addressFieldValidation(txtFieldStreetAddress1.getText(),txtFieldCity.getText(),txtFieldState.getText(),
+                txtFieldZip.getText()) || txtFieldBankAccount.getText().isEmpty() || txtFieldNegotiatedRate.getText().isEmpty()) {
             alertScreen("Cannot Create Account", "Please make sure to fill in all fields", "Only street address 2 can be left unfilled",
                     "Try Again");
         } else {
             if(DataLogic.getInstance().createCorporateCustomerAccountWithNegotiatedRate(txtFieldName.getText(), txtFieldStreetAddress1.getText(),
                     txtFieldStreetAddress2.getText(), txtFieldCity.getText(), txtFieldState.getText(), txtFieldZip.getText(),
-                    txtFieldBankAccount.getText(), Double.valueOf(txtFieldNegotiatedRate.getText())) == true) {
+                    txtFieldBankAccount.getText(), Double.valueOf(txtFieldNegotiatedRate.getText()))) {
                 switchScreen(event, "home.fxml");
             } else {
                 alertScreen("Cannot Create Account", "Something went wrong, please try again", "", "Try Again");

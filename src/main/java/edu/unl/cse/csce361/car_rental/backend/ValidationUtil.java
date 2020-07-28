@@ -1,8 +1,5 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
-import edu.unl.cse.csce361.car_rental.backend.Model;
-import org.dom4j.rule.Mode;
-
 import java.util.HashSet;
 import java.util.Set;
 

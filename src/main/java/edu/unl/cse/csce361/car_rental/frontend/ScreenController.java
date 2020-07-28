@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
-import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.isEmptyString;
 
 public abstract class ScreenController {
 
@@ -71,6 +70,9 @@ public abstract class ScreenController {
 
     public boolean addNewCarValidation(String model, String color, String licensePlateNumber, String vin) {
         return !(isEmptyString(model) || isEmptyString(color) || isEmptyString(licensePlateNumber) || isEmptyString(vin));
+    }
 
+    private static boolean isEmptyString(String checker) {
+        return (checker.equals("") || checker == null);
     }
 }

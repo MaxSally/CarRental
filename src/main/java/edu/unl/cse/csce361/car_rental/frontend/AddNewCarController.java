@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import java.io.IOException;
-import static java.lang.Integer.parseInt;
 
 public class AddNewCarController extends ScreenController {
 
@@ -22,8 +21,6 @@ public class AddNewCarController extends ScreenController {
     private TextField txtFieldLicensePlateNumber;
     @FXML
     private TextField txtFieldVIN;
-    @FXML
-    private TextField txtFieldDailyRate;
 
     @FXML
     private void initialize() {

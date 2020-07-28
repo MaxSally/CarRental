@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import static com.sun.xml.fastinfoset.stax.events.Util.isEmptyString;
-import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.availabilityCriteriaChecker;
+import static edu.unl.cse.csce361.car_rental.backend.ValidationUtil.*;
 
 public class DataLogic {
     private static DataLogic instance;
@@ -55,12 +55,7 @@ public class DataLogic {
     }
 
     public boolean hasModelName(String name) {
-        return (Backend.getInstance().getModel(name) != null);
-    }
-
-    public String getCustomerName(String name) {
-        Customer customer = Backend.getInstance().getCustomer(name);
-        return (customer == null?"":customer.getName());
+        return (Backend.getInstance().getModelByName(name) != null);
     }
 
     public boolean addSelectedCar(Integer carIndex) {
@@ -70,10 +65,10 @@ public class DataLogic {
     public boolean setIndividualCustomer(String name, String streetAddress1, String streetAddress2, String city,
                                          String state, String zipCode, String cardNumber, String cvv,
                                          Integer expirationMonth, Integer expirationYear) {
-        if(Backend.getInstance().getCustomer(name) == null) {
-            return false;
-        }
         boolean isCompleted = true;
+        if(Backend.getInstance().getCustomer(name) == null) {
+            isCompleted = false;
+        }
         isCompleted &= Backend.getInstance().updateCardInformationForIndividualCustomer(name, cardNumber, cvv, expirationMonth, expirationYear);
         if(!(isEmptyString(streetAddress1) && isEmptyString(streetAddress2) && isEmptyString(city) && isEmptyString(state) && isEmptyString(zipCode))) {
             isCompleted &=Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode);
@@ -83,11 +78,11 @@ public class DataLogic {
 
     public boolean setCorporateCustomer(String name, String streetAddress1, String streetAddress2,
                                         String city, String state, String zipCode, String corporateAccount) {
-        if(Backend.getInstance().getCustomer(name) == null) {
-            return false;
-        }
         boolean isCompleted = true;
-        isCompleted &= Backend.getInstance().updateBankAccountForCorporationCustomer(name, corporateAccount);
+        if(Backend.getInstance().getCustomer(name) == null) {
+            isCompleted = false;
+        }
+        isCompleted = Backend.getInstance().updateBankAccountForCorporationCustomer(name, corporateAccount);
         if(!(isEmptyString(streetAddress1) && isEmptyString(streetAddress2) && isEmptyString(city) && isEmptyString(state) && isEmptyString(zipCode))) {
             isCompleted &=Backend.getInstance().updateAddressForCustomer(name, streetAddress1, streetAddress2, city, state, zipCode);
         }
@@ -101,8 +96,8 @@ public class DataLogic {
         return isCompleted;
     }
 
-    public boolean setDailyRateByManager(String vehicleClass, Integer dailyRate) {
-        return Backend.getInstance().updateDailyRateByManager(Model.VehicleClass.valueOf(vehicleClass), dailyRate);
+    public void setDailyRateByManager(String vehicleClass, Integer dailyRate) {
+        Backend.getInstance().updateDailyRateByManager(Model.VehicleClass.valueOf(vehicleClass), dailyRate);
     }
 
     public List<String> getAllFuelType() {
@@ -146,7 +141,7 @@ public class DataLogic {
     }
 
     public void setFilterClass(String vehicleClass) {
-        if(isEmptyString(vehicleClass)) {
+        if(isEmptyString(vehicleClass) || checkIfItemExistInVehicleClass(vehicleClass) == Model.VehicleClass.UNKNOWN) {
             criteriaFilter.setVehicleClass(Model.VehicleClass.UNKNOWN);
         } else {
             criteriaFilter.setVehicleClass(Model.VehicleClass.valueOf(vehicleClass));
@@ -154,7 +149,7 @@ public class DataLogic {
     }
 
     public void setFilterTransmission(String transmission) {
-        if(isEmptyString(transmission)) {
+        if(isEmptyString(transmission) || checkIfItemExistInTransmission(transmission) == Model.Transmission.UNKNOWN) {
             criteriaFilter.setTransmission(Model.Transmission.UNKNOWN);
         } else {
             criteriaFilter.setTransmission(Model.Transmission.valueOf(transmission));
@@ -162,7 +157,7 @@ public class DataLogic {
     }
 
     public void setFilterFuelType(String fuelType) {
-        if(isEmptyString(fuelType)) {
+        if(isEmptyString(fuelType) || checkIfItemExistInFuelType(fuelType) == Model.Fuel.UNKNOWN) {
             criteriaFilter.setFuelType(Model.Fuel.UNKNOWN);
         } else {
             criteriaFilter.setFuelType(Model.Fuel.valueOf(fuelType));
@@ -278,12 +273,17 @@ public class DataLogic {
     }
 
     public String getPriceSummary(){
+        if (Backend.getInstance().isCorporateCustomer()) {
+            Backend.getInstance().addTax("Discount:", -(1.0 - ((CorporateCustomerEntity) Backend.getInstance().getCurrentCustomer()).getNegotiatedRate()));
+        }
+        Backend.getInstance().addTax("Sales Tax", 0.15);
         return Backend.getInstance().getFinalPriceSummary();
     }
 
-    public boolean createModel(String manufacturer, String model, Model.VehicleClass classType, Integer numberOfDoors,
-                               Model.Transmission transmission, Model.Fuel fuel, Integer fuelEconomyMPG) {
-        return Backend.getInstance().createModel(manufacturer, model, classType, numberOfDoors, transmission, fuel, fuelEconomyMPG) != null;
+    public boolean createModel(String manufacturer, String model, String classType, Integer numberOfDoors,
+                               String transmission, String fuel, Integer fuelEconomyMPG) {
+        return Backend.getInstance().createModel(manufacturer, model, Model.VehicleClass.valueOf(classType), numberOfDoors,
+                Model.Transmission.valueOf(transmission), Model.Fuel.valueOf(fuel), fuelEconomyMPG) != null;
     }
 
     public boolean createCar(String model, String color, String licensePlate, String vin,
@@ -299,27 +299,26 @@ public class DataLogic {
         return Backend.getInstance().getAllModels();
     }
 
-    public boolean removeCar(int carIndex) {
+    public void removeCar(int carIndex) {
         Car car = currentListedCarOnCarManagerScreen.get(carIndex);
-        return Backend.getInstance().removeCar(car);
+        Backend.getInstance().removeCar(car);
     }
 
-    public boolean moveToGarage(int carIndex) {
+    public void moveToGarage(int carIndex) {
         Car car = currentListedCarOnCarManagerScreen.get(carIndex);
-        return Backend.getInstance().moveToGarage(car);
+        Backend.getInstance().moveToGarage(car);
     }
 
-    public boolean moveOutOfGarage(int carIndex) {
+    public void moveOutOfGarage(int carIndex) {
         Car car = currentListedCarOnCarManagerScreen.get(carIndex);
-        return Backend.getInstance().moveOutOfGarage(car);
+        Backend.getInstance().moveOutOfGarage(car);
     }
 
     public List<String> getCarDescriptionManager() {
         List<Car> lstCar = Backend.getInstance().getAllCar();
         List<Car> lstValidCar = new ArrayList<>();
         for(Car car: lstCar) {
-            boolean acceptable = true;
-            acceptable &= !Backend.getInstance().getIfRemoved((CarEntity) car);
+            boolean acceptable = !Backend.getInstance().getIfRemoved((CarEntity) car);
             if(acceptable) {
                 lstValidCar.add(car);
             }
@@ -345,19 +344,11 @@ public class DataLogic {
     }
 
     public boolean isIndividualCustomerType() {
-        if(Backend.getInstance().isIndividualCustomer()) {
-            return true;
-        } else {
-            return false;
-        }
+        return Backend.getInstance().isIndividualCustomer();
     }
 
     public boolean isCorporateCustomerType() {
-        if(Backend.getInstance().isCorporateCustomer()) {
-            return true;
-        } else {
-            return false;
-        }
+        return Backend.getInstance().isCorporateCustomer();
     }
 
     public void resetSelectedCars() {

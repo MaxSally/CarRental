@@ -1,5 +1,6 @@
 package edu.unl.cse.csce361.car_rental.backend;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import javax.persistence.PersistenceException;
@@ -17,7 +18,6 @@ public class Backend {
 
     private static Backend instance;
     private Customer currentCustomer;
-    private Model model;
     private PricedItem currentPricedItem;
 
     private Backend() {
@@ -65,16 +65,16 @@ public class Backend {
         return models;
     }
 
+    public Model getModelByName(String name){
+        return ModelEntity.getModelByName(name);
+    }
+
     /**
      * Retrieves the model that has the specified name, if such a model exists.
      *
      * @param name The name of the model
      * @return The specified model if it is present in the database; <code>null</code> otherwise
      */
-    public Model getModel(String name) {
-        model = ModelEntity.getModelByName(name);
-        return model;
-    }
 
     /* CREATES  NEW OBJECTS */
 
@@ -113,13 +113,13 @@ public class Backend {
             session.saveOrUpdate(carModel);
             session.getTransaction().commit();
         } catch (PersistenceException exception) {
-            session.getTransaction().rollback();
             carModel = ModelEntity.getModelByName(model);
             if (carModel == null) {
                 throw new IllegalStateException("Could not create new car model " + model + ": " +
                         exception.getMessage() + ". Could not retrieve existing car model " + model +
                         " from database.");
             }
+            session.getTransaction().rollback();
         }
         return carModel;
     }
@@ -148,8 +148,8 @@ public class Backend {
                     .setIsRemoved(isRemoved).setUnderMaintenance(isUnderMaintenance).build();
             session.saveOrUpdate(car);
             session.getTransaction().commit();
-        } catch (Exception e) {
-            System.err.println("error: " + e);
+        } catch (HibernateException e) {
+            System.err.println("encounter problems while creating car: " + e);
             session.getTransaction().rollback();
         }
         return car;
@@ -196,8 +196,8 @@ public class Backend {
                 session.saveOrUpdate(customer);
                 session.getTransaction().commit();
             }
-        } catch (Exception e) {
-            System.err.println("error: " + e);
+        } catch (HibernateException e) {
+            System.err.println("Enounter problems while adding corporate customer: " + e);
             session.getTransaction().rollback();
         }
         return getCustomer(name);
@@ -239,8 +239,8 @@ public class Backend {
                 session.saveOrUpdate(customer);
                 session.getTransaction().commit();
             }
-        } catch (Exception e) {
-            System.err.println("error: " + e);
+        } catch (HibernateException e) {
+            System.err.println("Encounter problems while adding individual customer " + e);
             session.getTransaction().rollback();
         }
         return customer;
@@ -289,8 +289,8 @@ public class Backend {
                 session.saveOrUpdate(customer);
                 session.getTransaction().commit();
             }
-        } catch (Exception e) {
-            System.err.println("error: " + e);
+        } catch (HibernateException e) {
+            System.err.println("Encounter problems while creating individual customer: " + e);
             session.getTransaction().rollback();
         }
         return customer;
@@ -345,9 +345,6 @@ public class Backend {
     }
 
     public String getFinalPriceSummary() {
-        if (isCorporateCustomer()) {
-            currentPricedItem = new Tax(currentPricedItem, "Discount:", -(1.0 - ((CorporateCustomerEntity) currentCustomer).getNegotiatedRate()));
-        }
         return new TotalPriceItem(currentPricedItem).getLineItemSummary();
     }
 
