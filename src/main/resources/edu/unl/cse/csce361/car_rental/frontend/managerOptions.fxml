@@ -7,37 +7,49 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.ManagerOptionsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" style="-fx-background-color: #141313#141313 #141313#141313;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.ManagerOptionsController">
    <children>
-      <Label layoutX="108.0" layoutY="14.0" text="What would you like to do?">
+      <Label layoutX="63.0" layoutY="41.0" text="What would you like to do?" textFill="WHITE">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Button layoutX="167.0" layoutY="281.0" mnemonicParsing="false" onAction="#updateCorporateCustomer" text="Update Account" />
+      <Button layoutX="116.0" layoutY="323.0" mnemonicParsing="false" onAction="#createCorporateCustomer" prefHeight="27.0" prefWidth="208.0" text="Create new Corporate Account" />
+      <Label layoutX="64.0" layoutY="106.0" text="Update Current Corporate Account" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="23.0" layoutY="144.0" text="What is the account name that you would like to update?" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <TextField fx:id="txtFieldUpdateAccountName" layoutX="142.0" layoutY="172.0" promptText="Account Name" />
+      <Label fx:id="errorMessageUpdateAccount" layoutX="282.0" layoutY="228.0" prefHeight="17.0" prefWidth="160.0" />
+      <TextField fx:id="txtFieldNegotiatedRate" layoutX="145.0" layoutY="237.0" promptText="Negotiated rate" />
+      <Label layoutX="54.0" layoutY="210.0" text="Would you like to change the negotiated rate?" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
+      <Button layoutX="8.0" layoutY="639.0" mnemonicParsing="false" onAction="#addNewCar" prefHeight="27.0" prefWidth="208.0" text="Add new Car to Inventory" />
+      <Button layoutX="234.0" layoutY="639.0" mnemonicParsing="false" onAction="#managerCarInventoryButton" prefHeight="27.0" prefWidth="208.0" text="Manage Car Inventory" />
+      <Button layoutX="162.0" layoutY="579.0" mnemonicParsing="false" onAction="#updateDailyRate" text="Update Daily Rate" />
+      <Label layoutX="80.0" layoutY="406.0" text="Update Vehicle Class Daily Rate" textFill="WHITE">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Button layoutX="169.0" layoutY="233.0" mnemonicParsing="false" onAction="#updateCorporateCustomer" text="Update Account" />
-      <Button layoutX="121.0" layoutY="553.0" mnemonicParsing="false" onAction="#createCorporateCustomer" prefHeight="27.0" prefWidth="208.0" text="Create new Corporate Account" />
-      <Label layoutX="114.0" layoutY="78.0" text="Update Current Corporate Account">
+      <Label layoutX="13.0" layoutY="445.0" text="What class type do you want to update the daily rate for?" textFill="WHITE">
          <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="71.0" layoutY="113.0" text="What is the account name that you would like to update?" />
-      <TextField fx:id="txtFieldUpdateAccountName" layoutX="142.0" layoutY="130.0" promptText="Account Name" />
-      <Label fx:id="errorMessageUpdateAccount" layoutX="282.0" layoutY="228.0" prefHeight="17.0" prefWidth="160.0" />
-      <TextField fx:id="txtFieldNegotiatedRate" layoutX="142.0" layoutY="190.0" promptText="Negotiated rate" />
-      <Label layoutX="100.0" layoutY="173.0" text="Would you like to change the negotiated rate?" />
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
-      <Button layoutX="120.0" layoutY="598.0" mnemonicParsing="false" onAction="#addNewCar" prefHeight="27.0" prefWidth="208.0" text="Add new Car to Inventory" />
-      <Button layoutX="120.0" layoutY="641.0" mnemonicParsing="false" onAction="#managerCarInventoryButton" prefHeight="27.0" prefWidth="208.0" text="Manage Car Inventory" />
-      <Button layoutX="156.0" layoutY="448.0" mnemonicParsing="false" onAction="#updateDailyRate" text="Update Daily Rate" />
-      <Label layoutX="116.0" layoutY="300.0" text="Update Vehicle Class Daily Rate">
+            <Font size="18.0" />
+         </font></Label>
+      <TextField fx:id="txtFieldDailyRate" layoutX="136.0" layoutY="542.0" promptText="Daily Rate" />
+      <Label layoutX="47.0" layoutY="513.0" text="What would you like to change the daily rate to?" textFill="WHITE">
          <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="72.0" layoutY="332.0" text="What class type do you want to update the daily rate for?" />
-      <TextField fx:id="txtFieldDailyRate" layoutX="134.0" layoutY="409.0" promptText="Daily Rate" />
-      <Label layoutX="92.0" layoutY="392.0" text="What would you like to change the daily rate to?" />
-      <ChoiceBox fx:id="classOptions" layoutX="139.0" layoutY="349.0" prefWidth="150.0" />
+            <Font size="18.0" />
+         </font></Label>
+      <ChoiceBox fx:id="classOptions" layoutX="145.0" layoutY="475.0" prefWidth="150.0" />
    </children>
 </Pane>

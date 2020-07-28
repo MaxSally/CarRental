@@ -5,19 +5,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.ThankYouController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" style="-fx-background-color: #141313#141313 #141313#141313;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.ThankYouController">
    <children>
-      <Label layoutX="53.0" layoutY="103.0" prefHeight="130.0" prefWidth="345.0" text="Thank you for renting with Husker Klunker Car Rental Company!" textAlignment="CENTER" wrapText="true">
+      <Label layoutX="53.0" layoutY="103.0" prefHeight="130.0" prefWidth="345.0" text="Thank you for renting with Husker Klunker Car Rental Company!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
-            <Font size="23.0" />
+            <Font size="29.0" />
          </font>
       </Label>
-      <Label layoutX="53.0" layoutY="206.0" prefHeight="130.0" prefWidth="345.0" text="We value your service and hope you have a great day!" textAlignment="CENTER" wrapText="true">
+      <Label layoutX="53.0" layoutY="295.0" prefHeight="130.0" prefWidth="345.0" text="We value your service and hope you have a great day!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
-            <Font size="23.0" />
+            <Font size="29.0" />
          </font>
       </Label>
-      <Button fx:id="thankYouButton" layoutX="130.0" layoutY="501.0" mnemonicParsing="false" onAction="#thankYouButton" prefHeight="27.0" prefWidth="191.0" text="Thank you!" />
+      <Button fx:id="thankYouButton" layoutX="98.0" layoutY="501.0" mnemonicParsing="false" onAction="#thankYouButton" prefHeight="27.0" prefWidth="254.0" text="Thank you!" />
    </children>
 </Pane>

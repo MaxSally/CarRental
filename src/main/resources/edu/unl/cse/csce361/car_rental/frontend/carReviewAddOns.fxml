@@ -7,24 +7,36 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.CarReviewAddOnsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" style="-fx-background-color: #141313#141313 #141313#141313;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unl.cse.csce361.car_rental.frontend.CarReviewAddOnsController">
    <children>
-      <Label layoutX="168.0" layoutY="14.0" text="Review Cars">
+      <Label layoutX="148.0" layoutY="11.0" text="Review Cars" textFill="WHITE">
          <font>
-            <Font size="22.0" />
+            <Font size="29.0" />
          </font>
       </Label>
-      <ListView fx:id="reviewCarDetails" layoutX="25.0" layoutY="48.0" prefHeight="274.0" prefWidth="397.0" />
-      <Label layoutX="178.0" layoutY="336.0" text="Add-On's">
+      <ListView fx:id="reviewCarDetails" layoutX="25.0" layoutY="76.0" prefHeight="274.0" prefWidth="397.0" />
+      <Label layoutX="178.0" layoutY="372.0" text="Add-On's" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
       <Button layoutX="136.0" layoutY="649.0" mnemonicParsing="false" onAction="#switchToCheckoutButton" prefHeight="27.0" prefWidth="180.0" text="Proceed To Checkout" />
-      <CheckBox fx:id="rentalInsurance" layoutX="42.0" layoutY="401.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="219.0" text="Rental Insurance, 25 Zorkmids/day" />
-      <CheckBox fx:id="satelliteRadio" layoutX="42.0" layoutY="448.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="200.0" text="Satellite Radio, 10 Zorkmids/day" />
-      <CheckBox fx:id="sunShade" layoutX="42.0" layoutY="492.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="238.0" text="Dashboard Sunshade, 5 Zorkmids/day" />
-      <Label layoutX="40.0" layoutY="537.0" prefHeight="46.0" prefWidth="372.0" snapToPixel="false" text="If you select any add-ons, you can see the updated daily rate for the rental on the next screen" wrapText="true" />
+      <CheckBox fx:id="rentalInsurance" layoutX="42.0" layoutY="418.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="292.0" text="Rental Insurance, 25 Zorkmids/day" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font></CheckBox>
+      <CheckBox fx:id="satelliteRadio" layoutX="42.0" layoutY="465.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="292.0" text="Satellite Radio, 10 Zorkmids/day" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font></CheckBox>
+      <CheckBox fx:id="sunShade" layoutX="42.0" layoutY="509.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="292.0" text="Dashboard Sunshade, 5 Zorkmids/day" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font></CheckBox>
+      <Label layoutX="40.0" layoutY="558.0" prefHeight="46.0" prefWidth="372.0" snapToPixel="false" text="If you select any add-ons, you can see the updated daily rate for the rental on the next screen" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
    </children>
 </Pane>
